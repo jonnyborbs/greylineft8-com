@@ -156,10 +156,23 @@
 
     /* ── SCREENSHOTS GRID ── */
     #screenshots { background: var(--bg); }
+    .screenshots-device-label {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 1rem; margin-top: 2.5rem;
+    }
+    .screenshots-device-label:first-of-type { margin-top: 0; }
     .screenshots-strip {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
+    }
+    .screenshots-strip-iphone {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+    @media (max-width: 640px) {
+      .screenshots-strip-iphone { grid-template-columns: repeat(2, 1fr); }
     }
     .screen-item {
       width: 100%;
@@ -174,11 +187,16 @@
     }
     /* image fills flush — no padding, no flex */
     .screen-thumb img { width: 100%; height: auto; display: block; }
-    /* placeholder text gets its own 4/3 box */
+    /* placeholder text gets its own box sized to the device type */
     .screen-thumb .thumb-placeholder {
       aspect-ratio: 4/3; width: 100%;
       display: flex; align-items: center; justify-content: center;
       color: var(--muted); font-size: 0.8rem; text-align: center; padding: 1rem;
+    }
+    .screen-thumb .thumb-placeholder-portrait {
+      aspect-ratio: 9/19.5; width: 100%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.75rem; text-align: center; padding: 1rem;
     }
     .screen-caption { margin-top: 0.6rem; font-size: 0.8rem; color: var(--muted); text-align: center; }
 
@@ -265,7 +283,7 @@
 
   <!-- Hero screenshot placeholder -->
   <div class="screenshot-wrap">
-    <img src="screenshots/mainscreen.png" alt="Greyline FT8 main screen" />
+    <img src="screenshots/ipad/mainscreen.png" alt="Greyline FT8 main screen" />
   </div>
 </div>
 
@@ -346,24 +364,43 @@
     <p class="section-label">See it in action</p>
     <h2>Screenshots</h2>
     <p class="section-sub">A tour through the main views of Greyline FT8.</p>
+
+    <p class="screenshots-device-label">iPad Screenshots</p>
     <div class="screenshots-strip">
-      <!-- To add a real screenshot, replace the inner <div class="thumb-placeholder">…</div>
-           with just: <img src="screenshots/yourfile.png" alt="description" />
-           Images display at full column width — landscape iPad screenshots work best. -->
       <div class="screen-item">
-        <div class="screen-thumb"><img src="screenshots/waterfall.png" alt="Waterfall display" /></div>
+        <div class="screen-thumb"><img src="screenshots/ipad/waterfall.png" alt="Waterfall display" /></div>
         <p class="screen-caption">Waterfall Display</p>
       </div>
       <div class="screen-item">
-        <div class="screen-thumb"><img src="screenshots/livespots.png" alt="Live Spots Map" /></div>
+        <div class="screen-thumb"><img src="screenshots/ipad/livespots.png" alt="Live Spots Map" /></div>
         <p class="screen-caption">Live Spots Map</p>
       </div>
       <div class="screen-item">
-       <div class="screen-thumb"><img src="screenshots/logview.png" alt="QSO Log" /></div>
+        <div class="screen-thumb"><img src="screenshots/ipad/logview.png" alt="QSO Log" /></div>
         <p class="screen-caption">QSO Log</p>
       </div>
       <div class="screen-item">
-        <div class="screen-thumb"><img src="screenshots/settings.png" alt="App Settings" /></div>
+        <div class="screen-thumb"><img src="screenshots/ipad/settings.png" alt="App Settings" /></div>
+        <p class="screen-caption">Settings</p>
+      </div>
+    </div>
+
+    <p class="screenshots-device-label">iPhone Screenshots</p>
+    <div class="screenshots-strip-iphone">
+      <div class="screen-item">
+        <div class="screen-thumb"><img src="screenshots/iphone/waterfall.png" alt="Waterfall Display" /></div>
+        <p class="screen-caption">Waterfall Display</p>
+      </div>
+      <div class="screen-item">
+        <div class="screen-thumb"><img src="screenshots/iphone/livespots.png" alt="Live Spots Map" /></div>
+        <p class="screen-caption">Live Spots Map</p>
+      </div>
+      <div class="screen-item">
+        <div class="screen-thumb"><img src="screenshots/iphone/logview.png" alt="QSO Log" /></div>
+        <p class="screen-caption">QSO Log</p>
+      </div>
+      <div class="screen-item">
+        <div class="screen-thumb"><img src="screenshots/iphone/settings.png" alt="App Settings" /></div>
         <p class="screen-caption">Settings</p>
       </div>
     </div>
