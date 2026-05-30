@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Greyline FT8</title>
+  <meta name="description" content="Privacy Policy for Greyline FT8 iOS app." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #0a0e14;
+      --bg2:    #111620;
+      --accent: #3b82f6;
+      --text:   #e2e8f0;
+      --muted:  #94a3b8;
+      --border: #1e2d3d;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10, 14, 20, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-brand {
+      font-weight: 700; font-size: 1.1rem;
+      background: linear-gradient(135deg, #3b82f6, #22d3ee);
+      background-clip: text; /* standard property for compatibility */
+      -webkit-background-clip: text;
+      color: transparent; /* show the background through the text */
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+    .nav-back {
+      color: var(--muted); text-decoration: none; font-size: 0.9rem;
+      display: flex; align-items: center; gap: 0.4rem;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text); }
+
+    .page {
+      max-width: 760px; margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
+    }
+
+    .page-header { margin-bottom: 2.5rem; }
+    .page-header h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .page-header p  { color: var(--muted); font-size: 0.9rem; }
+
+    h2 {
+      font-size: 1.15rem; font-weight: 600;
+      color: #60a5fa;
+      margin-top: 2.5rem; margin-bottom: 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    p { color: var(--muted); margin-bottom: 0.9rem; font-size: 0.95rem; }
+    p:last-child { margin-bottom: 0; }
+
+    ul {
+      color: var(--muted); font-size: 0.95rem;
+      padding-left: 1.4rem; margin-bottom: 0.9rem;
+    }
+    li { margin-bottom: 0.4rem; }
+
+    strong { color: var(--text); }
+
+    a { color: var(--accent); }
+    a:hover { text-decoration: underline; }
+
+    .highlight-box {
+      background: rgba(59, 130, 246, 0.07);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .highlight-box p { margin: 0; color: var(--text); font-size: 0.95rem; }
+
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--muted); font-size: 0.85rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html">Greyline FT8</a>
+  <a class="nav-back" href="index.html">← Back to Home</a>
+</nav>
+
+<div class="page">
+  <div class="page-header">
+    <h1>Privacy Policy</h1>
+    <p>Effective date: May 28, 2026 &nbsp;·&nbsp; Last updated: May 28, 2026</p>
+  </div>
+
+  <div class="highlight-box">
+    <p><strong>The short version:</strong> Greyline FT8 does not collect or sell your data, does not run ads, and does not build a profile on you. The data the app collects is used solely to make the app work — decoding radio signals, looking up callsigns, uploading spots, and logging QSOs.</p>
+  </div>
+
+  <h2>1. Who We Are</h2>
+  <p>Greyline FT8 ("the app", "we", "our") is developed and published by Jon KB0RB (<a href="mailto:support@greylineft8.com">support@greylineft8.com</a>). This privacy policy describes how the app handles information when you use it on your iPhone or iPad.</p>
+
+  <h2>2. Information the App Collects</h2>
+
+  <p><strong>Information you provide directly:</strong></p>
+  <ul>
+    <li><strong>Callsign</strong> — entered in Settings to identify your station in transmissions and logs.</li>
+    <li><strong>TX Power</strong> — entered in Settings, used only for PSK Reporter uploads.</li>
+    <li><strong>CQ Addendum</strong> — optional text appended to CQ calls (e.g. a contest exchange).</li>
+    <li><strong>API Keys</strong> — QRZ.com XML API key and World Radio League (worldradioleague.com) API key, if you choose to enter them. Keys are stored locally on your device using the iOS Keychain and are never transmitted to us or any party other than the respective service.</li>
+  </ul>
+
+  <p><strong>Information collected automatically:</strong></p>
+  <ul>
+    <li><strong>Location (GPS)</strong> — used only to compute your Maidenhead grid square locator, which is included in FT8 transmissions and PSK Reporter uploads. Location is used on-device; raw GPS coordinates are never stored persistently or sent to us.</li>
+    <li><strong>Audio</strong> — the app uses your device microphone (or a connected audio interface) to receive and decode FT8/FT4 signals. Audio data is processed entirely on-device in real time and is never recorded, stored, or transmitted.</li>
+  </ul>
+
+  <h2>3. How We Use Information</h2>
+  <p>Information collected by the app is used exclusively for the following purposes:</p>
+  <ul>
+    <li>Decoding and transmitting FT8/FT4 radio signals.</li>
+    <li>Computing and displaying your Maidenhead grid square.</li>
+    <li>Looking up callsign details via QRZ.com or Callook.info.</li>
+    <li>Uploading decoded spots to PSK Reporter (a free, community-run propagation reporting network).</li>
+    <li>Uploading QSO records to World Radio League (worldradioleague.com) if you configure that integration.</li>
+    <li>Displaying live spots from PSK Reporter on the in-app map.</li>
+  </ul>
+  <p>We do not collect information from the app or use your information for advertising, analytics profiling, or any purpose not listed above.</p>
+
+  <h2>4. Information Shared with Third Parties</h2>
+  <p>The app interacts with the following external services on your behalf. We have no control over their privacy practices; please review their policies separately.</p>
+  <ul>
+    <li>
+      <strong>PSK Reporter</strong> (<a href="https://pskreporter.info" target="_blank" rel="noopener">pskreporter.info</a>) —
+      decoded spot reports (callsign, frequency, SNR, grid square, timestamp) are submitted to PSK Reporter. This is a standard part of the FT8 operating community. Submissions include your callsign and grid square.
+    </li>
+    <li>
+      <strong>QRZ.com</strong> (<a href="https://qrz.com" target="_blank" rel="noopener">qrz.com</a>) —
+      if you provide a QRZ XML API key, the app queries QRZ with callsigns heard on the band to retrieve operator information. Your API key is sent directly to QRZ; it is not seen by us.
+    </li>
+    <li>
+      <strong>Callook.info</strong> (<a href="https://callook.info" target="_blank" rel="noopener">callook.info</a>) —
+      used as a free fallback for US callsign lookups. No account or API key is required; callsigns are queried directly.
+    </li>
+    <li>
+      <strong>World Radio League</strong> (<a href="https://worldradioleague.com" target="_blank" rel="noopener">worldradioleague.com</a>) —
+      if you configure a WRL API key, completed QSO records are uploaded to your hamlog.online account. Your API key is sent directly to WRL; it is not seen by us.
+    </li>
+    <li>
+      <strong>MapLibre / Map Tiles</strong> —
+      the Live Spots map view loads map tile imagery from a tile provider. Tile requests include a geographic bounding box but do not include any personally identifying information.
+    </li>
+  </ul>
+  <p>We do not possess and cannot sell, rent, or trade your personal information to any third party.</p>
+
+  <h2>5. Data Storage and Security</h2>
+  <ul>
+    <li>All user preferences and settings are stored locally on your device.</li>
+    <li>API keys are stored in the iOS Keychain, which is encrypted by the operating system.</li>
+    <li>QSO log records are stored locally on your device. If you enable WRL integration, records are also synced to your hamlog.online account under your control.</li>
+    <li>We do not operate any servers that store your data.</li>
+  </ul>
+
+  <h2>6. Permissions the App Requests</h2>
+  <ul>
+    <li><strong>Microphone</strong> — required to receive and decode FT8/FT4 signals from the air or via an audio interface. Without microphone access, RX functionality is unavailable.</li>
+    <li><strong>Location (While Using App)</strong> — used to determine your GPS coordinates so the app can compute and display your Maidenhead grid square. Location is only accessed while the app is in the foreground.</li>
+  </ul>
+  <p>You may revoke either permission at any time in iOS Settings → Privacy. Revoking microphone access disables radio reception; revoking location access requires you to enter your grid square manually.</p>
+
+  <h2>7. Children's Privacy</h2>
+  <p>Greyline FT8 is intended for licensed amateur radio operators and is not directed at children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has provided personal information through the app, please contact us and we will take steps to delete it.</p>
+
+  <h2>8. Changes to This Policy</h2>
+  <p>We may update this privacy policy from time to time. When we do, we will update the "Last updated" date at the top of this page. Continued use of the app after changes are posted constitutes your acceptance of the updated policy. For material changes, we will provide notice within the app or via the App Store update notes.</p>
+
+  <h2>9. Contact</h2>
+  <p>Questions, concerns, or requests regarding this privacy policy should be directed to:</p>
+  <p>
+    <strong>Jon KB0RB</strong><br/>
+    <a href="mailto:support@greylineft8.com">support@greylineft8.com</a>
+  </p>
+</div>
+
+<footer>
+  <p><a href="index.html">← Greyline FT8 Home</a> &nbsp;·&nbsp; &copy; 2026 Greyline FT8</p>
+</footer>
+
+</body>
+</html>

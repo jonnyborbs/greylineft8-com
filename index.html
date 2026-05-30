@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Greyline FT8 — FT8 &amp; FT4 Digital Modes for iPhone &amp; iPad</title>
+  <meta name="description" content="Greyline FT8 is a full-featured FT8 and FT4 digital mode radio app for iPhone and iPad. Waterfall display, automated QSO modes, live spots map, and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0a0e14;
+      --bg2:       #111620;
+      --bg3:       #181f2e;
+      --accent:    #3b82f6;
+      --accent2:   #22d3ee;
+      --text:      #e2e8f0;
+      --muted:     #94a3b8;
+      --border:    #1e2d3d;
+      --radius:    12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10, 14, 20, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-brand {
+      font-weight: 700; font-size: 1.1rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 1100px; margin: 0 auto;
+      padding: 5rem 1.5rem 4rem;
+      display: flex; flex-direction: column; align-items: center; text-align: center; gap: 3rem;
+    }
+    .hero-text { max-width: 680px; }
+    .hero-text .hero-sub { max-width: 100%; margin-left: auto; margin-right: auto; }
+    .btn-group { justify-content: center; }
+    @media (max-width: 768px) {
+      .hero { padding: 3rem 1.5rem 2rem; gap: 2rem; }
+    }
+    .hero-eyebrow {
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700; line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: 1.1rem; color: var(--muted); max-width: 480px; margin-bottom: 2rem;
+    }
+    .btn-group { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.7rem 1.4rem; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 600; text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.35);
+    }
+    .btn-primary:hover { box-shadow: 0 6px 28px rgba(59, 130, 246, 0.5); }
+    .btn-ghost {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* screenshot placeholder */
+    .screenshot-wrap {
+      position: relative;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      width: 100%; max-width: 860px; margin: 0 auto;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 32px 100px rgba(0,0,0,0.7);
+      /* aspect-ratio removed — image defines its own height */
+    }
+    .screenshot-wrap img {
+      width: 100%; height: auto; display: block;
+    }
+    .screenshot-placeholder {
+      display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+      color: var(--muted); padding: 2rem; text-align: center;
+    }
+    .screenshot-placeholder svg { width: 48px; height: 48px; opacity: 0.4; }
+    .screenshot-placeholder p { font-size: 0.85rem; }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 5rem 1.5rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.75rem;
+    }
+    h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; margin-bottom: 1rem; }
+    .section-sub { color: var(--muted); max-width: 560px; margin-bottom: 3rem; font-size: 1.05rem; }
+
+    /* ── FEATURES GRID ── */
+    #features { background: var(--bg2); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .feature-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .feature-icon {
+      font-size: 1.8rem; margin-bottom: 0.75rem; display: block;
+    }
+    .feature-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .feature-card p { color: var(--muted); font-size: 0.9rem; }
+
+    /* ── SCREENSHOTS GRID ── */
+    #screenshots { background: var(--bg); }
+    .screenshots-strip {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .screen-item {
+      width: 100%;
+    }
+    .screen-thumb {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      /* NO aspect-ratio here — image drives height naturally */
+    }
+    /* image fills flush — no padding, no flex */
+    .screen-thumb img { width: 100%; height: auto; display: block; }
+    /* placeholder text gets its own 4/3 box */
+    .screen-thumb .thumb-placeholder {
+      aspect-ratio: 4/3; width: 100%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.8rem; text-align: center; padding: 1rem;
+    }
+    .screen-caption { margin-top: 0.6rem; font-size: 0.8rem; color: var(--muted); text-align: center; }
+
+    /* ── MODES ── */
+    #modes { background: var(--bg2); }
+    .modes-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem;
+    }
+    .mode-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+    }
+    .mode-badge {
+      display: inline-block; padding: 0.2rem 0.65rem;
+      border-radius: 999px; font-size: 0.75rem; font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .badge-blue  { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+    .badge-cyan  { background: rgba(34,211,238,0.12); color: #22d3ee; border: 1px solid rgba(34,211,238,0.3); }
+    .badge-green { background: rgba(34,197,94,0.12);  color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+    .mode-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .mode-card p  { color: var(--muted); font-size: 0.9rem; }
+
+    /* ── INTEGRATIONS ── */
+    #integrations { background: var(--bg); }
+    .integrations-list {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+    }
+    .integration-pill {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 999px; padding: 0.5rem 1.1rem;
+      font-size: 0.9rem; color: var(--text);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .integration-pill span { font-size: 1.1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--muted); font-size: 0.85rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .footer-links { display: flex; gap: 1.5rem; justify-content: center; margin-bottom: 0.75rem; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">Greyline FT8</a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#modes">Operating Modes</a></li>
+    <li><a href="#integrations">Integrations</a></li>
+    <li><a href="privacy.html">Privacy</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">For iPad &amp; iPhone</p>
+    <h1>FT8 &amp; FT4 Digital Modes <span>without the PC</span></h1>
+    <p class="hero-sub">
+      Greyline FT8 is a full-featured digital mode radio app — real-time waterfall,
+      automated QSO modes, live spot maps, and seamless audio interface support.
+      No PC required.
+    </p>
+    <div class="btn-group">
+      <!-- Update href with actual App Store link when available -->
+      <a class="btn btn-primary" href="#" aria-label="Download on the App Store">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        App Store
+      </a>
+      <a class="btn btn-ghost" href="#features">Learn More</a>
+    </div>
+  </div>
+
+  <!-- Hero screenshot placeholder -->
+  <div class="screenshot-wrap">
+    <img src="screenshots/mainscreen.png" alt="Greyline FT8 main screen" />
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <p class="section-label">What it does</p>
+    <h2>Everything you need to operate FT8 and FT4</h2>
+    <p class="section-sub">From real-time signal decoding to full QSO automation — all on your iPhone or iPad, connected to your radio via a simple audio interface.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">📡</span>
+        <h3>Real-Time Waterfall</h3>
+        <p>Live FFT waterfall display lets you see band activity at a glance. Tap any signal to decode and respond instantly.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🤖</span>
+        <h3>Automated QSO Modes</h3>
+        <p>Standard, Hunter, and Gatherer automation modes handle the exchange sequence for you while you watch the action unfold.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🗺️</span>
+        <h3>Live Spots Map</h3>
+        <p>Visualize active stations on an interactive world map using real-time PSK Reporter data. See who's on the band right now.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📋</span>
+        <h3>Band Activity View</h3>
+        <p>Decoded messages from the current band displayed in a clean, scannable list. Filter CQ calls, replies, and 73s at a glance.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📖</span>
+        <h3>Integrated Logging</h3>
+        <p>Auto-log completed QSOs directly to QRZ (qrz.com) or World Radio League (worldradioleague.com). Manual logging is also supported with full edit capability.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔍</span>
+        <h3>Callsign Lookup</h3>
+        <p>Automatic callsign data lookup via QRZ.com XML API or the free Callook.info service for US callsigns — no manual lookups needed.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🎙️</span>
+        <h3>Audio Interface Support</h3>
+        <p>Connect your Digirig, SignaLink, or other USB/Lightning audio interface and the app automatically routes both TX and RX through it.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📍</span>
+        <h3>Auto Grid Square</h3>
+        <p>Uses your device GPS to automatically populate your Maidenhead grid square locator — always accurate, no manual entry required.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📤</span>
+        <h3>PSK Reporter Upload</h3>
+        <p>Automatically reports decoded spots to PSK Reporter, contributing to the global propagation map and the ham radio community.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🌙</span>
+        <h3>Dark &amp; Light Themes</h3>
+        <p>Choose between dark, light, or system-adaptive appearance. Optimized for both nighttime shack use and outdoor operation.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📱</span>
+        <h3>iPhone &amp; iPad Native</h3>
+        <p>Fully adaptive layout — iPad gets a split waterfall and side panel, iPhone gets a clean tabbed interface. Both feel at home.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">⏱️</span>
+        <h3>UTC-Locked Slot Timer</h3>
+        <p>Precision UTC-synchronized 15-second slot timing ensures your transmissions land on the exact right window every time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENSHOTS -->
+<section id="screenshots">
+  <div class="container">
+    <p class="section-label">See it in action</p>
+    <h2>Screenshots</h2>
+    <p class="section-sub">A tour through the main views of Greyline FT8.</p>
+    <div class="screenshots-strip">
+      <!-- To add a real screenshot, replace the inner <div class="thumb-placeholder">…</div>
+           with just: <img src="screenshots/yourfile.png" alt="description" />
+           Images display at full column width — landscape iPad screenshots work best. -->
+      <div class="screen-item">
+        <div class="screen-thumb"><img src="screenshots/waterfall.png" alt="Waterfall display" /></div>
+        <p class="screen-caption">Waterfall Display</p>
+      </div>
+      <div class="screen-item">
+        <div class="screen-thumb"><img src="screenshots/livespots.png" alt="Live Spots Map" /></div>
+        <p class="screen-caption">Live Spots Map</p>
+      </div>
+      <div class="screen-item">
+       <div class="screen-thumb"><img src="screenshots/logview.png" alt="QSO Log" /></div>
+        <p class="screen-caption">QSO Log</p>
+      </div>
+      <div class="screen-item">
+        <div class="screen-thumb"><img src="screenshots/settings.png" alt="App Settings" /></div>
+        <p class="screen-caption">Settings</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODES -->
+<section id="modes">
+  <div class="container">
+    <p class="section-label">Operating modes</p>
+    <h2>Three ways to operate</h2>
+    <p class="section-sub">Whether you want full control or completely hands-off operation, Greyline FT8 has a mode for you.</p>
+    <div class="modes-grid">
+      <div class="mode-card">
+        <span class="mode-badge badge-blue">Standard</span>
+        <h3>Standard Mode</h3>
+        <p>The classic FT8 exchange flow. The app follows the standard CQ → signal report → RR73 → 73 sequence automatically, responding in the correct TX/RX slot and advancing the exchange state machine for you.</p>
+      </div>
+      <div class="mode-card">
+        <span class="mode-badge badge-cyan">Hunter</span>
+        <h3>Hunter Mode</h3>
+        <p>Working rare DX or chasing entities? Hunter mode lets you quickly reply to a specific CQ station, locking onto their signal and completing the exchange without interruption from other callers.</p>
+      </div>
+      <div class="mode-card">
+        <span class="mode-badge badge-green">Gatherer</span>
+        <h3>Gatherer Mode</h3>
+        <p>Calling CQ and want to work as many stations as possible? Gatherer mode queues inbound replies and works through them sequentially, maximizing your rate while you sit back and watch the log fill up.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTEGRATIONS -->
+<section id="integrations">
+  <div class="container">
+    <p class="section-label">Works with</p>
+    <h2>Integrations &amp; compatible hardware</h2>
+    <p class="section-sub">Greyline FT8 connects to the services and hardware you already use.</p>
+    <div class="integrations-list">
+      <div class="integration-pill"><span>📡</span> QRZ.com XML API Lookups</div>
+      <div class="integration-pill"><span>📡</span> Callook.info Lookups</div>
+      <div class="integration-pill"><span>📋</span> World Radio League Logging</div>
+      <div class="integration-pill"><span>🗺️</span> PSK Reporter</div>
+      <div class="integration-pill"><span>🔌</span> Digirig Mobile</div>
+      <div class="integration-pill"><span>🔌</span> SignaLink USB</div>
+      <div class="integration-pill"><span>🔌</span> USB / Lightning audio interfaces</div>
+      <div class="integration-pill"><span>📍</span> CoreLocation (GPS grid square)</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="mailto:support@greylineft8.com">Support</a>
+  </div>
+  <p>&copy; 2026 Greyline FT8. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
