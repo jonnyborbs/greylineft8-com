@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privacy Policy — Greyline FT8</title>
   <meta name="description" content="Privacy Policy for Greyline FT8 iOS app." />
+  <!-- Social preview -->
+  <meta property="og:title" content="Privacy Policy — Greyline FT8" />
+  <meta property="og:description" content="Privacy Policy for the Greyline FT8 FT8 &amp; FT4 digital mode radio app for iPhone and iPad." />
+  <meta property="og:image" content="https://greylineft8.com/images/app-icon-600.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="https://greylineft8.com/images/app-icon-600.png" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="images/app-icon-180.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -37,13 +47,17 @@
       height: 60px;
     }
     .nav-brand {
+      display: flex; align-items: center; gap: 0.5rem;
       font-weight: 700; font-size: 1.1rem;
       background: linear-gradient(135deg, #3b82f6, #22d3ee);
-      background-clip: text; /* standard property for compatibility */
+      background-clip: text;
       -webkit-background-clip: text;
-      color: transparent; /* show the background through the text */
+      color: transparent;
       -webkit-text-fill-color: transparent;
       text-decoration: none;
+    }
+    .nav-brand img {
+      width: 32px; height: 32px; border-radius: 7px; flex-shrink: 0;
     }
     .nav-back {
       color: var(--muted); text-decoration: none; font-size: 0.9rem;
@@ -105,7 +119,10 @@
 <body>
 
 <nav>
-  <a class="nav-brand" href="index.html">Greyline FT8</a>
+  <a class="nav-brand" href="index.html">
+    <img src="images/app-icon-180.png" alt="Greyline FT8 icon" />
+    Greyline FT8
+  </a>
   <a class="nav-back" href="index.html">← Back to Home</a>
 </nav>
 
