@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Greyline FT8 — FT8 &amp; FT4 Digital Modes for iPhone &amp; iPad</title>
   <meta name="description" content="Greyline FT8 is a full-featured FT8 and FT4 digital mode radio app for iPhone and iPad. Waterfall display, automated QSO modes, live spots map, and more." />
+  <!-- Social preview -->
+  <meta property="og:title" content="Greyline FT8 — FT8 &amp; FT4 Digital Modes for iPhone &amp; iPad" />
+  <meta property="og:description" content="A full-featured FT8 and FT4 digital mode radio app for iPhone and iPad." />
+  <meta property="og:image" content="https://greylineft8.com/images/app-icon-600.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:image" content="https://greylineft8.com/images/app-icon-600.png" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="images/app-icon-180.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -43,12 +53,16 @@
       height: 60px;
     }
     .nav-brand {
+      display: flex; align-items: center; gap: 0.5rem;
       font-weight: 700; font-size: 1.1rem;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-decoration: none;
+    }
+    .nav-brand img {
+      width: 32px; height: 32px; border-radius: 7px; flex-shrink: 0;
     }
     .nav-links { display: flex; gap: 1.5rem; list-style: none; }
     .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
@@ -252,7 +266,10 @@
 
 <!-- NAV -->
 <nav>
-  <a class="nav-brand" href="#">Greyline FT8</a>
+  <a class="nav-brand" href="#">
+    <img src="images/app-icon-180.png" alt="Greyline FT8 icon" />
+    Greyline FT8
+  </a>
   <ul class="nav-links">
     <li><a href="#features">Features</a></li>
     <li><a href="#modes">Operating Modes</a></li>
@@ -286,7 +303,7 @@
 
   <!-- Hero screenshot placeholder -->
   <div class="screenshot-wrap">
-    <img src="screenshots/ipad/mainscreen.png" alt="Greyline FT8 main screen" />
+    <img src="images/screenshots/ipad/mainscreen.png" alt="Greyline FT8 main screen" />
   </div>
 </div>
 
@@ -366,19 +383,19 @@
     <p class="screenshots-device-label">iPad Screenshots</p>
     <div class="screenshots-strip">
       <div class="screen-item">
-        <div class="screen-thumb"><img src="screenshots/ipad/waterfall.png" alt="Waterfall display" /></div>
+        <div class="screen-thumb"><img src="images/screenshots/ipad/waterfall.png" alt="Waterfall display" /></div>
         <p class="screen-caption">Waterfall Display</p>
       </div>
       <div class="screen-item">
-        <div class="screen-thumb"><img src="screenshots/ipad/livespots.png" alt="Live Spots Map" /></div>
+        <div class="screen-thumb"><img src="images/screenshots/ipad/livespots.png" alt="Live Spots Map" /></div>
         <p class="screen-caption">Live Spots Map</p>
       </div>
       <div class="screen-item">
-        <div class="screen-thumb"><img src="screenshots/ipad/logview.png" alt="QSO Log" /></div>
+        <div class="screen-thumb"><img src="images/screenshots/ipad/logview.png" alt="QSO Log" /></div>
         <p class="screen-caption">QSO Log</p>
       </div>
       <div class="screen-item">
-        <div class="screen-thumb"><img src="screenshots/ipad/settings.png" alt="App Settings" /></div>
+        <div class="screen-thumb"><img src="images/screenshots/ipad/settings.png" alt="App Settings" /></div>
         <p class="screen-caption">Settings</p>
       </div>
     </div>
@@ -386,19 +403,19 @@
     <p class="screenshots-device-label">iPhone Screenshots</p>
     <div class="screenshots-strip-iphone">
       <div class="screen-item">
-        <div class="screen-thumb"><img src="screenshots/iphone/waterfall.png" alt="Waterfall Display" /></div>
+        <div class="screen-thumb"><img src="images/screenshots/iphone/waterfall.png" alt="Waterfall Display" /></div>
         <p class="screen-caption">Waterfall Display</p>
       </div>
       <div class="screen-item">
-        <div class="screen-thumb"><img src="screenshots/iphone/livespots.png" alt="Live Spots Map" /></div>
+        <div class="screen-thumb"><img src="images/screenshots/iphone/livespots.png" alt="Live Spots Map" /></div>
         <p class="screen-caption">Live Spots Map</p>
       </div>
       <div class="screen-item">
-        <div class="screen-thumb"><img src="screenshots/iphone/logview.png" alt="QSO Log" /></div>
+        <div class="screen-thumb"><img src="images/screenshots/iphone/logview.png" alt="QSO Log" /></div>
         <p class="screen-caption">QSO Log</p>
       </div>
       <div class="screen-item">
-        <div class="screen-thumb"><img src="screenshots/iphone/settings.png" alt="App Settings" /></div>
+        <div class="screen-thumb"><img src="images/screenshots/iphone/settings.png" alt="App Settings" /></div>
         <p class="screen-caption">Settings</p>
       </div>
     </div>
