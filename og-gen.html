@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #0a0e14;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Background grid glow */
+    .bg-glow {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 700px 400px at 60% 50%, rgba(59, 130, 246, 0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 400px 300px at 20% 80%, rgba(34, 211, 238, 0.07) 0%, transparent 60%);
+    }
+
+    /* Subtle grid lines */
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(30, 45, 61, 0.6) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30, 45, 61, 0.6) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      padding: 0 80px;
+    }
+
+    .icon {
+      width: 160px;
+      height: 160px;
+      border-radius: 36px;
+      flex-shrink: 0;
+      box-shadow:
+        0 0 0 1px rgba(59, 130, 246, 0.3),
+        0 24px 80px rgba(0, 0, 0, 0.7),
+        0 0 60px rgba(59, 130, 246, 0.2);
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .eyebrow {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #22d3ee;
+    }
+
+    .app-name {
+      font-size: 72px;
+      font-weight: 800;
+      line-height: 1.05;
+      background: linear-gradient(135deg, #3b82f6 0%, #22d3ee 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.02em;
+    }
+
+    .tagline {
+      font-size: 24px;
+      font-weight: 400;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+
+    .pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      border-radius: 999px;
+      background: rgba(30, 45, 61, 0.9);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      font-size: 15px;
+      font-weight: 500;
+      color: #e2e8f0;
+    }
+
+    /* Bottom domain strip */
+    .domain {
+      position: absolute;
+      bottom: 36px;
+      right: 80px;
+      font-size: 17px;
+      font-weight: 600;
+      color: rgba(148, 163, 184, 0.6);
+      letter-spacing: 0.03em;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+
+  <div class="content">
+    <img class="icon" src="images/app-icon-180.png" alt="Greyline FT8" />
+    <div class="text">
+      <div class="eyebrow">iOS &amp; iPadOS</div>
+      <div class="app-name">Greyline FT8</div>
+      <div class="tagline">FT8 &amp; FT4 digital modes for iPhone &amp; iPad</div>
+      <div class="tagline">Built by a ham, for real world field use</div>
+      <div class="pills">
+        <span class="pill">📡 Real-Time Waterfall</span>
+        <span class="pill">🤖 Auto QSO</span>
+        <span class="pill">🗺️ Live Spots</span>
+        <span class="pill">📖 Integrated Logging</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="domain">greylineft8.com</div>
+</body>
+</html>
