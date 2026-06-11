@@ -113,14 +113,19 @@
       display: inline-flex; align-items: center; gap: 0.5rem;
       padding: 0.7rem 1.4rem; border-radius: 8px;
       font-size: 0.95rem; font-weight: 600; text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
     }
+    .btn:hover { transform: translateY(-2px); }
     .btn-ghost {
       background: transparent; color: var(--text);
       border: 1px solid var(--border);
     }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
     .btn-store {
       display: inline-flex; align-items: center;
+      transition: transform 0.15s;
     }
+    .btn-store:hover { transform: translateY(-2px); }
     .btn-store img { height: 48px; width: auto; display: block; }
 
     /* screenshot placeholder */
