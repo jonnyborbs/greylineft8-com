@@ -61,16 +61,16 @@
     .nav-brand img {
       width: 32px; height: 32px; border-radius: 7px; flex-shrink: 0;
     }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
     @media (max-width: 480px) {
       nav { padding: 0 1rem; }
       .nav-brand { font-size: 0.95rem; }
+      .nav-links { gap: 0.9rem; }
+      .nav-links a { font-size: 0.8rem; }
+      .nav-links .nav-hide-sm { display: none; }
     }
-    .nav-back {
-      color: var(--muted); text-decoration: none; font-size: 0.9rem;
-      display: flex; align-items: center; gap: 0.4rem;
-      transition: color 0.2s;
-    }
-    .nav-back:hover { color: var(--text); }
 
     .page {
       max-width: 760px; margin: 0 auto;
@@ -129,7 +129,13 @@
     <img src="images/app-icon-180.png" alt="Greyline FT8 icon" />
     Greyline FT8
   </a>
-  <a class="nav-back" href="index.html">← Back to Home</a>
+  <ul class="nav-links">
+    <li><a href="index.html#features">Features</a></li>
+    <li class="nav-hide-sm"><a href="index.html#modes">Operating Modes</a></li>
+    <li class="nav-hide-sm"><a href="index.html#integrations">Integrations</a></li>
+    <li class="nav-hide-sm"><a href="radios.html">Connecting to Radios</a></li>
+    <li><a href="privacy.html">Privacy</a></li>
+  </ul>
 </nav>
 
 <div class="page">
@@ -225,7 +231,7 @@
 </div>
 
 <footer>
-  <p><a href="index.html">← Greyline FT8 Home</a> &nbsp;·&nbsp; &copy; 2026 Greyline FT8</p>
+  <p><a href="index.html">← Greyline FT8 Home</a> &nbsp;·&nbsp; <a href="radios.html">Connecting to Radios</a> &nbsp;·&nbsp; &copy; 2026 Greyline FT8</p>
 </footer>
 
 </body>

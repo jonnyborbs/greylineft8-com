@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connecting to Radios — Greyline FT8</title>
+  <meta name="description" content="Greyline FT8 connects to your radio using audio only — no CAT control or serial commands. Here's how to connect popular radios like the Yaesu FTX-1, FT-818, FT-891, Icom IC-705, and Elecraft KX2/KX3." />
+  <!-- Social preview -->
+  <meta property="og:title" content="Connecting to Radios — Greyline FT8" />
+  <meta property="og:description" content="How to connect popular radios to Greyline FT8 using audio only — no CAT control or serial commands required." />
+  <meta property="og:image" content="https://greylineft8.com/images/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://greylineft8.com/radios.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://greylineft8.com/images/og-image.png" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="images/app-icon-180.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #0a0e14;
+      --bg2:    #111620;
+      --bg3:    #181f2e;
+      --accent: #3b82f6;
+      --text:   #e2e8f0;
+      --muted:  #94a3b8;
+      --border: #1e2d3d;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10, 14, 20, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-weight: 700; font-size: 1.1rem;
+      background: linear-gradient(135deg, #3b82f6, #22d3ee);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+    .nav-brand img {
+      width: 32px; height: 32px; border-radius: 7px; flex-shrink: 0;
+    }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    @media (max-width: 480px) {
+      nav { padding: 0 1rem; }
+      .nav-brand { font-size: 0.95rem; }
+      .nav-links { gap: 0.9rem; }
+      .nav-links a { font-size: 0.8rem; }
+      .nav-links .nav-hide-sm { display: none; }
+    }
+
+    .page {
+      max-width: 860px; margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
+    }
+
+    .page-header { margin-bottom: 2.5rem; }
+    .page-header h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .page-header p  { color: var(--muted); font-size: 0.9rem; }
+
+    h2 {
+      font-size: 1.15rem; font-weight: 600;
+      color: #60a5fa;
+      margin-top: 2.5rem; margin-bottom: 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    p { color: var(--muted); margin-bottom: 0.9rem; font-size: 0.95rem; }
+    p:last-child { margin-bottom: 0; }
+
+    ul {
+      color: var(--muted); font-size: 0.95rem;
+      padding-left: 1.4rem; margin-bottom: 0.9rem;
+    }
+    li { margin-bottom: 0.4rem; }
+
+    strong { color: var(--text); }
+
+    a { color: var(--accent); }
+    a:hover { text-decoration: underline; }
+
+    .highlight-box {
+      background: rgba(59, 130, 246, 0.07);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .highlight-box p { margin: 0; color: var(--text); font-size: 0.95rem; }
+
+    /* ── RADIO CARDS ── */
+    .radio-list {
+      display: flex; flex-direction: column; gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+    .radio-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex; gap: 1.5rem; align-items: center;
+    }
+    .radio-image {
+      flex-shrink: 0;
+      width: 140px; height: 100px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .radio-image img {
+      max-width: 100%; max-height: 100%; object-fit: contain;
+    }
+    .radio-image svg { width: 40px; height: 40px; opacity: 0.35; }
+    .radio-body { flex: 1; min-width: 0; }
+    .radio-header {
+      display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+      margin-bottom: 0.4rem;
+    }
+    .radio-name { font-size: 1.05rem; font-weight: 600; color: var(--text); }
+    .radio-badge {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem; border-radius: 999px;
+    }
+    .radio-badge.full { background: rgba(34, 197, 94, 0.12); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+    .radio-badge.partial { background: rgba(251, 191, 36, 0.12); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+    .radio-body p { margin-bottom: 0; font-size: 0.9rem; }
+
+    @media (max-width: 600px) {
+      .radio-card { flex-direction: column; align-items: stretch; }
+      .radio-image { width: 100%; height: 120px; }
+    }
+
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--muted); font-size: 0.85rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html">
+    <img src="images/app-icon-180.png" alt="Greyline FT8 icon" />
+    Greyline FT8
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#features">Features</a></li>
+    <li class="nav-hide-sm"><a href="index.html#modes">Operating Modes</a></li>
+    <li class="nav-hide-sm"><a href="index.html#integrations">Integrations</a></li>
+    <li class="nav-hide-sm"><a href="radios.html">Connecting to Radios</a></li>
+    <li><a href="privacy.html">Privacy</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <div class="page-header">
+    <h1>Connecting to Radios</h1>
+  </div>
+
+  <div class="highlight-box">
+    <p>Greyline FT8 does not use CAT/CI-V control or send any serial commands. This is an iOS limitation, not a design choice in the app. Any Apple device can communicate with your radio using audio input/output only. The only thing your radio needs to support is VOX activation over the line you use to connect. Below are some radios that have been tested with the app and how you can connect them.</p>
+  </div>
+
+  <div class="radio-list">
+
+    <div class="radio-card">
+      <div class="radio-image">
+        <img src="images/radios/ftx-1.png" alt="Yaesu FTX-1" />
+      </div>
+      <div class="radio-body">
+        <div class="radio-header">
+          <span class="radio-name">Yaesu FTX-1</span>
+          <span class="radio-badge full">Fully Supported</span>
+        </div>
+        <p>Fully supported on Apple devices with a USB-C port. Use a direct USB-C to USB-C cable. If your device has a Lightning port, you may need to use a Lightning → TRRS adapter, and build a cable that supports the 6-pin modular microphone and standard 3.5mm headphone jack.</p>
+      </div>
+    </div>
+
+    <div class="radio-card">
+      <div class="radio-image">
+        <img src="images/radios/ft-818.png" alt="Yaesu FT-818" />
+      </div>
+      <div class="radio-body">
+        <div class="radio-header">
+          <span class="radio-name">Yaesu FT-818</span>
+          <span class="radio-badge full">Fully Supported</span>
+        </div>
+        <p>Fully supported, using a Digirig. Connect the Digirig audio line to a Lightning or USB-C to TRRS adapter.</p>
+      </div>
+    </div>
+
+    <div class="radio-card">
+      <div class="radio-image">
+        <img src="images/radios/ft-817.png" alt="Yaesu FT-817" />
+      </div>
+      <div class="radio-body">
+        <div class="radio-header">
+          <span class="radio-name">Yaesu FT-817</span>
+          <span class="radio-badge partial">Partially Supported</span>
+        </div>
+        <p>This radio does not support VOX activation over the audio line.</p>
+      </div>
+    </div>
+
+    <div class="radio-card">
+      <div class="radio-image">
+        <img src="images/radios/ft-891.png" alt="Yaesu FT-891" />
+      </div>
+      <div class="radio-body">
+        <div class="radio-header">
+          <span class="radio-name">Yaesu FT-891</span>
+          <span class="radio-badge full">Fully Supported</span>
+        </div>
+        <p>Fully supported, using a Digirig. Connect the Digirig audio line to a Lightning or USB-C to TRRS adapter.</p>
+      </div>
+    </div>
+
+    <div class="radio-card">
+      <div class="radio-image">
+        <img src="images/radios/ic-705.png" alt="Icom IC-705" />
+      </div>
+      <div class="radio-body">
+        <div class="radio-header">
+          <span class="radio-name">Icom IC-705</span>
+          <span class="radio-badge full">Fully Supported</span>
+        </div>
+        <p>Fully supported, when using a USB-C or Lightning → TRRS adapter and a splitter to 2.5mm TRS for Microphone and 3.5mm TRS for Headphones. Icom does not support VOX over USB on this radio, so a direct USB interface will not work properly.</p>
+      </div>
+    </div>
+
+    <div class="radio-card">
+      <div class="radio-image">
+        <img src="images/radios/kx2.png" alt="Elecraft KX2" />
+      </div>
+      <div class="radio-body">
+        <div class="radio-header">
+          <span class="radio-name">Elecraft KX2 / KX3</span>
+          <span class="radio-badge full">Fully Supported</span>
+        </div>
+        <p>Fully supported, when using a USB-C or Lightning → TRRS adapter and a splitter to 3.5mm TRS for Microphone and Headphones.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <h2>A Note on Wiring</h2>
+  <p>When using the direct audio connections, always connect the <strong>Microphone</strong> port on your radio to the <strong>Headphone</strong> input on your Apple device, and the <strong>Headphone</strong> port on your radio to the <strong>Microphone</strong> input on your Apple device. Sounds backwards, but you want output ↔ input.</p>
+</div>
+
+<footer>
+  <p><a href="index.html">← Greyline FT8 Home</a> &nbsp;·&nbsp; &copy; 2026 Greyline FT8</p>
+</footer>
+
+</body>
+</html>
