@@ -151,6 +151,7 @@
     }
     .radio-badge.full { background: rgba(34, 197, 94, 0.12); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
     .radio-badge.partial { background: rgba(251, 191, 36, 0.12); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+    .radio-badge.not-recommended { background: rgba(239, 68, 68, 0.12); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
     .radio-body p { margin-bottom: 0; font-size: 0.9rem; }
 
     @media (max-width: 600px) {
@@ -190,7 +191,9 @@
   </div>
 
   <div class="highlight-box">
-    <p>Greyline FT8 does not use CAT/CI-V control or send any serial commands. This is an iOS limitation, not a design choice in the app. Any Apple device can communicate with your radio using audio input/output only. The only thing your radio needs to support is VOX activation over the line you use to connect. Below are some radios that have been tested with the app and how you can connect them.</p>
+    <p>Greyline FT8 does not use CAT/CI-V control or send any serial commands. This is an iOS limitation, not a design choice in the app. Any Apple device can communicate with your radio using audio input/output only. The only thing your radio needs to support is VOX activation over the line you use to connect.</p> 
+    <br>
+    <p>Below are some popular field radios that have been tested with the app and how you can connect them.</p>
   </div>
 
   <div class="radio-list">
@@ -210,6 +213,19 @@
 
     <div class="radio-card">
       <div class="radio-image">
+        <img src="images/radios/ft-817.png" alt="Yaesu FT-817" />
+      </div>
+      <div class="radio-body">
+        <div class="radio-header">
+          <span class="radio-name">Yaesu FT-817</span>
+          <span class="radio-badge not-recommended">Not Recommended</span>
+        </div>
+        <p>This radio does not support VOX activation over the audio line. Workarounds may be possible but have not been tested, and so this radio is not recommended.</p>
+      </div>
+    </div>
+
+    <div class="radio-card">
+      <div class="radio-image">
         <img src="images/radios/ft-818.png" alt="Yaesu FT-818" />
       </div>
       <div class="radio-body">
@@ -223,14 +239,14 @@
 
     <div class="radio-card">
       <div class="radio-image">
-        <img src="images/radios/ft-817.png" alt="Yaesu FT-817" />
+        <img src="images/radios/ft-857.png" alt="Yaesu FT-857" />
       </div>
       <div class="radio-body">
         <div class="radio-header">
-          <span class="radio-name">Yaesu FT-817</span>
-          <span class="radio-badge partial">Partially Supported</span>
+          <span class="radio-name">Yaesu FT-857</span>
+          <span class="radio-badge full">Fully Supported</span>
         </div>
-        <p>This radio does not support VOX activation over the audio line. Workarounds may be possible but have not been tested, and so this radio is not recommended.</p>
+        <p>Fully supported, using a Digirig or other audio interface. Connect the Digirig audio line to a Lightning or USB-C to TRRS adapter. Do not connect the Serial line if your interface has one.</p>
       </div>
     </div>
 
@@ -262,6 +278,19 @@
 
     <div class="radio-card">
       <div class="radio-image">
+        <img src="images/radios/ic-706mkiig.png" alt="Icom IC-706 (MkIIG, older models possible)" />
+      </div>
+      <div class="radio-body">
+        <div class="radio-header">
+          <span class="radio-name">Icom IC-706MkIIG</span>
+          <span class="radio-badge full">Fully Supported</span>
+        </div>
+        <p>Fully supported, using a Digirig or other audio interface. Connect the Digirig audio line to a Lightning or USB-C to TRRS adapter. Do not connect the Serial line if your interface has one.</p>
+      </div>
+    </div>
+
+    <div class="radio-card">
+      <div class="radio-image">
         <img src="images/radios/kx2.png" alt="Elecraft KX2" />
       </div>
       <div class="radio-body">
@@ -277,6 +306,18 @@
 
   <h2>A Note on Wiring</h2>
   <p>When using the direct audio connections, always connect the <strong>Microphone</strong> port on your radio to the <strong>Headphone</strong> input on your Apple device, and the <strong>Headphone</strong> port on your radio to the <strong>Microphone</strong> input on your Apple device. Sounds backwards, but you want output ↔ input.</p>
+
+  <h2>Example Connection Gear</h2>
+  <p>These are examples of connectors you can purchase from reputable retailers that will help get you started. These are not affiliate links and Greyline FT8 does not receive any commission on them, they are just known working parts.</p>
+  <ul>
+    <li><a href="https://www.amazon.com/dp/B082WG5VTK?ref=ppx_yo2ov_dt_b_fed_asin_title" target="_blank" rel="noopener">USB-C to 3.5mm TRRS Adapter</a> — for connecting newer iPhones/iPads directly to a radio's combined headset jack.</li>
+    <li><a href="https://www.amazon.com/UGREEN-Lightning-3-5MM-Female-Adapter/dp/B07Q49SVYR/" target="_blank" rel="noopener">Lightning to 3.5mm Headphone Jack Adapter (Apple)</a> — for connecting Lightning-equipped iPhones/iPads to a TRRS audio cable.</li>
+    <li><a href="https://www.amazon.com/dp/B08RB17ZY1?ref=ppx_yo2ov_dt_b_fed_asin_title" target="_blank" rel="noopener">3.5mm TRRS Extension Cable</a> — Moves your Apple device a comfortable distance from the radio.</li>
+    <li><a href="https://www.amazon.com/dp/B07FB9WC92?ref=ppx_yo2ov_dt_b_fed_asin_title" target="_blank" rel="noopener">3.5mm TRRS to Dual 3.5mm TRS Splitter (Mic + Headphone)</a> — splits a single TRRS connection into separate microphone and headphone jacks.</li>
+    <li><a href="https://www.amazon.com/Electop-Female-Stereo-Adapter-Headphone/dp/B01GC6LR84/" target="_blank" rel="noopener">3.5mm to 2.5mm TRS Cable</a> — for radios with a 2.5mm microphone jack, such as the Icom IC-705.</li>
+    <li><a href="https://digirig.net/product/digirig-mobile/" target="_blank" rel="noopener">Digirig Mobile Interface</a> — the gold standard USB sound card and PTT interface.</li>
+    <li><a href="https://digirig.net/product/digirig-lite/" target="_blank" rel="noopener">Digirig Lite Interface</a> — Digirig Mobile's simpler cousin. The same gold standard USB sound card, but smaller, cheaper, and without the serial/PTT interface (which Greyline FT8 does not use anyway)</li>
+  </ul>
 </div>
 
 <footer>
