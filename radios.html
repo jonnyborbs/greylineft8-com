@@ -191,16 +191,18 @@
   </div>
 
   <div class="highlight-box">
-    <p>Greyline FT8 does not use CAT/CI-V control or send any serial commands. This is an iOS limitation, not a design choice in the app. Any Apple device can communicate with your radio using audio input/output only. The only thing your radio needs to support is VOX activation over the line you use to connect.</p> 
+    <p>Greyline FT8 does not use CAT/CI-V control or send any serial commands. You must set your radio to the right frequency and mode, and enable the transciever's VOX on the input you connect your Apple device to. It can be helpful to define memory slots on your transciever for each band you wish to operate on. The app also provides helpful reminders while you are operating. </p>
     <br>
-    <p>Make sure to enable VOX on the radio for Greyline FT8 to work properly. You may have to adjust your VOX delay and VOX gain settings as well as the output volume on your Apple device for activation to work properly.</p>
-    <br>
-    <p>To avoid overdriving, connect your audio interface to your Apple device, turn the device's volume all the way down, start a CQ call and slowly increase the device's volume until the radio's VOX opens.</p>
-    <br>
-    <p>To avoid overwhelming the Apple device's input, set your transciever's AF gain to the lowest level possible for Greyline FT8's waterfall to start displaying signals. Slight increases to the AF gain may improve signal readability, but too much AF gain will cause distortion and difficulty decoding.</p>
-    <br>
-    <p>Below are some popular field radios that have been tested with the app and how you can connect them. This list is not complete and many, many other radios will work just great!</p>
+    <p>The lack of serial control is an iOS limitation, not a design choice in the app.</p> 
   </div>
+
+  <ul>
+    <li>Make sure to enable VOX on the radio for Greyline FT8 to work properly. You may have to adjust your VOX delay and VOX gain settings as well as the output volume on your Apple device for activation to work properly.</li>
+    <li>To avoid overdriving, connect your audio interface to your Apple device, turn the device's volume all the way down, start a CQ call and slowly increase the device's volume until the radio's VOX opens.</li>
+    <li>💡 <b>Helpful tip:</b> use your ALC meter to determine if your input gain is too high. You want it in the upper 25% when transmitting.</li>
+    <li>To avoid overwhelming the Apple device's input, set your transciever's AF gain to the lowest level possible for Greyline FT8's waterfall to start displaying signals. Slight increases to the AF gain may improve signal readability, but too much AF gain will cause distortion and difficulty decoding.</li>
+    <li>Below are some popular field radios that have been tested with the app and how you can connect them. This list is not complete and many, many other radios will work just great!</li>
+  </ul>
 
   <div class="radio-list">
 
@@ -226,7 +228,7 @@
           <span class="radio-name">Yaesu FT-817</span>
           <span class="radio-badge not-recommended">Not Recommended</span>
         </div>
-        <p>This radio does not support VOX activation over the audio line. Workarounds may be possible but have not been tested, and so this radio is not recommended.</p>
+        <p>This radio does not support VOX activation over the data line, and the audio line requires a complex adapter to be constructed. Workarounds may be possible, but have not been tested, and so this radio is not recommended.</p>
       </div>
     </div>
 
