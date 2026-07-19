@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release Notes — Greyline FT8</title>
+  <meta name="description" content="Release notes and changelog for Greyline FT8, the FT8 & FT4 digital mode app for iPhone and iPad." />
+  <!-- Social preview -->
+  <meta property="og:title" content="Release Notes — Greyline FT8" />
+  <meta property="og:description" content="What's new in Greyline FT8 — fixes, features, and shoutouts for each release." />
+  <meta property="og:image" content="https://greylineft8.com/images/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://greylineft8.com/changelog.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://greylineft8.com/images/og-image.png" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="images/app-icon-180.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #0a0e14;
+      --bg2:    #111620;
+      --bg3:    #181f2e;
+      --accent: #3b82f6;
+      --text:   #e2e8f0;
+      --muted:  #94a3b8;
+      --border: #1e2d3d;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10, 14, 20, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-weight: 700; font-size: 1.1rem;
+      background: linear-gradient(135deg, #3b82f6, #22d3ee);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+    .nav-brand img {
+      width: 32px; height: 32px; border-radius: 7px; flex-shrink: 0;
+    }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    @media (max-width: 480px) {
+      nav { padding: 0 1rem; }
+      .nav-brand { font-size: 0.95rem; }
+      .nav-links { gap: 0.9rem; }
+      .nav-links a { font-size: 0.8rem; }
+      .nav-links .nav-hide-sm { display: none; }
+    }
+
+    .page {
+      max-width: 760px; margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
+    }
+
+    .page-header { margin-bottom: 2rem; }
+    .page-header h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .page-header p  { color: var(--muted); font-size: 0.9rem; }
+
+    /* Version jump selector */
+    .version-jump {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+    .version-jump label {
+      font-size: 0.85rem; color: var(--muted); white-space: nowrap;
+    }
+    .version-jump select {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      padding: 0.45rem 0.85rem;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .version-jump select:hover,
+    .version-jump select:focus { border-color: var(--accent); }
+
+    /* Release entry */
+    .release {
+      margin-bottom: 3rem;
+      scroll-margin-top: 80px;
+    }
+
+    .release-header {
+      display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .release-version {
+      font-size: 1.4rem; font-weight: 700; color: var(--text);
+    }
+    .release-tag {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem; border-radius: 999px;
+      background: rgba(59, 130, 246, 0.12);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+    }
+
+    .release-section-title {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+      margin: 1.25rem 0 0.6rem;
+    }
+
+    ul {
+      color: var(--muted); font-size: 0.95rem;
+      padding-left: 1.4rem; margin-bottom: 0.5rem;
+    }
+    li { margin-bottom: 0.45rem; }
+
+    p { color: var(--muted); margin-bottom: 0.9rem; font-size: 0.95rem; }
+    p:last-child { margin-bottom: 0; }
+
+    strong { color: var(--text); }
+    a { color: var(--accent); }
+    a:hover { text-decoration: underline; }
+
+    /* Shoutouts */
+    .shoutout-list {
+      list-style: none;
+      padding: 0;
+      display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .shoutout-list li {
+      display: flex; gap: 0.5rem;
+      font-size: 0.9rem; color: var(--muted);
+      margin-bottom: 0;
+    }
+    .shoutout-call {
+      font-weight: 600; color: #4ade80;
+      white-space: nowrap;
+    }
+
+    /* Closing line */
+    .release-footer {
+      margin-top: 1.25rem;
+      font-size: 0.85rem; color: var(--muted);
+      font-style: italic;
+    }
+
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--muted); font-size: 0.85rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html">
+    <img src="images/app-icon-180.png" alt="Greyline FT8 icon" />
+    Greyline FT8
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#features">Features</a></li>
+    <li class="nav-hide-sm"><a href="index.html#modes">Operating Modes</a></li>
+    <li class="nav-hide-sm"><a href="index.html#integrations">Integrations</a></li>
+    <li class="nav-hide-sm"><a href="radios.html">Connecting to Radios</a></li>
+    <li class="nav-hide-sm"><a href="changelog.html">Release Notes</a></li>
+    <li><a href="privacy.html">Privacy</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <div class="page-header">
+    <h1>Release Notes</h1>
+    <p>What's new in each version of Greyline FT8.</p>
+  </div>
+
+  <div class="version-jump">
+    <label for="version-select">Jump to version:</label>
+    <select id="version-select" onchange="document.getElementById(this.value).scrollIntoView({behavior:'smooth'})">
+      <option value="" disabled selected>Select a version…</option>
+      <option value="v1-0-8">1.0.8 — Latest</option>
+      <option value="v1-0-7">1.0.7</option>
+      <option value="v1-0-6">1.0.6</option>
+      <option value="v1-0-5">1.0.5</option>
+      <option value="v1-0-4">1.0.4</option>
+      <option value="v1-0-3">1.0.3</option>
+      <option value="v1-0-2">1.0.2</option>
+      <option value="v1-0-1">1.0.1</option>
+    </select>
+  </div>
+
+  <!-- ── 1.0.8 ── -->
+  <div class="release" id="v1-0-8">
+    <div class="release-header">
+      <span class="release-version">Version 1.0.8</span>
+      <span class="release-tag">Latest</span>
+    </div>
+
+    <p>Be sure to check the release notes for prior versions to see what's new! I update the app regularly in response to feedback like yours.</p>
+
+    <div class="release-section-title">Shoutouts</div>
+    <ul class="shoutout-list">
+      <li><span class="shoutout-call">KN7AHS</span><span>Identifying a missing field in our ADI exports</span></li>
+    </ul>
+
+    <div class="release-section-title">Features</div>
+    <ul>
+      <li>Greyline now makes use of Big CTY data courtesy of AD1C and ClubLog (<a href="https://www.country-files.com/big-cty/" target="_blank" rel="noopener">country-files.com</a>)</li>
+      <li>This new data source makes grid square, call sign, State/Province/Country and DXCC lookup fast, reliable, and fully local with no internet access required</li>
+      <li>Greyline now supports both QRZ and HamQTH callsign lookups. If you're an existing user, make sure to check out the Settings page and input your login for one or both!</li>
+      <li>Antenna tune mode now automatically applies suggested free frequencies</li>
+    </ul>
+
+    <div class="release-section-title">Fixes</div>
+    <ul>
+      <li>ADIF exports now include the DXCC numeric code for every QSO</li>
+      <li>ADIF exports now include the Country identifier for every QSO, including non-US ones (whoops!)</li>
+      <li>Significant streamlining to log file handling and guard rails for bad or malformed data</li>
+    </ul>
+
+    <p class="release-footer">Thanks and 73 to everyone for the feedback and bringing me along on your activations!</p>
+  </div>
+
+  <!-- ── 1.0.7 ── -->
+  <div class="release" id="v1-0-7">
+    <div class="release-header">
+      <span class="release-version">Version 1.0.7</span>
+    </div>
+
+    <p>Be sure to check the release notes for prior versions to see what's new! I update the app regularly in response to feedback like yours.</p>
+
+    <div class="release-section-title">Shoutouts</div>
+    <ul class="shoutout-list">
+      <li><span class="shoutout-call">KJ5FVI</span><span>Requesting selective log export</span></li>
+      <li><span class="shoutout-call">M0RVB, G7UFO</span><span>Suggesting "Tune" functionality</span></li>
+    </ul>
+
+    <div class="release-section-title">Features</div>
+    <ul>
+      <li>You can now select only specific QSOs to export to ADI from your log</li>
+      <li>Exporting to file will place a marker in your log showing when you last exported and how many log lines were saved</li>
+      <li>Now that we have this marker, there's also a simple "Export all since last" option that will save off all your logged entries since the last export to a new file — great for uploading to POTA.app or your external logger of choice</li>
+      <li>Added a new "Antenna tune" function — this function will transmit a constant carrier for a predefined amount of time. You can select the frequency from the main control panel, and the transmit duration from either the Settings menu or the Antenna Tune screen directly</li>
+      <li>The Tune screen will show a large-font countdown (or count-up, if you selected an unlimited time) so you can clearly see how long you have left if you walk away from your station to touch an antenna 25 feet away</li>
+    </ul>
+
+    <p class="release-footer">Thanks and 73 to everyone for the feedback and bringing me along on your activations!</p>
+  </div>
+
+  <!-- ── 1.0.6 ── -->
+  <div class="release" id="v1-0-6">
+    <div class="release-header">
+      <span class="release-version">Version 1.0.6</span>
+    </div>
+
+    <p>Be sure to check the release notes for prior versions to see what's new! I update the app regularly in response to feedback like yours.</p>
+
+    <div class="release-section-title">Shoutouts</div>
+    <ul class="shoutout-list">
+      <li><span class="shoutout-call">K0JGL</span><span>Reporting grid square lookup issues</span></li>
+      <li><span class="shoutout-call">IW2EYN</span><span>Suggesting log import functionality</span></li>
+    </ul>
+
+    <div class="release-section-title">Features</div>
+    <ul>
+      <li>Added the ability to import ADI formatted log files. Imported log entries will help you know who you've worked before. Note that imported log entries CAN be exported to a new ADI file, but can NOT be uploaded to QRZ — this is intentional, to prevent conflicts and duplication.</li>
+    </ul>
+
+    <div class="release-section-title">Fixes</div>
+    <ul>
+      <li>Grid squares were occasionally returning partially correct lookup results, due to an "alphabetically first wins" algorithm where multiple states, provinces or countries were in a single grid. Now we show everyone — no favoritism here!</li>
+      <li>When you highlight a log row, we now use much more readable and high-contrast colors</li>
+    </ul>
+
+    <p class="release-footer">Thanks and 73 to everyone for the feedback and bringing me along on your activations!</p>
+  </div>
+
+  <!-- ── 1.0.5 ── -->
+  <div class="release" id="v1-0-5">
+    <div class="release-header">
+      <span class="release-version">Version 1.0.5</span>
+    </div>
+
+    <div class="release-section-title">Shoutouts</div>
+    <ul class="shoutout-list">
+      <li><span class="shoutout-call">K0ARG</span><span>Reporting issues with FT4 timing</span></li>
+      <li><span class="shoutout-call">KL7EC</span><span>Support for TX-500 confirmed, now validating no spaces in callsigns</span></li>
+      <li><span class="shoutout-call">NL7OT</span><span>Support for QRP Labs QMX confirmed</span></li>
+      <li><span class="shoutout-call">IW2EYN</span><span>String validation in QRZ API keys, great club promotion!</span></li>
+      <li><span class="shoutout-call">KO6IUH</span><span>Updated connection info for IC-705</span></li>
+    </ul>
+
+    <div class="release-section-title">Features</div>
+    <ul>
+      <li>Added an option to preselect Previous, FT8 or FT4 as your startup mode</li>
+      <li>Added a "Mode" selector to the logging dialog so you can pick FT8 or FT4 when creating a manual entry</li>
+      <li>Added a decrementing counter in the status area, so you can see how many times a message is due to be retransmitted before we time out</li>
+    </ul>
+
+    <div class="release-section-title">Fixes</div>
+    <ul>
+      <li>When applying a manual override TX frequency, the frequency selection behavior changes to "Hold" and respects your selection. The app will always return to Auto Select mode on startup, since band conditions are always changing.</li>
+      <li>Applied dynamic delay algorithm to FT4 cycles to eliminate dropped symbols with high-latency audio devices. FT4 decoding is now SUPER reliable!</li>
+      <li>Always check previous band activity for grid squares. I never want to see a log entry without one again!</li>
+      <li>FT4 timing is now corrected and operates on the 7.5s cycle rather than FT8's 15s one</li>
+      <li>When FT4 mode is active, we now correctly display frequency settings at the top of the band activity view</li>
+      <li>When tapping a message to restart a dropped or timed out QSO, R-signal reports are now correctly sent with the R prefix</li>
+      <li>Ensured the 160m and 60m bands are not selectable for FT4 per the band plan</li>
+      <li>If the message being sent changes in the middle of a TX cycle, update the band activity view with the new message</li>
+      <li>When the retransmission counter is reached while in Gatherer mode, we now return to calling CQ instead of halting transmission</li>
+      <li>When the retransmission counter is reached while in Hunter mode, we now call the next station on the next available TX slot instead of waiting several cycles first</li>
+      <li>Sometimes, grid squares were not logged while in Gatherer mode. Now they should be.</li>
+      <li>String validation in the QRZ API key and Callsign fields, so phantom spaces should no longer cause problems</li>
+    </ul>
+
+    <p class="release-footer">Thanks and 73 to everyone for the feedback and bringing me along on your activations!</p>
+  </div>
+
+  <!-- ── 1.0.4 ── -->
+  <div class="release" id="v1-0-4">
+    <div class="release-header">
+      <span class="release-version">Version 1.0.4</span>
+    </div>
+
+    <div class="release-section-title">Shoutouts</div>
+    <ul class="shoutout-list">
+      <li><span class="shoutout-call">K0ARG</span><span>Reporting issues with FT4 timing</span></li>
+      <li><span class="shoutout-call">KL7EC</span><span>Support for TX-500 confirmed, now validating no spaces in callsigns</span></li>
+      <li><span class="shoutout-call">NL7OT</span><span>Support for QRP Labs QMX confirmed</span></li>
+      <li><span class="shoutout-call">IW2EYN</span><span>String validation in QRZ API keys, great club promotion!</span></li>
+      <li><span class="shoutout-call">KO6IUH</span><span>Updated connection info for IC-705</span></li>
+    </ul>
+
+    <div class="release-section-title">Features</div>
+    <ul>
+      <li>Added an option to preselect Previous, FT8 or FT4 as your startup mode</li>
+      <li>Added a "Mode" selector to the logging dialog so you can pick FT8 or FT4 when creating a manual entry</li>
+      <li>Added a decrementing counter in the status area, so you can see how many times a message is due to be retransmitted before we time out</li>
+    </ul>
+
+    <div class="release-section-title">Fixes</div>
+    <ul>
+      <li>FT4 timing is now corrected and operates on the 7.5s cycle rather than FT8's 15s one</li>
+      <li>When FT4 mode is active, we now correctly display frequency settings at the top of the band activity view</li>
+      <li>When tapping a message to restart a dropped or timed out QSO, R-signal reports are now correctly sent with the R prefix</li>
+      <li>Ensured the 160m and 60m bands are not selectable for FT4 per the band plan</li>
+      <li>If the message being sent changes in the middle of a TX cycle, update the band activity view with the new message</li>
+      <li>When the retransmission counter is reached while in Gatherer mode, we now return to calling CQ instead of halting transmission</li>
+      <li>When the retransmission counter is reached while in Hunter mode, we now call the next station on the next available TX slot instead of waiting several cycles first</li>
+      <li>Sometimes, grid squares were not logged while in Gatherer mode. Now they should be.</li>
+      <li>String validation in the QRZ API key and Callsign fields, so phantom spaces should no longer cause problems</li>
+    </ul>
+
+    <p class="release-footer">Thanks and 73 to everyone for the feedback and bringing me along on your activations!</p>
+  </div>
+
+  <!-- ── 1.0.3 ── -->
+  <div class="release" id="v1-0-3">
+    <div class="release-header">
+      <span class="release-version">Version 1.0.3</span>
+    </div>
+
+    <div class="release-section-title">Shoutouts</div>
+    <ul class="shoutout-list">
+      <li><span class="shoutout-call">KL7EC</span><span>Support for TX-500 confirmed, now validating no spaces in callsigns</span></li>
+      <li><span class="shoutout-call">NL7OT</span><span>Support for QRP Labs QMX confirmed</span></li>
+      <li><span class="shoutout-call">IW2EYN</span><span>String validation in QRZ API keys, great club promotion!</span></li>
+      <li><span class="shoutout-call">KO6IUH</span><span>Updated connection info for IC-705</span></li>
+    </ul>
+
+    <div class="release-section-title">Features</div>
+    <ul>
+      <li>Added a decrementing counter in the status area, so you can see how many times a message is due to be retransmitted before we time out</li>
+    </ul>
+
+    <div class="release-section-title">Fixes</div>
+    <ul>
+      <li>If the message being sent changes in the middle of a TX cycle, update the band activity view with the new message</li>
+      <li>When the retransmission counter is reached while in Gatherer mode, we now return to calling CQ instead of halting transmission</li>
+      <li>When the retransmission counter is reached while in Hunter mode, we now call the next station on the next available TX slot instead of waiting several cycles first</li>
+      <li>Sometimes, grid squares were not logged while in Gatherer mode. Now they should be.</li>
+      <li>String validation in the QRZ API key and Callsign fields, so phantom spaces should no longer cause problems</li>
+    </ul>
+
+    <p class="release-footer">Thanks and 73 to everyone for the feedback and bringing me along on your activations!</p>
+  </div>
+
+  <!-- ── 1.0.2 ── -->
+  <div class="release" id="v1-0-2">
+    <div class="release-header">
+      <span class="release-version">Version 1.0.2</span>
+    </div>
+    <ul>
+      <li>Tapping the Live Spots view now forces an immediate refresh. Great for when you're just starting an activation!</li>
+    </ul>
+  </div>
+
+  <!-- ── 1.0.1 ── -->
+  <div class="release" id="v1-0-1">
+    <div class="release-header">
+      <span class="release-version">Version 1.0.1</span>
+    </div>
+    <ul>
+      <li>Changed how pending QRZ log uploads are displayed</li>
+      <li>Added a helpful button in Settings to redirect you to the Greyline FT8 website for tips on cabling and configuring popular radios</li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  <p><a href="index.html">← Greyline FT8 Home</a> &nbsp;·&nbsp; <a href="radios.html">Connecting to Radios</a> &nbsp;·&nbsp; &copy; 2026 Greyline FT8</p>
+</footer>
+
+</body>
+</html>
