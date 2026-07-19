@@ -331,17 +331,12 @@
     <div class="release-section-title">Shoutouts</div>
     <ul class="shoutout-list">
       <li><span class="shoutout-call">K0ARG</span><span>Reporting issues with FT4 timing</span></li>
-      <li><span class="shoutout-call">KL7EC</span><span>Support for TX-500 confirmed, now validating no spaces in callsigns</span></li>
-      <li><span class="shoutout-call">NL7OT</span><span>Support for QRP Labs QMX confirmed</span></li>
-      <li><span class="shoutout-call">IW2EYN</span><span>String validation in QRZ API keys, great club promotion!</span></li>
-      <li><span class="shoutout-call">KO6IUH</span><span>Updated connection info for IC-705</span></li>
     </ul>
 
     <div class="release-section-title">Features</div>
     <ul>
       <li>Added an option to preselect Previous, FT8 or FT4 as your startup mode</li>
       <li>Added a "Mode" selector to the logging dialog so you can pick FT8 or FT4 when creating a manual entry</li>
-      <li>Added a decrementing counter in the status area, so you can see how many times a message is due to be retransmitted before we time out</li>
     </ul>
 
     <div class="release-section-title">Fixes</div>
@@ -350,11 +345,6 @@
       <li>When FT4 mode is active, we now correctly display frequency settings at the top of the band activity view</li>
       <li>When tapping a message to restart a dropped or timed out QSO, R-signal reports are now correctly sent with the R prefix</li>
       <li>Ensured the 160m and 60m bands are not selectable for FT4 per the band plan</li>
-      <li>If the message being sent changes in the middle of a TX cycle, update the band activity view with the new message</li>
-      <li>When the retransmission counter is reached while in Gatherer mode, we now return to calling CQ instead of halting transmission</li>
-      <li>When the retransmission counter is reached while in Hunter mode, we now call the next station on the next available TX slot instead of waiting several cycles first</li>
-      <li>Sometimes, grid squares were not logged while in Gatherer mode. Now they should be.</li>
-      <li>String validation in the QRZ API key and Callsign fields, so phantom spaces should no longer cause problems</li>
     </ul>
 
     <p class="release-footer">Thanks and 73 to everyone for the feedback and bringing me along on your activations!</p>
