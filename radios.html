@@ -66,12 +66,28 @@
     .nav-links { display: flex; gap: 1.5rem; list-style: none; }
     .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
     .nav-links a:hover { color: var(--text); }
+    .nav-toggle {
+      display: none;
+      background: none; border: none; cursor: pointer;
+      color: var(--text); font-size: 1.5rem; line-height: 1;
+      padding: 0.2rem 0.1rem;
+    }
     @media (max-width: 480px) {
       nav { padding: 0 1rem; }
       .nav-brand { font-size: 0.95rem; }
-      .nav-links { gap: 0.9rem; }
-      .nav-links a { font-size: 0.8rem; }
-      .nav-links .nav-hide-sm { display: none; }
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none; flex-direction: column; gap: 0;
+        position: absolute; top: 60px; left: 0; right: 0;
+        background: rgba(10, 14, 20, 0.97);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        padding: 0.5rem 0; z-index: 99;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { display: block; }
+      .nav-links .nav-hide-sm { display: block; }
+      .nav-links a { display: block; padding: 0.75rem 1.5rem; font-size: 0.95rem; }
     }
 
     .page {
@@ -176,6 +192,7 @@
     <img src="images/app-icon-180.png" alt="Greyline FT8 icon" />
     Greyline FT8
   </a>
+  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
   <ul class="nav-links">
     <li><a href="index.html#features">Features</a></li>
     <li class="nav-hide-sm"><a href="index.html#modes">Operating Modes</a></li>
@@ -185,6 +202,24 @@
     <li><a href="privacy.html">Privacy</a></li>
   </ul>
 </nav>
+<script>
+  (function() {
+    var btn = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav-links');
+    btn.addEventListener('click', function() {
+      var open = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+      btn.innerHTML = open ? '&#10005;' : '&#9776;';
+    });
+    menu.addEventListener('click', function(e) {
+      if (e.target.tagName === 'A') {
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', false);
+        btn.innerHTML = '&#9776;';
+      }
+    });
+  })();
+</script>
 
 <div class="page">
   <div class="page-header">
