@@ -244,7 +244,8 @@
     <label for="version-select">Jump to version:</label>
     <select id="version-select" onchange="document.getElementById(this.value).scrollIntoView({behavior:'smooth'})">
       <option value="" disabled selected>Select a version…</option>
-      <option value="v1-0-9">1.0.9 — Latest</option>
+      <option value="v1-0-10">1.0.10 — Latest</option>
+      <option value="v1-0-9">1.0.9</option>
       <option value="v1-0-8">1.0.8</option>
       <option value="v1-0-7">1.0.7</option>
       <option value="v1-0-6">1.0.6</option>
@@ -256,14 +257,24 @@
     </select>
   </div>
 
+  <!-- ── 1.0.10 ── -->
+  <div class="release" id="v1-0-10">
+    <div class="release-header">
+      <span class="release-version">Version 1.0.10</span>
+      <span class="release-tag">Latest</span>
+    </div>
+
+    <div class="release-section-title">Fixes</div>
+    <ul>
+      <li>Minor change to a watchdog timer released in 1.0.9 to remove the risk of an extended TX cycle</li>
+    </ul>
+  </div>
+
   <!-- ── 1.0.9 ── -->
   <div class="release" id="v1-0-9">
     <div class="release-header">
       <span class="release-version">Version 1.0.9</span>
-      <span class="release-tag">Latest</span>
     </div>
-
-    <p>Be sure to check the release notes for prior versions to see what's new! I update the app regularly in response to feedback like yours.</p>
 
     <div class="release-section-title">Shoutouts</div>
     <ul class="shoutout-list">
@@ -289,8 +300,6 @@
     <div class="release-header">
       <span class="release-version">Version 1.0.8</span>
     </div>
-
-    <p>Be sure to check the release notes for prior versions to see what's new! I update the app regularly in response to feedback like yours.</p>
 
     <div class="release-section-title">Shoutouts</div>
     <ul class="shoutout-list">
@@ -321,8 +330,6 @@
       <span class="release-version">Version 1.0.7</span>
     </div>
 
-    <p>Be sure to check the release notes for prior versions to see what's new! I update the app regularly in response to feedback like yours.</p>
-
     <div class="release-section-title">Shoutouts</div>
     <ul class="shoutout-list">
       <li><span class="shoutout-call">KJ5FVI</span><span>Requesting selective log export</span></li>
@@ -346,8 +353,6 @@
     <div class="release-header">
       <span class="release-version">Version 1.0.6</span>
     </div>
-
-    <p>Be sure to check the release notes for prior versions to see what's new! I update the app regularly in response to feedback like yours.</p>
 
     <div class="release-section-title">Shoutouts</div>
     <ul class="shoutout-list">
