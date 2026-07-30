@@ -213,7 +213,7 @@
     }
     .screenshots-strip-iphone {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.25rem;
     }
     @media (max-width: 640px) {
@@ -371,6 +371,11 @@
         <p>Live FFT waterfall display lets you see band activity at a glance. Tap signals to respond instantly.</p>
       </div>
       <div class="feature-card">
+        <span class="feature-icon">🌲</span>
+        <h3>POTA Activation Mode</h3>
+        <p>Run a full Parks on the Air activation without leaving the app. Greyline looks up parks near you, adds the POTA addendum to your CQ calls, auto-spots you to the POTA cluster when you start and whenever you QSY, and marks your contacts for a one-touch ADIF export to POTA.app.</p>
+      </div>
+      <div class="feature-card">
         <span class="feature-icon">🤖</span>
         <h3>Automated QSO Modes</h3>
         <p>Standard, Hunter, and Gatherer automation modes handle the exchange sequence for you hands-free.</p>
@@ -393,7 +398,7 @@
       <div class="feature-card">
         <span class="feature-icon">📖</span>
         <h3>Integrated Logging</h3>
-        <p>Auto-log completed QSOs directly to QRZ or HamQTH, export in standard ADI format, or import an existing log so the app knows who you've worked before. A one-tap "export since last" makes uploading to POTA.app a breeze.</p>
+        <p>Auto-log completed QSOs directly to QRZ or HamQTH, export in standard ADI format, or import an existing log so the app knows who you've worked before. POTA activations get a dedicated one-touch ADIF export ready to upload straight to POTA.app.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🧑‍🔧</span>
@@ -461,8 +466,12 @@
         <p class="screen-caption">QSO Log</p>
       </div>
       <div class="screen-item">
-        <div class="screen-thumb"><img src="images/screenshots/ipad/settings.png" alt="App Settings" /></div>
-        <p class="screen-caption">Settings</p>
+        <div class="screen-thumb"><img src="images/screenshots/ipad/parklist.png" alt="POTA Park List" /></div>
+        <p class="screen-caption">POTA Park List</p>
+      </div>
+      <div class="screen-item">
+        <div class="screen-thumb"><img src="images/screenshots/ipad/tuner.png" alt="Antenna Tune" /></div>
+        <p class="screen-caption">Antenna Tuning</p>
       </div>
     </div>
 
@@ -481,8 +490,16 @@
         <p class="screen-caption">QSO Log</p>
       </div>
       <div class="screen-item">
-        <div class="screen-thumb"><img src="images/screenshots/iphone/settings.png" alt="App Settings" /></div>
-        <p class="screen-caption">Settings</p>
+        <div class="screen-thumb"><img src="images/screenshots/iphone/parklist.png" alt="POTA Park List" /></div>
+        <p class="screen-caption">POTA Park List</p>
+      </div>
+      <div class="screen-item">
+        <div class="screen-thumb"><img src="images/screenshots/iphone/pota.png" alt="POTA Activation" /></div>
+        <p class="screen-caption">POTA Activation</p>
+      </div>
+      <div class="screen-item">
+        <div class="screen-thumb"><img src="images/screenshots/iphone/tuner.png" alt="Antenna Tune" /></div>
+        <p class="screen-caption">Antenna Tuning</p>
       </div>
     </div>
   </div>
@@ -525,6 +542,7 @@
       <div class="integration-pill"><span>📡</span> HamQTH callsign lookups</div>
       <div class="integration-pill"><span>☎️</span> Callook.info lookups</div>
       <div class="integration-pill"><span>🌍</span> Big CTY data for fast, offline DXCC and entity lookup</div>
+      <div class="integration-pill"><span>🌲</span> POTA.app — park lookup, cluster spotting, and ADIF export</div>
       <div class="integration-pill"><span>🗺️</span> PSK Reporter integration for spotting and live spot info</div>
       <div class="integration-pill"><span>💻</span> Digirig Mobile &amp; Lite</div>
       <div class="integration-pill"><span>🔈</span> SignaLink USB</div>

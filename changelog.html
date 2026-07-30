@@ -244,7 +244,8 @@
     <label for="version-select">Jump to version:</label>
     <select id="version-select" onchange="document.getElementById(this.value).scrollIntoView({behavior:'smooth'})">
       <option value="" disabled selected>Select a version…</option>
-      <option value="v1-0-10">1.0.10 — Latest</option>
+      <option value="v1-0-11">1.0.11 — Latest</option>
+      <option value="v1-0-10">1.0.10</option>
       <option value="v1-0-9">1.0.9</option>
       <option value="v1-0-8">1.0.8</option>
       <option value="v1-0-7">1.0.7</option>
@@ -257,11 +258,29 @@
     </select>
   </div>
 
+  <!-- ── 1.0.11 ── -->
+  <div class="release" id="v1-0-11">
+    <div class="release-header">
+      <span class="release-version">Version 1.0.11</span>
+      <span class="release-tag">Latest</span>
+    </div>
+
+    <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">"The one where I add a ton of POTA support!"</p>
+
+    <div class="release-section-title">Features</div>
+    <ul>
+      <li>Greyline FT8 now helps you run a POTA activation end to end. Park lookup, spotting, logging, and export are all handled in-app.</li>
+      <li>Enable the POTA Activation mode in the CQ control panel and watch the magic. Greyline looks up parks near you (based on GPS or manual grid square,) adds the POTA addendum to your CQ calls, auto-spots you to the POTA cluster, marks your logged contacts as part of an activation, and enables a one-touch POTA.app compatible ADIF export.</li>
+      <li>POTA auto-spots happen when you start your activation, anytime you QSY to a new band, and periodically in between.</li>
+    </ul>
+
+    <p class="release-footer">Give it a try — I'm really proud of this release. I hope it makes your activations just a tiny bit more joyful. Thanks for bringing me along and 73!</p>
+  </div>
+
   <!-- ── 1.0.10 ── -->
   <div class="release" id="v1-0-10">
     <div class="release-header">
       <span class="release-version">Version 1.0.10</span>
-      <span class="release-tag">Latest</span>
     </div>
 
     <div class="release-section-title">Fixes</div>
