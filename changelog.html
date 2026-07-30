@@ -244,7 +244,8 @@
     <label for="version-select">Jump to version:</label>
     <select id="version-select" onchange="document.getElementById(this.value).scrollIntoView({behavior:'smooth'})">
       <option value="" disabled selected>Select a version…</option>
-      <option value="v1-0-11">1.0.11 — Latest</option>
+      <option value="v1-0-12">1.0.12 — Latest</option>
+      <option value="v1-0-11">1.0.11</option>
       <option value="v1-0-10">1.0.10</option>
       <option value="v1-0-9">1.0.9</option>
       <option value="v1-0-8">1.0.8</option>
@@ -258,11 +259,37 @@
     </select>
   </div>
 
+  <!-- ── 1.0.12 ── -->
+  <div class="release" id="v1-0-12">
+    <div class="release-header">
+      <span class="release-version">Version 1.0.12</span>
+      <span class="release-tag">Latest</span>
+    </div>
+
+    <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">The one where I add cool new mapping capabilities!</p>
+
+    <div class="release-section-title">Shoutouts</div>
+    <ul class="shoutout-list">
+      <li><span class="shoutout-call">ON4LDZ</span><span>Suggestions for map views and new data columns</span></li>
+    </ul>
+
+    <div class="release-section-title">Features</div>
+    <ul>
+      <li>The Band Activity view now includes Distance and Bearing columns. Both are computed from your GPS coordinates to the grid square of the remote station. You can select the units for distance in the Settings screen.</li>
+      <li>The Live Spots view has been renamed to Mapping, and now supports two additional visualization types.</li>
+      <li>As always, Live Spots maps the stations which hear you based on live PSKReporter data.</li>
+      <li>The Stations Heard view maps out the stations which you've heard in the Band Activity view.</li>
+      <li>Contacts Logged will visualize the contacts in your log, by band.</li>
+      <li>You can select the default view for your map in Settings.</li>
+    </ul>
+
+    <p class="release-footer">Give it a try and please leave a review if you enjoy using Greyline! I hope it makes your activations just a tiny bit more joyful. Thanks for bringing me along and 73!</p>
+  </div>
+
   <!-- ── 1.0.11 ── -->
   <div class="release" id="v1-0-11">
     <div class="release-header">
       <span class="release-version">Version 1.0.11</span>
-      <span class="release-tag">Latest</span>
     </div>
 
     <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">"The one where I add a ton of POTA support!"</p>
