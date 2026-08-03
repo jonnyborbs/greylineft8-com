@@ -244,7 +244,8 @@
     <label for="version-select">Jump to version:</label>
     <select id="version-select" onchange="document.getElementById(this.value).scrollIntoView({behavior:'smooth'})">
       <option value="" disabled selected>Select a version…</option>
-      <option value="v1-0-12">1.0.12 — Latest</option>
+      <option value="v1-0-13">1.0.13 — Latest</option>
+      <option value="v1-0-12">1.0.12</option>
       <option value="v1-0-11">1.0.11</option>
       <option value="v1-0-10">1.0.10</option>
       <option value="v1-0-9">1.0.9</option>
@@ -259,11 +260,45 @@
     </select>
   </div>
 
+  <!-- ── 1.0.13 ── -->
+  <div class="release" id="v1-0-13">
+    <div class="release-header">
+      <span class="release-version">Version 1.0.13</span>
+      <span class="release-tag">Latest</span>
+    </div>
+
+    <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">The one where I improve signal decoding and add spotting!</p>
+
+    <div class="release-section-title">Shoutouts</div>
+    <ul class="shoutout-list">
+      <li><span class="shoutout-call">ON4LDZ</span><span>Reporting issues with live band activity view</span></li>
+      <li><span class="shoutout-call">N9DNR</span><span>Reporting an issue with duplicate contacts being collected in Gatherer mode</span></li>
+      <li><span class="shoutout-call">KR4EOD</span><span>Reporting discrepancies in signal report calculations</span></li>
+    </ul>
+
+    <div class="release-section-title">Features</div>
+    <ul>
+      <li>Added live <a href="https://pskreporter.info" target="_blank" rel="noopener">PSKReporter.info</a> spotting. Spots are sent in 5 minute batches and include your callsign and grid location as well as the stations seen. Spotting is off by default, but can be activated in the Settings page.</li>
+      <li>Added color coded signal reports in the Band Activity view.</li>
+      <li>Added ability to filter the Logged Contacts view in the mapping page by time frame.</li>
+      <li>Added a toggle to allow collection of duplicate callsigns when operating in Hunter or Gatherer modes.</li>
+    </ul>
+
+    <div class="release-section-title">Fixes</div>
+    <ul>
+      <li>SNR computation is now more accurate and accounts for real world noise as opposed to bench standard noise levels. <strong>Please note:</strong> comparing SNR computed in Greyline to that in iFTX or WSJT-X is not an apples-to-apples comparison. Differences in algorithms used as well as differences in AGC across device types plays a big role in these numbers.</li>
+      <li>When you navigate away from the Band Activity view, you are now automatically returned to the most recent signals upon your return.</li>
+      <li>Gatherer mode no longer collects duplicate callsigns by default. You can re-enable this behavior in the Settings view if you like.</li>
+      <li>Dropdown controls in the Mapping view sometimes re-drew slowly, but now they don't.</li>
+    </ul>
+
+    <p class="release-footer">Give it a try and please leave a review if you enjoy using Greyline! I hope it makes your activations just a tiny bit more joyful. Thanks for bringing me along and 73!</p>
+  </div>
+
   <!-- ── 1.0.12 ── -->
   <div class="release" id="v1-0-12">
     <div class="release-header">
       <span class="release-version">Version 1.0.12</span>
-      <span class="release-tag">Latest</span>
     </div>
 
     <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">The one where I add cool new mapping capabilities!</p>
@@ -292,7 +327,7 @@
       <span class="release-version">Version 1.0.11</span>
     </div>
 
-    <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">"The one where I add a ton of POTA support!"</p>
+    <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">The one where I add a ton of POTA support!</p>
 
     <div class="release-section-title">Features</div>
     <ul>
