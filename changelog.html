@@ -137,6 +137,17 @@
     .release-version {
       font-size: 1.4rem; font-weight: 700; color: var(--text);
     }
+    .release-version a {
+      color: inherit; text-decoration: none;
+    }
+    .release-version a::before {
+      content: '🔗';
+      font-size: 0.85rem;
+      margin-right: 0.5rem;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+    }
+    .release-version a:hover::before { opacity: 1; }
     .release-tag {
       font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em;
       text-transform: uppercase;
@@ -263,7 +274,7 @@
   <!-- ── 1.0.13 ── -->
   <div class="release" id="v1-0-13">
     <div class="release-header">
-      <span class="release-version">Version 1.0.13</span>
+      <span class="release-version"><a href="#v1-0-13">Version 1.0.13</a></span>
       <span class="release-tag">Latest</span>
     </div>
 
@@ -298,7 +309,7 @@
   <!-- ── 1.0.12 ── -->
   <div class="release" id="v1-0-12">
     <div class="release-header">
-      <span class="release-version">Version 1.0.12</span>
+      <span class="release-version"><a href="#v1-0-12">Version 1.0.12</a></span>
     </div>
 
     <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">The one where I add cool new mapping capabilities!</p>
@@ -324,7 +335,7 @@
   <!-- ── 1.0.11 ── -->
   <div class="release" id="v1-0-11">
     <div class="release-header">
-      <span class="release-version">Version 1.0.11</span>
+      <span class="release-version"><a href="#v1-0-11">Version 1.0.11</a></span>
     </div>
 
     <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">The one where I add a ton of POTA support!</p>
@@ -342,7 +353,7 @@
   <!-- ── 1.0.10 ── -->
   <div class="release" id="v1-0-10">
     <div class="release-header">
-      <span class="release-version">Version 1.0.10</span>
+      <span class="release-version"><a href="#v1-0-10">Version 1.0.10</a></span>
     </div>
 
     <div class="release-section-title">Fixes</div>
@@ -354,7 +365,7 @@
   <!-- ── 1.0.9 ── -->
   <div class="release" id="v1-0-9">
     <div class="release-header">
-      <span class="release-version">Version 1.0.9</span>
+      <span class="release-version"><a href="#v1-0-9">Version 1.0.9</a></span>
     </div>
 
     <div class="release-section-title">Shoutouts</div>
@@ -379,7 +390,7 @@
   <!-- ── 1.0.8 ── -->
   <div class="release" id="v1-0-8">
     <div class="release-header">
-      <span class="release-version">Version 1.0.8</span>
+      <span class="release-version"><a href="#v1-0-8">Version 1.0.8</a></span>
     </div>
 
     <div class="release-section-title">Shoutouts</div>
@@ -408,7 +419,7 @@
   <!-- ── 1.0.7 ── -->
   <div class="release" id="v1-0-7">
     <div class="release-header">
-      <span class="release-version">Version 1.0.7</span>
+      <span class="release-version"><a href="#v1-0-7">Version 1.0.7</a></span>
     </div>
 
     <div class="release-section-title">Shoutouts</div>
@@ -432,7 +443,7 @@
   <!-- ── 1.0.6 ── -->
   <div class="release" id="v1-0-6">
     <div class="release-header">
-      <span class="release-version">Version 1.0.6</span>
+      <span class="release-version"><a href="#v1-0-6">Version 1.0.6</a></span>
     </div>
 
     <div class="release-section-title">Shoutouts</div>
@@ -458,7 +469,7 @@
   <!-- ── 1.0.5 ── -->
   <div class="release" id="v1-0-5">
     <div class="release-header">
-      <span class="release-version">Version 1.0.5</span>
+      <span class="release-version"><a href="#v1-0-5">Version 1.0.5</a></span>
     </div>
 
     <div class="release-section-title">Fixes</div>
@@ -474,7 +485,7 @@
   <!-- ── 1.0.4 ── -->
   <div class="release" id="v1-0-4">
     <div class="release-header">
-      <span class="release-version">Version 1.0.4</span>
+      <span class="release-version"><a href="#v1-0-4">Version 1.0.4</a></span>
     </div>
 
     <div class="release-section-title">Shoutouts</div>
@@ -502,7 +513,7 @@
   <!-- ── 1.0.3 ── -->
   <div class="release" id="v1-0-3">
     <div class="release-header">
-      <span class="release-version">Version 1.0.3</span>
+      <span class="release-version"><a href="#v1-0-3">Version 1.0.3</a></span>
     </div>
 
     <div class="release-section-title">Shoutouts</div>
@@ -533,7 +544,7 @@
   <!-- ── 1.0.2 ── -->
   <div class="release" id="v1-0-2">
     <div class="release-header">
-      <span class="release-version">Version 1.0.2</span>
+      <span class="release-version"><a href="#v1-0-2">Version 1.0.2</a></span>
     </div>
     <ul>
       <li>Tapping the Live Spots view now forces an immediate refresh. Great for when you're just starting an activation!</li>
@@ -543,7 +554,7 @@
   <!-- ── 1.0.1 ── -->
   <div class="release" id="v1-0-1">
     <div class="release-header">
-      <span class="release-version">Version 1.0.1</span>
+      <span class="release-version"><a href="#v1-0-1">Version 1.0.1</a></span>
     </div>
     <ul>
       <li>Changed how pending QRZ log uploads are displayed</li>
