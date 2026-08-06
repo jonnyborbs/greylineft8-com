@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Field Notes — Greyline FT8</title>
+  <meta name="description" content="Photos and stories from Greyline FT8 users in the field — park activations, portable setups, and DX contacts from around the world." />
+  <!-- Social preview -->
+  <meta property="og:title" content="Field Notes — Greyline FT8" />
+  <meta property="og:description" content="Photos and stories from Greyline FT8 users in the field." />
+  <meta property="og:image" content="https://greylineft8.com/images/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://greylineft8.com/fieldnotes.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://greylineft8.com/images/og-image.png" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="images/app-icon-180.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #0a0e14;
+      --bg2:    #111620;
+      --bg3:    #181f2e;
+      --accent: #3b82f6;
+      --text:   #e2e8f0;
+      --muted:  #94a3b8;
+      --border: #1e2d3d;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10, 14, 20, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-weight: 700; font-size: 1.1rem;
+      background: linear-gradient(135deg, #3b82f6, #22d3ee);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+    .nav-brand img {
+      width: 32px; height: 32px; border-radius: 7px; flex-shrink: 0;
+    }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-toggle {
+      display: none;
+      background: none; border: none; cursor: pointer;
+      color: var(--text); font-size: 1.5rem; line-height: 1;
+      padding: 0.2rem 0.1rem;
+    }
+    @media (max-width: 480px) {
+      nav { padding: 0 1rem; }
+      .nav-brand { font-size: 0.95rem; }
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none; flex-direction: column; gap: 0;
+        position: absolute; top: 60px; left: 0; right: 0;
+        background: rgba(10, 14, 20, 0.97);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        padding: 0.5rem 0; z-index: 99;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { display: block; }
+      .nav-links .nav-hide-sm { display: block; }
+      .nav-links a { display: block; padding: 0.75rem 1.5rem; font-size: 0.95rem; }
+    }
+
+    .page {
+      max-width: 1000px; margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
+    }
+
+    .page-header { margin-bottom: 3rem; }
+    .page-header h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .page-header p { color: var(--muted); font-size: 0.95rem; max-width: 560px; }
+
+    /* ── MASONRY GRID ── */
+    .fieldnotes-grid {
+      columns: 2;
+      column-gap: 1.5rem;
+    }
+    @media (max-width: 600px) {
+      .fieldnotes-grid { columns: 1; }
+    }
+
+    /* ── FIELD NOTE CARD ── */
+    .fieldnote {
+      break-inside: avoid;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .fieldnote-photo {
+      width: 100%;
+      display: block;
+      height: auto;
+    }
+
+    .fieldnote-body {
+      padding: 1.25rem 1.5rem 1.5rem;
+    }
+
+    .fieldnote-quote {
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.65;
+      position: relative;
+      padding-left: 1.1rem;
+    }
+    .fieldnote-quote::before {
+      content: '\201C';
+      position: absolute;
+      left: -0.1rem;
+      top: -0.15rem;
+      font-size: 2rem;
+      line-height: 1;
+      color: var(--accent);
+      font-family: Georgia, serif;
+    }
+    .fieldnote-quote::after {
+      content: '\201D';
+      font-size: 2rem;
+      line-height: 1;
+      color: var(--accent);
+      font-family: Georgia, serif;
+      margin-left: 0.1rem;
+      vertical-align: -0.2rem;
+    }
+
+    .fieldnote-attribution {
+      margin-top: 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .fieldnote-callsign {
+      font-size: 0.85rem; font-weight: 700;
+      color: #4ade80;
+      letter-spacing: 0.05em;
+    }
+    .fieldnote-country {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .fieldnote-attribution::before {
+      content: '';
+      display: block;
+      width: 24px; height: 1px;
+      background: var(--border);
+    }
+
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--muted); font-size: 0.85rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html">
+    <img src="images/app-icon-180.png" alt="Greyline FT8 icon" />
+    Greyline FT8
+  </a>
+  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+  <ul class="nav-links">
+    <li><a href="index.html#features">Features</a></li>
+    <li class="nav-hide-sm"><a href="index.html#modes">Operating Modes</a></li>
+    <li class="nav-hide-sm"><a href="index.html#integrations">Integrations</a></li>
+    <li class="nav-hide-sm"><a href="radios.html">Connecting to Radios</a></li>
+    <li class="nav-hide-sm"><a href="changelog.html">Release Notes</a></li>
+    <li class="nav-hide-sm"><a href="fieldnotes.html">Field Notes</a></li>
+    <li><a href="privacy.html">Privacy</a></li>
+  </ul>
+</nav>
+<script>
+  (function() {
+    var btn = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav-links');
+    btn.addEventListener('click', function() {
+      var open = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+      btn.innerHTML = open ? '&#10005;' : '&#9776;';
+    });
+    menu.addEventListener('click', function(e) {
+      if (e.target.tagName === 'A') {
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', false);
+        btn.innerHTML = '&#9776;';
+      }
+    });
+  })();
+</script>
+
+<div class="page">
+  <div class="page-header">
+    <h1>Field Notes</h1>
+    <p>Photos and stories from Greyline FT8 users out in the field. Thanks to everyone who shared their activations, setups, and contacts. Want to share your own? Email me at <a href="mailto:support@greylineft8.com">support@greylineft8.com</a></p>
+  </div>
+
+  <div class="fieldnotes-grid">
+
+    <div class="fieldnote">
+      <img class="fieldnote-photo" src="images/fieldnotes/vk2awn.jpeg" alt="VK2AWN operating Greyline FT8 with an Icom IC-7300 and iPad" />
+      <div class="fieldnote-body">
+        <p class="fieldnote-quote">This is a game changer for me. I can now take my iPad on POTA rather than my MacBook Pro M5. This is what I have been waiting for. Yay!!!!! So good.</p>
+        <div class="fieldnote-attribution">
+          <span><span class="fieldnote-callsign">VK2AWN</span><span class="fieldnote-country">, Australia</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fieldnote">
+      <img class="fieldnote-photo" src="images/fieldnotes/kr3bst.jpeg" alt="KR3BST operating Greyline FT8" />
+      <div class="fieldnote-body">
+        <p class="fieldnote-quote">I'm an Apple user and have been struggling to find a good, full featured easy to use FT8 option and was dissatisfied with what was available. Well problem solved...your app is wonderful!</p>
+        <div class="fieldnote-attribution">
+          <span><span class="fieldnote-callsign">KR3BST</span><span class="fieldnote-country">, Virginia</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fieldnote">
+      <img class="fieldnote-photo" src="images/fieldnotes/k4rzo.jpeg" alt="K4RZO operating Greyline FT8 with a truSDX radio" />
+      <div class="fieldnote-body">
+        <p class="fieldnote-quote">I got to use Greyline with a (tr)uSDX radio. It worked GREAT! Really easy to set up and so compact! ❤️</p>
+        <div class="fieldnote-attribution">
+          <span><span class="fieldnote-callsign">K4RZO (Coyote)</span><span class="fieldnote-country">, Florida</span></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p><a href="index.html">← Greyline FT8 Home</a> &nbsp;·&nbsp; <a href="radios.html">Connecting to Radios</a> &nbsp;·&nbsp; <a href="changelog.html">Release Notes</a> &nbsp;·&nbsp; &copy; 2026 Greyline FT8</p>
+</footer>
+
+</body>
+</html>
