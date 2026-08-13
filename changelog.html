@@ -256,7 +256,8 @@
     <label for="version-select">Jump to version:</label>
     <select id="version-select" onchange="document.getElementById(this.value).scrollIntoView({behavior:'smooth'})">
       <option value="" disabled selected>Select a version…</option>
-      <option value="v1-0-14">1.0.14 — Latest</option>
+      <option value="v1-1">1.1 — Latest</option>
+      <option value="v1-0-14">1.0.14</option>
       <option value="v1-0-13">1.0.13</option>
       <option value="v1-0-12">1.0.12</option>
       <option value="v1-0-11">1.0.11</option>
@@ -271,6 +272,50 @@
       <option value="v1-0-2">1.0.2</option>
       <option value="v1-0-1">1.0.1</option>
     </select>
+  </div>
+
+  <!-- ── 1.1 ── -->
+  <div class="release" id="v1-1">
+    <div class="release-header">
+      <span class="release-version"><a href="#v1-1">Version 1.1</a></span>
+      <span class="release-tag">Latest</span>
+    </div>
+
+    <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">The one that's the biggest update yet</p>
+
+    <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 1rem;">I know I've shipped 14 updates to Greyline since I launched it back in June, but this is the single biggest set of additions yet. Buckle up, this is a big one!</p>
+
+    <div class="release-section-title">Shoutouts</div>
+    <ul class="shoutout-list">
+      <li><span class="shoutout-call">JK1TBL</span><span>Proposing a Cloudlog endpoint, providing an environment to test against, beta testing the app</span></li>
+      <li><span class="shoutout-call">KR4EOD</span><span>Reporting a pretty major bug when working stations with a "/" in their callsign</span></li>
+      <li><span class="shoutout-call">ON4LDZ</span><span>Submitting a Field Notes entry</span></li>
+      <li><span class="shoutout-call">VK2AWN</span><span>Writing a great blog about <a href="https://andrewwoodward.net/2026/08/08/260808greylineft8/" target="_blank" rel="noopener noreferrer">Greyline!</a></span></li>
+
+    </ul>
+
+    <div class="release-section-title">Features</div>
+    <ul>
+      <li>Greyline now supports <strong>Cloudlog</strong> and any Cloudlog-compatible logging endpoint! Just provide the API URL, API key, and Station Identifier and decide whether to auto-log your contacts to it.</li>
+      <li>The logging framework has been expanded to support QRZ, Cloudlog, and eventually WRL directly — stay tuned for that.</li>
+      <li>Gatherer mode now provides a <strong>manually editable queue</strong>. This is, as far as I can tell, a first for FT8/FT4 software. When you're working stations automatically, Greyline will queue them according to your preference (first heard, strongest signal, or furthest distance). But, with the new View Queue button, you can manually reprioritize them! Want to grab that station in Japan first? Been looking for that rare DX? Open up the queue and change the order that Gatherer will work them in.</li>
+      <li>Gatherer mode also now has a <strong>cooldown period</strong> — stations sending out of sequence or bad calls to you will be ignored for 5 minutes before we let them retry.</li>
+      <li>POTA auto spotting now sends a "Thanks and 73" message to the cluster when you end your activation or export your POTA log.</li>
+      <li>POTA auto-spotting can now be optionally disabled in Settings.</li>
+    </ul>
+
+    <div class="release-section-title">Fixes</div>
+    <ul>
+      <li>We had a major issue with working stations that had a <code>/</code> in their callsign (think W1A1/3, for example) — the FT8 specification provides for how to handle this edge case, and it wasn't implemented correctly. Now, you can work these stations without a problem! If you ever saw callsigns that looked like "&lt;…&gt;" — you hit this bug. It's fixed now.</li>
+      <li>The Custom Message feature now follows the message queue timer and allows for full-length inputs.</li>
+      <li>Changed the label on the Stations Heard map from "All time" to "This Session", which is more accurate.</li>
+      <li>On iPhone or in some cases portrait mode iPad, text that doesn't fit in the allocated space in the Band Activity view will marquee gently, so you don't miss important info.</li>
+      <li>Added string validation to the manual QSO form — ensuring that callsigns, grid squares, and signal reports only contain valid characters that can be parsed by logging software.</li>
+      <li>Exporting a POTA log or cancelling an activation now inserts a visual line into your log, so you can see which entries were part of the activation more clearly.</li>
+      <li>We now require a grid square to be set (either manually or via Location Services) in order to transmit</li>
+    </ul>
+
+    <p class="release-footer">Give it a try and please leave a review if you enjoy using Greyline! I hope it makes your activations just a tiny bit more joyful. Thanks for bringing me along and 73!</p>
   </div>
 
   <!-- ── 1.0.14 ── -->
