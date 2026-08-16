@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Guide — Greyline FT8</title>
+  <meta name="description" content="Complete operator's manual for Greyline FT8 — setup, operating modes, POTA activations, logging, mapping, and settings reference." />
+  <!-- Social preview -->
+  <meta property="og:title" content="User Guide — Greyline FT8" />
+  <meta property="og:description" content="Complete operator's manual for Greyline FT8 — setup, operating modes, POTA activations, logging, and settings reference." />
+  <meta property="og:image" content="https://greylineft8.com/images/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://greylineft8.com/userguide.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://greylineft8.com/images/og-image.png" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="images/app-icon-180.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #0a0e14;
+      --bg2:    #111620;
+      --bg3:    #181f2e;
+      --accent: #3b82f6;
+      --text:   #e2e8f0;
+      --muted:  #94a3b8;
+      --border: #1e2d3d;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav.site-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10, 14, 20, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-weight: 700; font-size: 1.1rem;
+      background: linear-gradient(135deg, #3b82f6, #22d3ee);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+    .nav-brand img { width: 32px; height: 32px; border-radius: 7px; flex-shrink: 0; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-toggle {
+      display: none;
+      background: none; border: none; cursor: pointer;
+      color: var(--text); font-size: 1.5rem; line-height: 1;
+      padding: 0.2rem 0.1rem;
+    }
+    @media (max-width: 480px) {
+      nav.site-nav { padding: 0 1rem; }
+      .nav-brand { font-size: 0.95rem; }
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none; flex-direction: column; gap: 0;
+        position: absolute; top: 60px; left: 0; right: 0;
+        background: rgba(10, 14, 20, 0.97);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        padding: 0.5rem 0; z-index: 99;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { display: block; }
+      .nav-links .nav-hide-sm { display: block; }
+      .nav-links a { display: block; padding: 0.75rem 1.5rem; font-size: 0.95rem; }
+    }
+
+    /* ── LAYOUT ── */
+    .guide-layout {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 800px) {
+      .guide-layout {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+    }
+
+    /* ── TOC SIDEBAR ── */
+    .toc-sidebar {
+      position: sticky;
+      top: 80px;
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    .toc-sidebar::-webkit-scrollbar { width: 4px; }
+    .toc-sidebar::-webkit-scrollbar-track { background: transparent; }
+    .toc-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .toc-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    .toc-list { list-style: none; }
+    .toc-list li { margin-bottom: 0.1rem; }
+    .toc-list a {
+      display: block;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      border-left: 2px solid transparent;
+      transition: color 0.15s, background 0.15s, border-color 0.15s;
+      line-height: 1.4;
+    }
+    .toc-list a:hover {
+      color: var(--text);
+      background: var(--bg3);
+      border-left-color: var(--accent);
+    }
+    .toc-list a.active {
+      color: #60a5fa;
+      background: rgba(59,130,246,0.08);
+      border-left-color: var(--accent);
+    }
+
+    /* Mobile TOC toggle */
+    .toc-toggle {
+      display: none;
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.7rem 1rem;
+      cursor: pointer;
+      text-align: left;
+      margin-bottom: 1.5rem;
+    }
+    .toc-toggle::after { content: ' (Click to expand) ▾'; color: var(--muted); font-weight: 400; font-size: 0.8rem; }
+    .toc-toggle.open::after { content: ' ▴'; }
+    .toc-collapsible { display: block; }
+    @media (max-width: 800px) {
+      .toc-toggle { display: block; }
+      .toc-collapsible { display: none; margin-bottom: 1.5rem; }
+      .toc-collapsible.open { display: block; }
+      .toc-sidebar { position: static; max-height: none; overflow: visible; }
+    }
+
+    /* ── CONTENT ── */
+    .guide-content { min-width: 0; }
+
+    .page-header { margin-bottom: 2.5rem; }
+    .page-header h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .page-header .version { color: var(--muted); font-size: 0.9rem; font-style: italic; }
+    .page-header .intro {
+      color: var(--muted); font-size: 0.95rem; margin-top: 0.75rem;
+      max-width: 620px; line-height: 1.7;
+    }
+
+    .guide-section {
+      margin-bottom: 3rem;
+      scroll-margin-top: 80px;
+    }
+
+    h2 {
+      font-size: 1.3rem; font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      scroll-margin-top: 80px;
+    }
+    h2 .section-num { color: var(--accent); margin-right: 0.4rem; }
+    h2 a { color: inherit; text-decoration: none; }
+    h2 a::before {
+      content: '🔗';
+      font-size: 0.75rem;
+      margin-right: 0.5rem;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+    }
+    h2 a:hover::before { opacity: 1; }
+
+    h3 {
+      font-size: 1rem; font-weight: 600;
+      color: #60a5fa;
+      margin-top: 1.75rem; margin-bottom: 0.6rem;
+      scroll-margin-top: 80px;
+    }
+    h3 a { color: inherit; text-decoration: none; }
+    h3 a::before {
+      content: '🔗';
+      font-size: 0.7rem;
+      margin-right: 0.45rem;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+    }
+    h3 a:hover::before { opacity: 1; }
+
+    h4 {
+      font-size: 0.9rem; font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.05em;
+      margin-top: 1.25rem; margin-bottom: 0.5rem;
+      scroll-margin-top: 80px;
+    }
+
+    p { color: var(--muted); margin-bottom: 0.85rem; font-size: 0.95rem; line-height: 1.75; }
+    p:last-child { margin-bottom: 0; }
+
+    strong { color: var(--text); }
+    em { color: var(--muted); font-style: italic; }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    ul, ol {
+      color: var(--muted); font-size: 0.95rem;
+      padding-left: 1.5rem; margin-bottom: 0.85rem;
+    }
+    li { margin-bottom: 0.35rem; line-height: 1.65; }
+    li strong { color: var(--text); }
+
+    code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.85em;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.1em 0.35em;
+      color: #93c5fd;
+    }
+
+    pre {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+    }
+    pre code {
+      background: none; border: none; padding: 0;
+      font-size: 0.875rem;
+      color: #93c5fd;
+      line-height: 1.6;
+    }
+
+    blockquote {
+      background: rgba(59, 130, 246, 0.07);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 0.9rem 1.2rem;
+      margin: 1.25rem 0;
+    }
+    blockquote p { color: var(--text); margin-bottom: 0; font-size: 0.9rem; }
+    blockquote strong { color: #93c5fd; }
+
+    /* ── TABLES ── */
+    .table-wrap { overflow-x: auto; margin: 1rem 0; }
+    table {
+      width: 100%; border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    th {
+      background: var(--bg3);
+      color: var(--text);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.55rem 0.9rem;
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    td {
+      color: var(--muted);
+      padding: 0.5rem 0.9rem;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+    td strong { color: var(--text); }
+    tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2.5rem 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--muted); font-size: 0.85rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a class="nav-brand" href="index.html">
+    <img src="images/app-icon-180.png" alt="Greyline FT8 icon" />
+    Greyline FT8
+  </a>
+  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+  <ul class="nav-links">
+    <li><a href="index.html#features">Features</a></li>
+    <li class="nav-hide-sm"><a href="index.html#modes">Operating Modes</a></li>
+    <li class="nav-hide-sm"><a href="index.html#integrations">Integrations</a></li>
+    <li class="nav-hide-sm"><a href="radios.html">Connecting to Radios</a></li>
+    <li class="nav-hide-sm"><a href="userguide.html">User Guide</a></li>
+    <li class="nav-hide-sm"><a href="changelog.html">Release Notes</a></li>
+    <li class="nav-hide-sm"><a href="fieldnotes.html">Field Notes</a></li>
+    <li><a href="privacy.html">Privacy</a></li>
+  </ul>
+</nav>
+<script>
+  (function() {
+    var btn = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav-links');
+    btn.addEventListener('click', function() {
+      var open = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+      btn.innerHTML = open ? '&#10005;' : '&#9776;';
+    });
+    menu.addEventListener('click', function(e) {
+      if (e.target.tagName === 'A') {
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', false);
+        btn.innerHTML = '&#9776;';
+      }
+    });
+  })();
+</script>
+
+<div class="guide-layout">
+
+  <!-- ── SIDEBAR TOC ── -->
+  <aside class="toc-sidebar">
+    <button class="toc-toggle" id="toc-toggle">Contents</button>
+    <div class="toc-collapsible" id="toc-body">
+      <p class="toc-label">Contents</p>
+      <ol class="toc-list">
+        <li><a href="#1-what-you-need">1. What you need</a></li>
+        <li><a href="#2-first-time-setup">2. First-time setup</a></li>
+        <li><a href="#3-the-screens">3. The screens</a></li>
+        <li><a href="#4-reading-the-operate-screen">4. Reading the Operate screen</a></li>
+        <li><a href="#5-making-contacts">5. Making contacts</a></li>
+        <li><a href="#6-the-three-operating-modes">6. The three operating modes</a></li>
+        <li><a href="#7-retransmissions-and-unfinished-contacts">7. Retransmissions &amp; unfinished contacts</a></li>
+        <li><a href="#8-choosing-your-transmit-frequency">8. Choosing your transmit frequency</a></li>
+        <li><a href="#9-bands-and-modes">9. Bands and modes</a></li>
+        <li><a href="#10-tuning-your-antenna">10. Tuning your antenna</a></li>
+        <li><a href="#11-pota-activations">11. POTA activations</a></li>
+        <li><a href="#12-the-log">12. The log</a></li>
+        <li><a href="#13-mapping">13. Mapping</a></li>
+        <li><a href="#14-settings-reference">14. Settings reference</a></li>
+        <li><a href="#15-diagnostics">15. Diagnostics</a></li>
+        <li><a href="#16-troubleshooting">16. Troubleshooting</a></li>
+        <li><a href="#17-glossary">17. Glossary</a></li>
+      </ol>
+    </div>
+  </aside>
+
+  <!-- ── CONTENT ── -->
+  <div class="guide-content">
+
+    <div class="page-header">
+      <h1>User Guide</h1>
+      <p class="version">For version 1.2</p>
+      <p class="intro">Greyline FT8 turns an iPhone or iPad into a complete FT8 and FT4 station. Connect the device to your transceiver with a USB audio interface and the app decodes the band in real time, shows it on a waterfall, works stations for you if you want it to, logs the contacts, and uploads them to your logbook. There is no computer in the chain and nothing to configure on a desktop. Everything — decoding, transmitting, logging, POTA spotting, mapping — happens on the device.</p>
+    </div>
+
+    <!-- 1 -->
+    <section class="guide-section" id="1-what-you-need">
+      <h2><a href="#1-what-you-need"><span class="section-num">1.</span> What you need</a></h2>
+      <p><strong>A transceiver with a sound-card interface.</strong> Any interface that presents itself to iOS as a USB audio device will work — a Digirig, a SignaLink, a radio with a built-in USB CODEC, or a simple isolated audio cable pair. The app detects the interface automatically when you plug it in and switches to it, and switches back if you unplug it.</p>
+      <p>Looking for information on supported radios and how to configure them? See <a href="radios.html">Connecting to Radios</a>.</p>
+      <p><strong>Keying.</strong> The app has no CAT control and does not key your radio over a serial line. It transmits audio, and your radio needs to key from that audio — VOX, or the "data VOX" setting most modern radios have on their USB audio input. Every transmission begins with a tenth of a second of silence to give the radio time to key up before the signal starts.</p>
+      <p><strong>An accurate clock.</strong> FT8 and FT4 divide time into fixed slots aligned to UTC. If your device clock is off by more than about a fifth of a second, other stations will struggle to decode you and every station you hear will show a suspicious DT value. Leave iOS set to "Set Automatically" under Settings › General › Date &amp; Time. You can check your clock inside the app — see <a href="#15-diagnostics">Diagnostics</a>.</p>
+      <p><strong>Microphone permission.</strong> iOS treats your radio's audio input as a microphone. Without that permission the app cannot decode anything.</p>
+      <blockquote>
+        <p><strong>Keep the app in front.</strong> iOS suspends audio processing for apps that go to the background, so Greyline stops decoding and transmitting when you switch to another app or lock the screen. It restarts automatically when you come back. If you are running a long session, turn on <strong>Keep Screen On</strong> in Settings so the device does not sleep.</p>
+      </blockquote>
+    </section>
+
+    <!-- 2 -->
+    <section class="guide-section" id="2-first-time-setup">
+      <h2><a href="#2-first-time-setup"><span class="section-num">2.</span> First-time setup</a></h2>
+      <p>The first launch walks you through eight short pages. You can skip the optional ones and come back later; everything is also in Settings. There is also an <strong>"I'll set up myself"</strong> button on the welcome page if you would rather do it all by hand.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Step</th><th>What it asks for</th><th>Required?</th></tr></thead>
+          <tbody>
+            <tr><td>Welcome</td><td>Nothing</td><td>—</td></tr>
+            <tr><td>Callsign</td><td>Your callsign (A–Z, 0–9 and <code>/</code>)</td><td><strong>Yes</strong> — you cannot transmit without it</td></tr>
+            <tr><td>Location</td><td>Location permission, or a manually typed grid square</td><td><strong>Yes</strong> — a grid is required to transmit</td></tr>
+            <tr><td>Audio access</td><td>Microphone permission</td><td><strong>Yes</strong> — nothing decodes without it</td></tr>
+            <tr><td>Lookups &amp; logging</td><td>QRZ / HamQTH / Cloudlog credentials</td><td>Optional, skippable</td></tr>
+            <tr><td>Share your spots</td><td>PSKReporter and POTA spotting toggles</td><td>Optional, skippable</td></tr>
+            <tr><td>Help &amp; resources</td><td>Links to cabling guides and support</td><td>—</td></tr>
+            <tr><td>Finish</td><td>Warns you if the mic or grid is still missing</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>You can re-run the whole flow at any time from <strong>Settings › About › Re-run first-time Setup</strong>.</p>
+
+      <h3 id="callsign-and-grid-square"><a href="#callsign-and-grid-square">Callsign and grid square</a></h3>
+      <p>Both are mandatory before the app will transmit. The grid rides inside your CQ, and the distance and bearing columns depend on it.</p>
+      <p>If you enable <strong>Use device GPS</strong>, the app derives your grid from your position and keeps it current as you move — useful when you are operating portable. Turn GPS off and you can type a grid by hand (4 or 6 characters, e.g. <code>DM04</code> or <code>DM04vk</code>). Typing a grid manually while GPS is on automatically switches GPS off, so a later position fix cannot overwrite what you typed.</p>
+    </section>
+
+    <!-- 3 -->
+    <section class="guide-section" id="3-the-screens">
+      <h2><a href="#3-the-screens"><span class="section-num">3.</span> The screens</a></h2>
+      <p>The layout adapts to the device.</p>
+      <p><strong>On iPhone</strong>, five tabs across the bottom:</p>
+      <ul>
+        <li><strong>Operate</strong> — waterfall and band activity, with a collapsible control panel at the bottom.</li>
+        <li><strong>Log</strong> — your contacts.</li>
+        <li><strong>Mapping</strong> — who is hearing you, who you have heard, and where you have worked.</li>
+        <li><strong>Tune</strong> — the antenna-tuning carrier.</li>
+        <li><strong>Settings</strong>.</li>
+      </ul>
+      <p>The strip at the bottom of the Operate tab is always visible. It shows the slot phase, the countdown, your transmit frequency, the message queued to go out next, and a single action button. <strong>Tap the strip</strong> to open the full control panel as a sheet; drag it down to dismiss.</p>
+      <p><strong>On iPad</strong>, a sidebar holds the whole control panel plus navigation, and the right-hand pane holds the waterfall and band activity. The button at the top-left of the sidebar collapses it — useful in the field, since the band activity then fills the screen and grows its own compact timing strip along the top and a control bar along the bottom.</p>
+    </section>
+
+    <!-- 4 -->
+    <section class="guide-section" id="4-reading-the-operate-screen">
+      <h2><a href="#4-reading-the-operate-screen"><span class="section-num">4.</span> Reading the Operate screen</a></h2>
+
+      <h3 id="the-slot-timer"><a href="#the-slot-timer">The slot timer</a></h3>
+      <p>FT8 works in 15-second slots (FT4 in 7.5-second slots) locked to UTC. The progress bar and its label tell you where you are inside the current slot:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Label</th><th>Colour</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><strong>RX</strong></td><td>Green</td><td>Receiving. Signals are arriving.</td></tr>
+            <tr><td><strong>DECODE</strong></td><td>Blue</td><td>Enough of the slot has arrived to decode it. Results appear a second or two later, before the slot ends.</td></tr>
+            <tr><td><strong>TX</strong></td><td>Red</td><td>You are transmitting.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Decoding starts before the slot boundary on purpose. That head start is what lets the app answer a station on the very next slot rather than waiting a full cycle.</p>
+
+      <h3 id="the-waterfall"><a href="#the-waterfall">The waterfall</a></h3>
+      <p>Time flows downward, frequency runs left to right across the FT8 passband (200–3000 Hz). Louder signals move up the colour scale — black, blue, cyan, yellow, red.</p>
+      <ul>
+        <li><strong>The white bracket</strong> is your transmit frequency. The bright left edge is the frequency itself; the dimmer right edge is 50 Hz higher — the width an FT8 signal actually occupies.</li>
+        <li><strong>The dashed line</strong> is the app's suggestion for a clear frequency, recalculated every receive cycle from the noise floor and where signals were just decoded. It changes colour to stay visible against whatever is behind it.</li>
+        <li><strong>Small triangles</strong> along the top mark each decoded signal. Yellow means a callsign you have not heard before this session.</li>
+      </ul>
+      <p><strong>Tap or drag horizontally</strong> anywhere on the waterfall to move your transmit frequency there. <strong>Drag vertically</strong> to adjust the display sensitivity: down makes the display more sensitive (weaker signals show), up makes it less. A read-out appears while you drag and the value is remembered.</p>
+      <p>Adjusting sensitivity by dragging turns off <strong>Auto-calibrate Waterfall</strong>; setting a frequency by tapping switches frequency handling to <strong>Hold</strong>. Both are deliberate — a manual choice should not be overwritten a second later. See <a href="#8-choosing-your-transmit-frequency">Choosing your transmit frequency</a>.</p>
+
+      <h3 id="the-band-activity-list"><a href="#the-band-activity-list">The band activity list</a></h3>
+      <p>Every packet for the session, oldest at the top, newest at the bottom, scrolling to the newest automatically.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Column</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><strong>UTC</strong></td><td>The slot the message was decoded in, as HHMMSS.</td></tr>
+            <tr><td><strong>dB</strong></td><td>Signal-to-noise ratio, in the same terms WSJT-X uses, so the numbers are comparable. Your own transmissions show <code>TX</code>.</td></tr>
+            <tr><td><strong>DT</strong></td><td>How far off the slot boundary the other station's transmission arrived, in seconds. The app subtracts its own audio latency, so what you see is the other station's timing error, not yours. Values within a few tenths are normal.</td></tr>
+            <tr><td><strong>Freq / Hz</strong></td><td>Audio frequency inside the passband.</td></tr>
+            <tr><td><strong>Message</strong></td><td>The decoded text. Long compound callsigns scroll gently side to side rather than being cut off.</td></tr>
+            <tr><td><strong>Grid</strong></td><td>The remote station's grid — remembered from any earlier message in the session, so it stays filled in during an exchange even when the current message does not carry one.</td></tr>
+            <tr><td><strong>Dist / Brg</strong></td><td>Great-circle distance and bearing from your grid. Shown when the pane is wide enough.</td></tr>
+            <tr><td><strong>Country / Entity</strong></td><td>DXCC entity, state or province, and continent, resolved offline.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Tap a column header</strong> (UTC, dB, Freq, Call) to sort by it.</p>
+
+      <h4>Row colours</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Colour</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Yellow</strong></td><td>Something you transmitted.</td></tr>
+            <tr><td><strong>Red</strong></td><td>A message addressed to you.</td></tr>
+            <tr><td><strong>Cyan</strong></td><td>A CQ from a station you have not worked on this band and mode.</td></tr>
+            <tr><td><strong>Green</strong></td><td>A CQ from a station you have already worked on this band and mode — the automatic modes will pass on it.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Green is scoped to the current band and mode, not your whole log: a station worked on 20 m is a genuinely new contact on 40 m, and the colour tells you what Hunter and Gatherer will actually do.</p>
+
+      <h4>Tapping a row</h4>
+      <ul>
+        <li><strong>Tap a cyan or green CQ</strong> to answer it. The app drops out of any automatic mode, sets the correct slot timing, and starts calling that station.</li>
+        <li><strong>Tap a red message addressed to you</strong> to pick that exchange back up. The app works out what they sent and replies with whatever comes next in the sequence.</li>
+      </ul>
+      <p>Rows that are neither a CQ nor addressed to you are not tappable — there is nothing sensible to do with them.</p>
+
+      <h4>The filter</h4>
+      <p>The funnel button in the navigation bar opens <strong>Only show CQ and my exchanges</strong>. With it on, the list shows CQ calls, anything addressed to you, and your own transmissions, and hides everything else. This is a display filter only — decoding, logging and the automatic modes carry on exactly as before. A banner along the bottom reminds you it is active; tap it to clear.</p>
+      <p>You can choose whether this starts on, off, or as you left it under <strong>Settings › Display › Only show CQs</strong>.</p>
+
+      <h3 id="the-control-panel"><a href="#the-control-panel">The control panel</a></h3>
+      <p><strong>Status line.</strong> Your callsign and grid on the left; a status pill on the right reading <strong>TX</strong> (red), <strong>RX</strong> (green), or <strong>Stopped</strong>. If it says Stopped, tap it to start the receiver. If microphone access was denied it says so, and tapping takes you to iOS Settings.</p>
+      <p><strong>Band and frequency.</strong> Band picker, transmit frequency read-out, the suggested clear frequency (tap it to adopt it), a frequency slider covering 200–2900 Hz, and the FT8/FT4 selector. These lock during your transmit slot and unlock again on each receive cycle.</p>
+      <p><strong>POTA panel.</strong> See <a href="#11-pota-activations">POTA activations</a>.</p>
+      <p><strong>Mode chips.</strong> Standard / Hunter / Gatherer, grouped under "Manual" and "Automatic" brackets. Hunter and Gatherer are greyed out until a callsign and grid are set.</p>
+      <p><strong>The main button.</strong> What it does depends on where you are:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>It says</th><th>Tapping it</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Call CQ</strong></td><td>Starts calling CQ (Standard mode).</td></tr>
+            <tr><td><strong>Halt Transmit</strong></td><td>Stops calling CQ.</td></tr>
+            <tr><td><strong>Abort — working W6ABC</strong></td><td>Abandons the exchange in progress.</td></tr>
+            <tr><td><strong>Enable Transmit</strong> / <strong>Auto TX Enabled</strong></td><td>Arms Hunter, or disarms it back to Standard.</td></tr>
+            <tr><td><strong>Abort — hunting W6ABC</strong></td><td>Drops the station Hunter is chasing and goes back to scanning.</td></tr>
+            <tr><td><strong>Stop Gatherer</strong> + <strong>Queue (n)</strong></td><td>In Gatherer, the button splits: stop, or inspect the pile of waiting callers.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Next TX.</strong> The exact message that will go out, in the same form the other station will see it. Two details worth knowing:</p>
+      <ul>
+        <li><strong>The number in parentheses is how many more copies will be sent after the one currently going out.</strong> If it reads <code>W6ABC KB0RB -12 (7)</code>, that message is being sent now and will be repeated up to seven more times if the other station does not respond. It counts down with each repeat and disappears when the budget is spent. See <a href="#7-retransmissions-and-unfinished-contacts">Retransmissions</a>.</li>
+        <li><strong>During a transmission the panel shows what is on the air</strong>, not what comes next. It flips to the next message when the receive cycle begins.</li>
+      </ul>
+      <p>The small <strong>TX / RX pill</strong> in the corner of that panel tells you whether the coming slot is yours to transmit on. While Hunter is scanning it stays on RX, because Hunter sends nothing until it finds a target.</p>
+      <p>If nothing is queued, the panel shows your CQ message greyed out — a preview of what would go out if you tapped Call CQ.</p>
+      <p><strong>Custom Message.</strong> Expand it to send one message of your own on the next slot boundary, whichever slot that is. It accepts either free text (up to 13 characters) or a standard message such as <code>W6ABC KD9XYZ -09</code>; the field validates by trying to actually encode what you typed, so a legitimate standard message is never rejected for looking too long. Once queued, the button becomes a red <strong>X</strong> to cancel. A custom message does not appear in the Next TX panel.</p>
+      <p><strong>RX Level.</strong> Your audio input level, labelled <strong>QUIET</strong>, <strong>OK</strong> or <strong>HOT</strong>. Aim for the green band. If it reads HOT, turn the audio down at the radio or interface — an overdriven input decodes badly. The meter is suppressed during your own transmit slot.</p>
+    </section>
+
+    <!-- 5 -->
+    <section class="guide-section" id="5-making-contacts">
+      <h2><a href="#5-making-contacts"><span class="section-num">5.</span> Making contacts</a></h2>
+
+      <h3 id="the-exchange"><a href="#the-exchange">The exchange</a></h3>
+      <p>A standard FT8 contact is four transmissions, alternating slots. Answering a CQ, you send:</p>
+      <pre><code>W6ABC KB0RB DM04        your grid
+W6ABC KB0RB R-12        roger, and your report of their signal
+W6ABC KB0RB 73          done</code></pre>
+      <p>Calling CQ, you send:</p>
+      <pre><code>CQ KB0RB DM04
+W6ABC KB0RB -09         your report of their signal
+W6ABC KB0RB RR73        confirmed and finished</code></pre>
+      <p>Greyline follows this strictly. In particular it does not treat a repeated bare signal report as confirmation that the other station heard your roger — that is what WSJT-X does, and jumping ahead is how contacts get logged that never actually completed.</p>
+
+      <h3 id="signal-reports"><a href="#signal-reports">Signal reports</a></h3>
+      <p>The <strong>Sent</strong> report in your log is the SNR the app measured for their signal. The <strong>Rcvd</strong> report is the number they sent you, read from their message. Reports are generated automatically; you never type one.</p>
+
+      <h3 id="when-contacts-get-logged"><a href="#when-contacts-get-logged">When contacts get logged</a></h3>
+      <ul>
+        <li><strong>Answering a CQ:</strong> logged when their <code>RR73</code> arrives — the point at which they have confirmed the contact.</li>
+        <li><strong>Calling CQ:</strong> logged when your <code>RR73</code> goes out for the first time. By then you hold their report and their roger, so the contact is complete from your side. Their <code>73</code> simply closes it out.</li>
+      </ul>
+      <p>Each contact is logged once, no matter how many times a message is repeated.</p>
+    </section>
+
+    <!-- 6 -->
+    <section class="guide-section" id="6-the-three-operating-modes">
+      <h2><a href="#6-the-three-operating-modes"><span class="section-num">6.</span> The three operating modes</a></h2>
+      <p>The mode chip sits directly above the transmit button, because it changes what that button does. Modes always reset to Standard when the app launches.</p>
+
+      <h3 id="standard-manual"><a href="#standard-manual">Standard — manual</a></h3>
+      <p>You decide everything. Tap a CQ to answer it, or tap <strong>Call CQ</strong> to call. Once an exchange starts, the app sequences it for you and sends the right message at the right moment; you are choosing who to work, not typing messages.</p>
+      <p>Calling CQ in Standard mode gives up after your configured retransmission limit of unanswered CQs and stops. Anything you tap resets that count.</p>
+
+      <h3 id="hunter-automatic-search-and-pounce"><a href="#hunter-automatic-search-and-pounce">Hunter — automatic search and pounce</a></h3>
+      <p>Hunter watches for CQ calls and answers them one at a time, on its own.</p>
+      <ul>
+        <li>It picks the <strong>strongest</strong> CQ available each cycle.</li>
+        <li>It skips stations already worked on this band and mode, unless <strong>Allow duplicates in auto modes</strong> is on.</li>
+        <li>It skips stations excluded by the <a href="#cq-filtering">CQ filter</a>.</li>
+        <li>If a station does not answer within the retransmission budget, Hunter gives up and will not call it again for the rest of this Hunter session. Tapping <strong>Abort</strong>, or turning Hunter off and on again, clears that memory.</li>
+        <li>It logs the contact when its <code>73</code> goes out, then returns to scanning.</li>
+      </ul>
+      <p>While Hunter is scanning, Next TX reads <strong>Pending Target</strong> and the pill stays on RX — Hunter transmits nothing until it has someone to call.</p>
+
+      <h3 id="gatherer-automatic-run"><a href="#gatherer-automatic-run">Gatherer — automatic run</a></h3>
+      <p>Gatherer calls CQ continuously and works everyone who answers, in order, without stopping. This is the mode for running a pile-up during an activation or a contest.</p>
+      <ul>
+        <li>Callers answering your CQ are collected into a <strong>queue</strong>, even while you are mid-exchange with someone else, so nobody is lost.</li>
+        <li>Gatherer works the queue one at a time: report, wait for their roger, <code>RR73</code>, log, next caller. When the queue empties it goes back to calling CQ.</li>
+        <li>Unlike Standard, Gatherer's <strong>CQ has no retransmission limit</strong> — it keeps calling. The per-exchange limit still applies.</li>
+      </ul>
+      <p><strong>The queue card.</strong> Tap <strong>Queue (n)</strong> to open it. The station being worked sits at the top marked <strong>NEXT</strong>; everyone else follows in the order they will be worked. Each row shows the callsign, the operator's name if a lookup service is configured, how long ago you last heard them, the report you will give them, and — on a second line — grid, country and state, distance and bearing, to help you prioritise.</p>
+      <ul>
+        <li><strong>Drag a row</strong> to move it. A row you move is pinned, so newly-heard callers never displace your placement.</li>
+        <li><strong>Swipe or use the delete control</strong> to drop a caller.</li>
+        <li>Gatherer keeps running behind the card; the list updates live.</li>
+      </ul>
+      <p><strong>Call order</strong> is a setting: <em>First to reply</em> (first in, first out), <em>Strongest signal</em>, or <em>Furthest distance</em> (callers whose grid you do not know go to the back). Re-hearing a caller already in the queue refreshes their report and timestamp but never re-sorts them.</p>
+      <p><strong>Stuck partners.</strong> Some software repeats a bare signal report forever instead of sending a roger. Rather than burn the whole retransmission budget, Gatherer bails after three of these and moves to the next caller. A station it has bailed on is left alone for five minutes so its next transmission cannot immediately re-engage you.</p>
+
+      <h3 id="switching-modes"><a href="#switching-modes">Switching modes</a></h3>
+      <p>Changing mode, band, or FT8/FT4 tears down whatever was in progress cleanly. Changing band or mode also clears the activity list, so what you see always belongs to where you are now.</p>
+    </section>
+
+    <!-- 7 -->
+    <section class="guide-section" id="7-retransmissions-and-unfinished-contacts">
+      <h2><a href="#7-retransmissions-and-unfinished-contacts"><span class="section-num">7.</span> Retransmissions and unfinished contacts</a></h2>
+      <p><strong>Max retransmissions</strong> (Settings › Operations, default 10) is how many times the app will repeat the same message before giving up and returning to idle. It applies to every exchange message in every mode, and to CQ calls in Standard mode.</p>
+      <p>At ten repeats on FT8 that is up to five minutes of trying — generous for a weak station, and bounded so a dead exchange does not hold the frequency indefinitely.</p>
+      <p>The number in parentheses beside Next TX is how many copies remain <strong>after</strong> the one currently going out.</p>
+
+      <h3 id="late-replies-the-closeout"><a href="#late-replies-the-closeout">Late replies — the close-out</a></h3>
+      <p>The contacts most worth saving are the ones that fail on the last step. You send <code>RR73</code>, they never hear it, your budget runs out — and a minute later their <code>R-12</code> arrives, plainly saying <em>"I never got your RR73."</em></p>
+      <p>Greyline keeps those exchanges alive:</p>
+      <ul>
+        <li>When an exchange ends without confirmation, the station is remembered for <strong>10 minutes</strong>.</li>
+        <li>If that station later transmits in a way that asks for closure — repeating their roger when you owe them an <code>RR73</code>, or repeating their <code>RR73</code> when you owe them a <code>73</code> — the app will send the closing message again.</li>
+        <li>It does this <strong>only in a slot it would otherwise have spent idle</strong>: Standard when nothing else is going on, Hunter while scanning, Gatherer between callers. A close-out never interrupts an exchange in progress, and in Gatherer it takes priority over starting a new caller — closing beats starting.</li>
+        <li>Attempts are capped at your retransmission limit, once per contact. After that, or after ten minutes, the entry is dropped.</li>
+        <li><strong>Nothing is logged twice.</strong> The contact was already written to the log; a close-out only puts the courtesy message back on the air.</li>
+      </ul>
+      <p>Changing band or mode, or restarting the app, clears all of these — a close-out fired on the wrong band would be wrong.</p>
+      <p>You can always do this by hand too: tap the late message in the band activity list and the app picks the exchange up where it left off.</p>
+    </section>
+
+    <!-- 8 -->
+    <section class="guide-section" id="8-choosing-your-transmit-frequency">
+      <h2><a href="#8-choosing-your-transmit-frequency"><span class="section-num">8.</span> Choosing your transmit frequency</a></h2>
+      <p><strong>Settings › Operations › Frequency Hold</strong> governs how your transmit frequency is managed:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Mode</th><th>Behaviour</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Auto Select</strong> (default)</td><td>The suggested clear frequency from each receive cycle is applied automatically. You spread out into quiet spectrum without thinking about it.</td></tr>
+            <tr><td><strong>Use Partner</strong></td><td>Picks a clear frequency when <em>you</em> start a CQ, but moves to match a station you engage.</td></tr>
+            <tr><td><strong>Hold</strong></td><td>Never moves on its own. The suggestion is still drawn on the waterfall, but only a tap applies it.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Tapping the waterfall or moving the slider always wins: it sets the frequency and switches Auto Select to Hold, so your choice is not overwritten on the next cycle. The app resets to Auto Select at every launch, since last session's clear frequency is stale.</p>
+    </section>
+
+    <!-- 9 -->
+    <section class="guide-section" id="9-bands-and-modes">
+      <h2><a href="#9-bands-and-modes"><span class="section-num">9.</span> Bands and modes</a></h2>
+      <p>The band picker sets the audio passband the app expects and the dial frequency it records in your log. <strong>You still have to tune your radio to the dial frequency yourself</strong> — the bar above the waterfall shows it, e.g. <code>20m FT8 · 14.0740 MHz USB</code>. All bands are upper sideband.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Band</th><th>FT8</th><th>FT4</th></tr></thead>
+          <tbody>
+            <tr><td>160 m</td><td>1.840</td><td>—</td></tr>
+            <tr><td>80 m</td><td>3.573</td><td>3.575</td></tr>
+            <tr><td>60 m</td><td>5.3573</td><td>—</td></tr>
+            <tr><td>40 m</td><td>7.074</td><td>7.0475</td></tr>
+            <tr><td>30 m</td><td>10.136</td><td>10.140</td></tr>
+            <tr><td>20 m</td><td>14.074</td><td>14.080</td></tr>
+            <tr><td>17 m</td><td>18.100</td><td>18.104</td></tr>
+            <tr><td>15 m</td><td>21.074</td><td>21.140</td></tr>
+            <tr><td>12 m</td><td>24.915</td><td>24.919</td></tr>
+            <tr><td>10 m</td><td>28.074</td><td>28.180</td></tr>
+            <tr><td>6 m</td><td>50.313</td><td>50.318</td></tr>
+            <tr><td>2 m</td><td>144.174</td><td>144.170</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><em>All frequencies in MHz.</em></p>
+      <p>FT4 uses 7.5-second slots and its own dial frequencies. 160 m and 60 m have no FT4 allocation, so those bands disappear from the picker in FT4 — and switching to FT4 while on one of them moves you to 20 m.</p>
+      <p>You can have the app open on a specific band and mode every time, or return to where you left off, using <strong>Default Band</strong> and <strong>Default Mode</strong> in Settings.</p>
+    </section>
+
+    <!-- 10 -->
+    <section class="guide-section" id="10-tuning-your-antenna">
+      <h2><a href="#10-tuning-your-antenna"><span class="section-num">10.</span> Tuning your antenna</a></h2>
+      <p>The <strong>Tune</strong> screen transmits a steady carrier so you can adjust an antenna or tuner.</p>
+      <p>Set a duration (5 seconds to 2 minutes, or Infinite), then <strong>Start Tuning</strong>. The screen goes black with a countdown large enough to read from across a field, plus <strong>Cancel</strong> and <strong>Extend</strong> buttons. The screen is kept awake while tuning, since you are probably not holding the device.</p>
+      <ul>
+        <li>The carrier uses whatever transmit frequency is shown; the screen refreshes the clear-frequency suggestion when you open it so the displayed frequency is the one that will actually be sent.</li>
+        <li>All automatic transmission is suppressed while tuning.</li>
+        <li>Leaving the screen cancels the carrier. The transmitter is never left keyed with no visible countdown or stop button.</li>
+        <li>Tuning works even from a cold start — it will bring the audio up on its own and put it back afterwards.</li>
+      </ul>
+      <blockquote>
+        <p><strong>Be considerate.</strong> Find a clear frequency before you key up. A tuning carrier on top of someone's QSO is unmistakable.</p>
+      </blockquote>
+    </section>
+
+    <!-- 11 -->
+    <section class="guide-section" id="11-pota-activations">
+      <h2><a href="#11-pota-activations"><span class="section-num">11.</span> POTA activations</a></h2>
+      <p>Turn on <strong>POTA Activation</strong> in the control panel and the app switches your CQ to <code>CQ POTA</code>, scopes your log to the activation, and — if you want — spots you to the POTA cluster.</p>
+
+      <h3 id="setting-the-park"><a href="#setting-the-park">Setting the park</a></h3>
+      <p>Type the reference (<code>US-1234</code>) and the app checks it against pota.app as you type:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Indicator</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td>Spinner</td><td>Checking.</td></tr>
+            <tr><td>Green tick + park name</td><td>Confirmed.</td></tr>
+            <tr><td>Red cross</td><td>No park with that reference.</td></tr>
+            <tr><td>Grey Wi-Fi-slash</td><td>Could not reach POTA. The reference is accepted anyway and spotting still works.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Tap the <strong>location-magnifier button</strong> to list parks in your grid square, nearest first. Pick one and the reference fills in for you.</p>
+
+      <h3 id="selfspotting"><a href="#selfspotting">Self-spotting</a></h3>
+      <p>With <strong>Self-spot to POTA</strong> enabled (Settings › Spotting, on by default), the app posts to the cluster automatically:</p>
+      <ul>
+        <li>when you start calling CQ,</li>
+        <li>when you change band or mode (a QSY spot),</li>
+        <li>every ten minutes while you are running, so your spot stays near the top,</li>
+        <li>and once when the activation ends.</li>
+      </ul>
+      <p>A status line under the park field confirms each spot. Turn the setting off to activate without spotting at all — everything else about the activation still works.</p>
+
+      <h3 id="the-activation-counter"><a href="#the-activation-counter">The activation counter</a></h3>
+      <p>While an activation is running, the log's summary bar grows a <strong>This park</strong> counter: red below five contacts, yellow from five, green at ten — the POTA minimum for a valid activation.</p>
+      <p>It counts <strong>credited</strong> contacts, which is not the same as rows in the log. POTA gives one credit per callsign per band per mode per UTC day, so:</p>
+      <ul>
+        <li>Working the same station again on another band or mode counts again.</li>
+        <li>Working the same station twice on the same band and mode does not — the second row is flagged <strong>DUP</strong> in the log.</li>
+        <li>At 0000Z the counter restarts, because POTA scores each day separately. An activation that runs through midnight needs a fresh ten contacts on the new day.</li>
+      </ul>
+      <p>The automatic modes use the same rule: during an activation they will re-work a station from yesterday, because that is a new credit.</p>
+
+      <h3 id="changing-parks"><a href="#changing-parks">Changing parks</a></h3>
+      <p>Confirm a different reference while an activation is running and the app treats it as two separate activations: the old one gets a closing spot, a "POTA Ended" divider in the log, and its own export entry; the new one starts fresh. Fixing a typo before you have spotted or logged anything just corrects the reference in place.</p>
+
+      <h3 id="if-the-app-is-interrupted"><a href="#if-the-app-is-interrupted">If the app is interrupted</a></h3>
+      <p>iOS cannot tell a deliberate quit from a background kill, so if you relaunch within an hour of an activation that was never closed out, the app asks: <strong>"Are you still at US-1234?"</strong></p>
+      <ul>
+        <li><strong>Resume</strong> picks the activation back up — contacts keep landing in the same run and the counter continues from where it was.</li>
+        <li><strong>End It</strong> closes it out and leaves POTA off.</li>
+      </ul>
+      <p>Activations left open by older sessions are closed out automatically at launch, stamped with their last contact rather than the current time.</p>
+
+      <h3 id="exporting-an-activation"><a href="#exporting-an-activation">Exporting an activation</a></h3>
+      <p>The log's export menu lists each activation separately, so you can send POTA exactly the contacts for that park and nothing else. Exporting the activation that is still running asks whether this ends it — <strong>Export &amp; End Activation</strong> closes it out and sends the closing spot; <strong>Export &amp; Keep Activating</strong> is just a snapshot.</p>
+    </section>
+
+    <!-- 12 -->
+    <section class="guide-section" id="12-the-log">
+      <h2><a href="#12-the-log"><span class="section-num">12.</span> The log</a></h2>
+
+      <h3 id="the-summary-bar"><a href="#the-summary-bar">The summary bar</a></h3>
+      <p><strong>Total</strong>, <strong>Today</strong>, <strong>DXCC</strong> (unique entities worked), and <strong>This park</strong> during an activation. <strong>New QSO</strong> opens a manual entry form.</p>
+      <p>If you have configured any logbook services, a small legend shows a coloured dot per service — QRZ green, Cloudlog blue — matching the dots in the Upload column.</p>
+
+      <h3 id="the-table"><a href="#the-table">The table</a></h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Column</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Date / UTC</td><td>Always UTC.</td></tr>
+            <tr><td>Call</td><td>With a <strong>DUP</strong> badge when the contact shares POTA credit with another contact in the same activation. Both rows of a pair are flagged. A DUP is still a real contact and is exported normally.</td></tr>
+            <tr><td>Band / Mode</td><td></td></tr>
+            <tr><td>Sent / Rcvd</td><td>Signal reports.</td></tr>
+            <tr><td>Grid</td><td>Their grid.</td></tr>
+            <tr><td>Country / Name</td><td>Resolved from the callsign offline, and enriched from a lookup service if one is configured.</td></tr>
+            <tr><td>Upload</td><td>One dot per configured logbook: filled when that contact has been uploaded there, hollow when it has not. An imported contact shows a download arrow instead — imports are never uploaded anywhere.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Search</strong> filters by callsign, band, country or name.</p>
+
+      <h3 id="dividers"><a href="#dividers">Dividers</a></h3>
+      <p>The log grows horizontal dividers to mark events, so you can see at a glance what belongs to what:</p>
+      <ul>
+        <li><strong>Exported 42 entries · 12 Aug 2026 14:03Z</strong> — where an export ran. Anything above the line was logged since.</li>
+        <li><strong>POTA Start US-1234</strong> (green) and <strong>POTA Ended US-1234</strong> (yellow) — the boundaries of an activation.</li>
+      </ul>
+      <p>Dividers are hidden while searching.</p>
+
+      <h3 id="exporting"><a href="#exporting">Exporting</a></h3>
+      <p>The export menu offers:</p>
+      <ul>
+        <li><strong>Export All</strong> — the whole log.</li>
+        <li><strong>Export All Since Last</strong> — everything logged since the previous export.</li>
+        <li><strong>One entry per POTA activation</strong> — scoped exactly to that activation's contacts, with the park reference in the filename. A tick marks activations already exported.</li>
+      </ul>
+      <p>Files are standard ADIF (<code>.adi</code>) and go through the normal iOS share sheet — AirDrop, Mail, Files, whatever you use. The "Exported" divider is only recorded if the share actually completes, so backing out of the share sheet does not leave a phantom mark.</p>
+
+      <h3 id="importing"><a href="#importing">Importing</a></h3>
+      <p><strong>Import ADIF</strong> reads an <code>.adi</code> or <code>.adif</code> file. The result tells you how many contacts were imported and how many were skipped as duplicates, as non-FT8/FT4 modes, or as malformed records. Imported contacts count toward your duplicate checking — they are your own history of who you have worked — but are never uploaded to a logbook.</p>
+
+      <h3 id="uploading-to-a-logbook"><a href="#uploading-to-a-logbook">Uploading to a logbook</a></h3>
+      <p>Configure QRZ and/or Cloudlog in Settings and turn on their auto-log toggles, and each contact uploads in the background as it is logged. Nothing about that ever blocks operating; a failed upload just leaves the contact pending.</p>
+      <p>The cloud button in the toolbar shows how many contacts are still pending and uploads them on demand. With more than one service configured it becomes a menu so you can upload to one or all.</p>
+
+      <h3 id="selecting-contacts"><a href="#selecting-contacts">Selecting contacts</a></h3>
+      <p><strong>Select</strong> enters selection mode, where you can upload, export or delete a group of contacts. Services the selection is already fully uploaded to are omitted from the upload menu. Deletion asks for confirmation and cannot be undone.</p>
+
+      <h3 id="manual-entry"><a href="#manual-entry">Manual entry</a></h3>
+      <p><strong>New QSO</strong> opens a form for contacts made outside the app, pre-filled from your most recent exchange where possible. Callsign and both reports are required; date and time are UTC. The saved contact is enriched with country and lookup data and uploaded to your logbooks just like an automatic one.</p>
+    </section>
+
+    <!-- 13 -->
+    <section class="guide-section" id="13-mapping">
+      <h2><a href="#13-mapping"><span class="section-num">13.</span> Mapping</a></h2>
+      <p>One map, three things it can show. Pick with the dropdown at the top left.</p>
+      <p><strong>Live Spots</strong> — stations that have reported hearing <em>you</em> on pskreporter.info, for the current band and mode. Refreshed every five minutes automatically; the refresh button forces it. Dots are coloured by the report they gave you: blue weak, green good, orange strong.</p>
+      <p><strong>Stations Heard</strong> — stations <em>you</em> decoded, coloured the same way, over a window you choose: 5, 15, 30 or 60 minutes, or the whole session. Only stations whose grid the app has seen can be plotted.</p>
+      <p><strong>Contacts Logged</strong> — every grid in your log, across all bands, coloured by band. A grid worked on several bands fans out into a small cluster as you zoom in. The window here runs over your whole logbook, not just this session.</p>
+      <p>The map centres on your grid when it opens. Which mode it opens in is a setting — <strong>Settings › Display › Default Map View</strong>.</p>
+    </section>
+
+    <!-- 14 -->
+    <section class="guide-section" id="14-settings-reference">
+      <h2><a href="#14-settings-reference"><span class="section-num">14.</span> Settings reference</a></h2>
+
+      <h3 id="station"><a href="#station">Station</a></h3>
+      <ul>
+        <li><strong>Callsign</strong> — required to transmit.</li>
+        <li><strong>Grid Square</strong> — required to transmit. Toggle <strong>Use device GPS</strong> to derive it from your position, or turn GPS off and type it.</li>
+        <li><strong>TX Power (W)</strong> — optional; recorded in your log and exports.</li>
+        <li><strong>CQ Addendum</strong> — inserts a word into your CQ: <code>IOTA</code>, <code>POTA</code>, <code>SOTA</code>, <code>DX</code>, <code>QRP</code>, or custom text. Your CQ becomes e.g. <code>CQ POTA KB0RB DM04</code>.</li>
+      </ul>
+
+      <h3 id="display"><a href="#display">Display</a></h3>
+      <ul>
+        <li><strong>Appearance</strong> — Dark, Light, or System.</li>
+        <li><strong>Distance Units</strong> — Automatic (follows the device), Miles, or Kilometers.</li>
+        <li><strong>Default Map View</strong> — which Mapping mode to open in.</li>
+        <li><strong>Only show CQs</strong> — the launch state of the band-activity filter: On, Off, or as you left it.</li>
+        <li><strong>Keep Screen On</strong> — stops the device sleeping while the app is open. Recommended for long sessions.</li>
+        <li><strong>Auto-calibrate Waterfall</strong> — on by default; the app tracks the band noise and adjusts the display continuously. Turn it off for a fixed floor you set yourself, either with the slider here or by dragging vertically on the waterfall. Always starts on at launch, since a floor from last night's band conditions is rarely right today.</li>
+      </ul>
+
+      <h3 id="operations"><a href="#operations">Operations</a></h3>
+      <ul>
+        <li><strong>Frequency Hold</strong> — see <a href="#8-choosing-your-transmit-frequency">Choosing your transmit frequency</a>.</li>
+        <li><strong>Default Band</strong> / <strong>Default Mode</strong> — open on a specific band and mode, or return to whatever you last used.</li>
+        <li><strong>Max retransmissions</strong> — 1 to 99, default 10.</li>
+        <li><strong>Allow duplicates in auto modes</strong> — off by default, so Hunter and Gatherer skip stations already worked on the current band and mode. The same station on a different band or mode is a new contact and is still worked. Turn on to work duplicates outright.</li>
+        <li><strong>Gatherer Call Order</strong> — First to reply, Strongest signal, or Furthest distance.</li>
+        <li><strong>Tune Duration</strong> — how long the tuning carrier runs before stopping itself.</li>
+      </ul>
+
+      <h3 id="spotting"><a href="#spotting">Spotting</a></h3>
+      <ul>
+        <li><strong>Upload spots to PSKReporter</strong> — off by default. Reports the stations you decode to pskreporter.info so they can see who heard them. Requires a callsign and grid, and makes both public.</li>
+        <li><strong>Self-spot to POTA</strong> — on by default; posts self-spots while activating. Makes your callsign, grid and frequency public.</li>
+      </ul>
+
+      <h3 id="cq-filtering"><a href="#cq-filtering">CQ Filtering</a></h3>
+      <p>Controls which CQ calls the <strong>automatic</strong> modes will engage with, based on the word in the CQ. Manual operating is never filtered.</p>
+      <ul>
+        <li><strong>All</strong> — respond to any CQ.</li>
+        <li><strong>Exclude</strong> — ignore stations calling with the selected words. Useful for staying out of a contest you are not in.</li>
+        <li><strong>Only</strong> — engage only stations calling with the selected words. Useful for hunting parks or summits.</li>
+      </ul>
+      <p>Tick the words to match from the standard list, and add your own (up to 4 characters) for contests the app does not know about. Custom entries appear in blue and can be edited or swiped away.</p>
+
+      <h3 id="audio"><a href="#audio">Audio</a></h3>
+      <p>Shows the current input and output devices and warns while a device change is settling. Plug your interface in and the app finds it — nothing to select.</p>
+
+      <h3 id="callsign-lookup-amp-logging"><a href="#callsign-lookup-amp-logging">Callsign Lookup &amp; Logging</a></h3>
+      <p>Three services, three different jobs. All credentials are stored in the device keychain and never leave it except to the service they belong to.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Service</th><th>Used for</th><th>Needs</th></tr></thead>
+          <tbody>
+            <tr><td><strong>QRZ Logbook API key</strong></td><td>Uploading your contacts to your QRZ logbook</td><td>The API key from your QRZ logbook settings</td></tr>
+            <tr><td><strong>QRZ username + password</strong></td><td>Looking up names, QTH and grids</td><td>A QRZ XML subscription</td></tr>
+            <tr><td><strong>HamQTH username + password</strong></td><td>Looking up names, QTH and grids, worldwide</td><td>A free HamQTH account</td></tr>
+            <tr><td><strong>Callook.info</strong></td><td>US callsign lookups</td><td>Nothing — used automatically</td></tr>
+            <tr><td><strong>Cloudlog URL + API key</strong></td><td>Uploading contacts to Cloudlog or a compatible logbook</td><td>Server URL, API key, and station profile ID</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Lookups are tried in order: QRZ, then HamQTH, then Callook. Each service has a <strong>Verify</strong> or <strong>Test Login</strong> button so you can confirm the credentials before you rely on them, and each logbook has its own <strong>Auto-Log</strong> toggle, which stays disabled until the credentials are filled in.</p>
+      <blockquote>
+        <p><strong>A note on Cloudlog and POTA:</strong> Cloudlog applies the park reference from the station profile you point at, overriding the one in the uploaded contact. If you activate several parks, make sure the station profile matches, or export ADIF for POTA instead.</p>
+      </blockquote>
+
+      <h3 id="about"><a href="#about">About</a></h3>
+      <p>Author and version, plus:</p>
+      <ul>
+        <li><strong>CTY Data</strong> — the DXCC country file that resolves entities offline, with its release date and a refresh button. <strong>Auto-update CTY Data</strong> checks weekly in the background. Country data comes from Jim Reisert AD1C's cty.csv.</li>
+        <li>Links to connection and cabling guides, field notes, and e-mail support.</li>
+        <li><strong>Re-run first-time Setup</strong>.</li>
+        <li><strong>Diagnostics</strong> and <strong>Licenses</strong>.</li>
+      </ul>
+    </section>
+
+    <!-- 15 -->
+    <section class="guide-section" id="15-diagnostics">
+      <h2><a href="#15-diagnostics"><span class="section-num">15.</span> Diagnostics</a></h2>
+      <p>Read-only. Nothing here changes how the app behaves — it exists so a problem can be identified from a screenshot.</p>
+      <p><strong>Device Clock.</strong> The offset between your device clock and network time. Anything beyond ±0.2 s is worth fixing in iOS Settings › General › Date &amp; Time: a fast clock shifts your slot alignment and inflates the DT of every station you hear, which looks identical to an audio problem but is not.</p>
+      <p><strong>Audio Clock.</strong> External USB interfaces have their own crystal, so their sample rate is never exactly what they claim. A steady positive deviation means the capture clock runs fast. "Projected drift" is how far your slot alignment would move in an hour. Small values are normal and compensated for.</p>
+      <p><strong>Timing (DT).</strong> Raw DT is what the decoder sees; compensated DT is what the band activity list shows after subtracting the app's own audio latency. Drift is how much the raw figure has moved since early in the session.</p>
+      <p><strong>Audio Route.</strong> Which devices are actually being used for input and output.</p>
+      <p><strong>Transmit.</strong> Counters for transmissions started and completed. <strong>"Never completed"</strong> is the number to watch: it counts transmissions whose audio was handed to the system but never reported finishing — the signature of a radio's USB CODEC stalling.</p>
+      <p><strong>Audio Session.</strong> Interruption and recovery counters, for diagnosing what happened after a phone call or a Siri activation.</p>
+    </section>
+
+    <!-- 16 -->
+    <section class="guide-section" id="16-troubleshooting">
+      <h2><a href="#16-troubleshooting"><span class="section-num">16.</span> Troubleshooting</a></h2>
+
+      <h3 id="nothing-is-decoding"><a href="#nothing-is-decoding">Nothing is decoding</a></h3>
+      <p>Check the status pill reads RX, not Stopped. Check the RX Level meter is moving — if it reads QUIET, the audio is not reaching the app: check the cable, the interface, and that iOS granted microphone access. Check you are on the right dial frequency for the band and mode shown above the waterfall, and that your radio is in USB.</p>
+
+      <h3 id="i-decode-fine-but-nobody-answers-me"><a href="#i-decode-fine-but-nobody-answers-me">I decode fine but nobody answers me</a></h3>
+      <p>Your radio is probably not keying. Greyline transmits audio only — VOX or data-VOX must be enabled on the radio. Confirm the yellow rows appear in the band activity list when you transmit (that means the app sent audio) and watch for RF output on the radio.</p>
+
+      <h3 id="every-station-shows-a-large-dt"><a href="#every-station-shows-a-large-dt">Every station shows a large DT</a></h3>
+      <p>That is usually your clock, not theirs. Open <a href="#15-diagnostics">Diagnostics</a> and check the clock offset.</p>
+
+      <h3 id="the-waterfall-is-all-one-colour"><a href="#the-waterfall-is-all-one-colour">The waterfall is all one colour</a></h3>
+      <p>Either the level is far too high (everything red — turn the audio down at the radio) or the floor is set wrong. Turn <strong>Auto-calibrate Waterfall</strong> back on, or drag vertically on the waterfall to adjust.</p>
+
+      <h3 id="an-audio-device-disconnected-alert-appeared"><a href="#an-audio-device-disconnected-alert-appeared">An "Audio Device Disconnected" alert appeared</a></h3>
+      <p>iOS fell back to the built-in microphone and speaker, usually because the interface was unplugged or lost power. Reconnect it, or choose <strong>Use Internal Audio</strong> to carry on with the device's own audio.</p>
+
+      <h3 id="the-app-stopped-decoding-while-i-was-doing-something-else"><a href="#the-app-stopped-decoding-while-i-was-doing-something-else">The app stopped decoding while I was doing something else</a></h3>
+      <p>Greyline only runs while it is on screen. Come back to it and it restarts. Turn on <strong>Keep Screen On</strong> so the device does not sleep mid-session.</p>
+
+      <h3 id="hunter-keeps-skipping-a-station-i-want-to-work"><a href="#hunter-keeps-skipping-a-station-i-want-to-work">Hunter keeps skipping a station I want to work</a></h3>
+      <p>It is either already in your log for this band and mode (the CQ row will be green), excluded by the CQ filter, or it timed out on Hunter earlier in this session. Tap the row to work it manually — a manual tap ignores every filter.</p>
+
+      <h3 id="gatherer-left-someone-unworked"><a href="#gatherer-left-someone-unworked">Gatherer left someone unworked</a></h3>
+      <p>Check the queue card. Callers already worked on this band and mode, callers excluded by the CQ filter, and callers Gatherer recently bailed on are not queued.</p>
+
+      <h3 id="a-contact-i-made-is-missing-from-the-log"><a href="#a-contact-i-made-is-missing-from-the-log">A contact I made is missing from the log</a></h3>
+      <p>Contacts are logged when the exchange completes from your side. If it stopped earlier than that, use <strong>New QSO</strong> in the log — the form pre-fills from the most recent exchange.</p>
+    </section>
+
+    <!-- 17 -->
+    <section class="guide-section" id="17-glossary">
+      <h2><a href="#17-glossary"><span class="section-num">17.</span> Glossary</a></h2>
+      <dl style="display:flex; flex-direction:column; gap:0.85rem;">
+        <div>
+          <dt style="font-weight:600; color:var(--text); font-size:0.95rem;">Addendum</dt>
+          <dd style="color:var(--muted); font-size:0.9rem; padding-left:1rem;">The optional word after CQ (<code>CQ POTA W6ABC</code>) declaring what you are doing.</dd>
+        </div>
+        <div>
+          <dt style="font-weight:600; color:var(--text); font-size:0.95rem;">Close-out</dt>
+          <dd style="color:var(--muted); font-size:0.9rem; padding-left:1rem;">Resending a final <code>RR73</code> or <code>73</code> to a station whose exchange did not confirm, after they ask again.</dd>
+        </div>
+        <div>
+          <dt style="font-weight:600; color:var(--text); font-size:0.95rem;">DT</dt>
+          <dd style="color:var(--muted); font-size:0.9rem; padding-left:1rem;">The difference between when a station's transmission arrived and when the slot started. A measure of their timing accuracy.</dd>
+        </div>
+        <div>
+          <dt style="font-weight:600; color:var(--text); font-size:0.95rem;">Dupe / DUP</dt>
+          <dd style="color:var(--muted); font-size:0.9rem; padding-left:1rem;">A contact that does not earn fresh POTA credit because you already worked that station on the same band, mode and UTC day.</dd>
+        </div>
+        <div>
+          <dt style="font-weight:600; color:var(--text); font-size:0.95rem;">Grid square (Maidenhead locator)</dt>
+          <dd style="color:var(--muted); font-size:0.9rem; padding-left:1rem;">A short code for your location, e.g. <code>DM04</code>.</dd>
+        </div>
+        <div>
+          <dt style="font-weight:600; color:var(--text); font-size:0.95rem;">Passband</dt>
+          <dd style="color:var(--muted); font-size:0.9rem; padding-left:1rem;">The 200–3000 Hz range of audio the app listens to and transmits in. Your station's frequency inside it is separate from your dial frequency.</dd>
+        </div>
+        <div>
+          <dt style="font-weight:600; color:var(--text); font-size:0.95rem;">Roger (<code>R-12</code>)</dt>
+          <dd style="color:var(--muted); font-size:0.9rem; padding-left:1rem;">A signal report with an acknowledgement attached: "I got your report, and here is mine."</dd>
+        </div>
+        <div>
+          <dt style="font-weight:600; color:var(--text); font-size:0.95rem;">RR73</dt>
+          <dd style="color:var(--muted); font-size:0.9rem; padding-left:1rem;">"Received, roger, and 73." The CQ-ing station's confirmation that the contact is complete.</dd>
+        </div>
+        <div>
+          <dt style="font-weight:600; color:var(--text); font-size:0.95rem;">Slot</dt>
+          <dd style="color:var(--muted); font-size:0.9rem; padding-left:1rem;">The fixed 15-second (FT8) or 7.5-second (FT4) transmit window, aligned to UTC. Stations alternate slots; one transmits while the other listens.</dd>
+        </div>
+        <div>
+          <dt style="font-weight:600; color:var(--text); font-size:0.95rem;">SNR</dt>
+          <dd style="color:var(--muted); font-size:0.9rem; padding-left:1rem;">Signal-to-noise ratio in dB, reported the way WSJT-X reports it, so the figures are directly comparable with other stations'.</dd>
+        </div>
+      </dl>
+
+    </section>
+
+    <!-- Credits -->
+    <section class="guide-section" id="credits">
+      <h2><a href="#credits">Credits</a></h2>
+      <p>Greyline FT8 is built by Jon Schulman, KB0RB.</p>
+      <p>Decoding and encoding use <strong>ft8_lib</strong> by Peter Backlund (kgoba), MIT licensed. Maps are rendered by <strong>MapLibre Native</strong> with tiles from <strong>OpenFreeMap</strong> and data from <strong>OpenStreetMap</strong> contributors. DXCC country data is <strong>cty.csv</strong> by Jim Reisert AD1C, with data from Club Log. The FT8 protocol itself is the work of Joe Taylor K1JT and the WSJT-X team.</p>
+      <p>Questions, bug reports and photos from the field are always welcome at <a href="mailto:support@greylineft8.com">support@greylineft8.com</a>.</p>
+      <p><em>73 de KB0RB</em></p>
+    </section>
+
+  </div><!-- /.guide-content -->
+</div><!-- /.guide-layout -->
+
+<footer>
+  <p><a href="index.html">← Greyline FT8 Home</a> &nbsp;·&nbsp; <a href="radios.html">Connecting to Radios</a> &nbsp;·&nbsp; <a href="changelog.html">Release Notes</a> &nbsp;·&nbsp; <a href="fieldnotes.html">Field Notes</a> &nbsp;·&nbsp; &copy; 2026 Greyline FT8</p>
+</footer>
+
+<script>
+  // Mobile TOC toggle
+  (function() {
+    var btn = document.getElementById('toc-toggle');
+    var body = document.getElementById('toc-body');
+    btn.addEventListener('click', function() {
+      var open = body.classList.toggle('open');
+      btn.classList.toggle('open', open);
+    });
+  })();
+
+  // Active TOC highlight on scroll
+  (function() {
+    var sections = document.querySelectorAll('.guide-section');
+    var links = document.querySelectorAll('.toc-list a');
+    if (!links.length) return;
+
+    function onScroll() {
+      var scrollY = window.scrollY + 100;
+      var current = '';
+      sections.forEach(function(s) {
+        if (s.offsetTop <= scrollY) current = s.id;
+      });
+      links.forEach(function(a) {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+
+</body>
+</html>
