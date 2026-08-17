@@ -257,7 +257,8 @@
     <label for="version-select">Jump to version:</label>
     <select id="version-select" onchange="document.getElementById(this.value).scrollIntoView({behavior:'smooth'})">
       <option value="" disabled selected>Select a version…</option>
-      <option value="v1-1">1.1 — Latest</option>
+      <option value="v1-2">1.2 — Latest</option>
+      <option value="v1-1">1.1</option>
       <option value="v1-0-14">1.0.14</option>
       <option value="v1-0-13">1.0.13</option>
       <option value="v1-0-12">1.0.12</option>
@@ -275,11 +276,54 @@
     </select>
   </div>
 
+  <!-- ── 1.2 ── -->
+  <div class="release" id="v1-2">
+    <div class="release-header">
+      <span class="release-version"><a href="#v1-2">Version 1.2</a></span>
+      <span class="release-tag">Latest</span>
+    </div>
+
+    <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">The one that makes logging even more awesome</p>
+
+    <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 1rem;">Be sure to check the release notes for prior versions to see what's new! I update the app regularly in response to feedback like yours. Read them at <a href="https://greylineft8.com/changelog.html">greylineft8.com/changelog.html</a>.</p>
+
+    <div class="release-section-title">Shoutouts</div>
+    <ul class="shoutout-list">
+      <li><span class="shoutout-call">ON4LDZ</span><span>Catching some odd behavior in how we assessed duplicate contacts</span></li>
+      <li><span class="shoutout-call">N2YCH</span><span>Pointing out an inconsistency in when we consider a contact loggable</span></li>
+      <li><span class="shoutout-call">K4RZO</span><span>Mentioning that editing filled text fields was annoying</span></li>
+    </ul>
+
+    <div class="release-section-title">Features</div>
+    <ul>
+      <li>Introducing a comprehensive <a href="https://greylineft8.com/userguide.html">User Guide</a>! You'll also find a button in the Settings view to take you there.</li>
+      <li>Validated the Yaesu FTdx10 as supported.</li>
+      <li>Gatherer mode now logs upon sending <code>RR73</code> rather than waiting for the <code>73</code>, which is consistent with other FT8 applications.</li>
+      <li>Duplicate log entries are now flagged during a POTA activation with an orange <strong>DUP</strong> indicator. Duplicates during normal operation are not flagged, but this helps you avoid accidentally submitting logs with dupes.</li>
+      <li>During a POTA activation, a new <strong>This Park</strong> counter appears in the logging view — red for 0–4 contacts, yellow for 5–9, and green at 10. Only non-duplicate entries count, so green means you're good to go.</li>
+      <li>Duplicates are now assessed by callsign, band, <em>and</em> mode — not just callsign. This is reflected in the green rows in the Band Activity view and both automatic modes. If you've worked KB0RB on 20m FT8, they won't show as green on 30m FT4, and the automatic modes will work them again.</li>
+      <li>The app now prompts you to resume a POTA activation already in progress if you quit and relaunch. You shouldn't have to restart an activation just because the app was quit.</li>
+      <li>New support for multiple POTA log exports — if you're doing multiple activations in a day, your logs are separated properly with one-touch access to each.</li>
+      <li>Exporting a POTA log while an activation is still running now prompts you to end the activation in addition to exporting.</li>
+      <li>Added an advanced algorithm to detect and prioritize finishing QSOs stuck in the <code>RR73</code> phase, so almost-done contacts have a better chance of completing.</li>
+      <li>Tapping into any free text field with text in it auto-selects the text, to make it easier to replace</li>
+    </ul>
+
+    <div class="release-section-title">Fixes</div>
+    <ul>
+      <li>The iPhone control sheet now opens at full height rather than half height — easier to use and less cramped.</li>
+      <li>When the retransmission limit expired in Gatherer mode, a TX slot was sometimes skipped before returning to CQ. Greyline now returns to CQ as soon as possible.</li>
+      <li>The retransmission counter (number in parentheses after the "Next TX" field) wasn't being shown in the collapsed view. Now it is.</li>
+      <li>The "Next TX" message was sometimes updated too early, making it appear you were sending a message you hadn't sent yet. The behavior is now much less confusing.</li>
+    </ul>
+
+    <p class="release-footer">Whew. That's a lot of stuff — that's why this is a 1.2 and not just a patch release. Keep the feedback and suggestions coming! Thanks for bringing me along with you and 73!</p>
+  </div>
+
   <!-- ── 1.1 ── -->
   <div class="release" id="v1-1">
     <div class="release-header">
       <span class="release-version"><a href="#v1-1">Version 1.1</a></span>
-      <span class="release-tag">Latest</span>
     </div>
 
     <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">The one that's the biggest update yet</p>
