@@ -342,7 +342,9 @@
     <li class="nav-hide-sm"><a href="userguide.html">User Guide</a></li>
     <li class="nav-hide-sm"><a href="changelog.html">Release Notes</a></li>
     <li class="nav-hide-sm"><a href="fieldnotes.html">Field Notes</a></li>
+
     <li><a href="privacy.html">Privacy</a></li>
+    <li class="nav-hide-sm"><a href="https://ko-fi.com/kb0rb" target="_blank" rel="noopener" style="color: var(--accent);">Support Greyline</a></li>
   </ul>
 </nav>
 <script>
@@ -535,6 +537,22 @@
       <p>See <a href="#11-pota-activations">POTA activations</a>.</p>
       <h4>Mode chips</h4>
       <p>Standard / Hunter / Gatherer, grouped under "Manual" and "Automatic" brackets. Hunter and Gatherer are greyed out until a callsign and grid are set.</p>
+      <h4>Call CQ on</h4>
+      <p>A dropdown reading <strong>Even slots</strong> or <strong>Odd slots</strong>. It decides which half of the cycle your CQ goes out on:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Selection</th><th>FT8</th><th>FT4</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Even slots</strong></td><td><code>:00</code> and <code>:30</code></td><td><code>:00</code>, <code>:15</code>, <code>:30</code>, <code>:45</code></td></tr>
+            <tr><td><strong>Odd slots</strong></td><td><code>:15</code> and <code>:45</code></td><td><code>:07.5</code>, <code>:22.5</code>, <code>:37.5</code>, <code>:52.5</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Even slots is the default, and is what earlier versions always did.</p>
+      <p><strong>It only applies when you start the contact.</strong> When you answer somebody, you transmit on the opposite half of the cycle to them. That is how FT8 works, and it is their choice rather than yours. So if you have chosen Odd slots and then reply to a station calling CQ on odd, you will correctly answer on even. The setting is about your CQ, which is why it is labelled that way.</p>
+      <p><strong>The dropdown greys out whenever you are armed to transmit</strong>, meaning while you are calling CQ, mid-exchange, in Hunter or Gatherer, or sending any message. Stop what you are doing to change it, and the new choice takes effect from your next CQ. This is deliberate: changing halfway through a contact would move your transmissions onto the slot your partner is using, and neither of you would hear the other again.</p>
+      <p>Your choice is remembered between launches.</p>
+      <p>Most operators never need to touch this. Reach for it when the half you are on is crowded, or when you have agreed a slot with someone you are trying to work.</p>
       <h4>The main button</h4>
       <p>What it does depends on where you are:</p>
       <div class="table-wrap">
@@ -667,6 +685,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
     <section class="guide-section" id="9-bands-and-modes">
       <h2><a href="#9-bands-and-modes"><span class="section-num">9.</span> Bands and modes</a></h2>
       <p>The band picker sets the audio passband the app expects and the dial frequency it records in your log. <strong>You still have to tune your radio to the dial frequency yourself</strong>, and the bar above the waterfall shows it, e.g. <code>20m FT8 · 14.0740 MHz USB</code>. All bands are upper sideband.</p>
+      <p>The frequencies below are the conventional ones the app uses by default. If you work somewhere else on a band, see <a href="#9-bands-and-modes">Working off the usual frequency</a> further down.</p>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Band</th><th>FT8</th><th>FT4</th></tr></thead>
@@ -689,6 +708,20 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <p><em>All frequencies in MHz.</em></p>
       <p>FT4 uses 7.5-second slots and its own dial frequencies. 160 m and 60 m have no FT4 allocation, so those bands disappear from the picker in FT4, and switching to FT4 while on one of them moves you to 20 m.</p>
       <p>You can have the app open on a specific band and mode every time, or return to where you left off, using <strong>Default Band</strong> and <strong>Default Mode</strong> in Settings.</p>
+      <h3 id="working-off-the-usual-frequency"><a href="#working-off-the-usual-frequency">Working off the usual frequency</a></h3>
+      <p>Sometimes the conventional dial frequency is not where the activity is. A region has settled on something else, a contest specifies a frequency, or a group has agreed one for the evening.</p>
+      <p><strong>Tap the band bar above the waterfall</strong> to set your own dial frequency for the band you are on.</p>
+      <p><strong>Type it in either MHz or kHz.</strong> <code>7.071</code> and <code>7071</code> both mean the same thing, so you can enter whichever form your radio displays without converting. When you type kHz the sheet confirms what it will use, e.g. "Will use 7.0710 MHz", so there is no guesswork.</p>
+      <p>Once set, the band bar turns orange and gains a <strong>CUSTOM</strong> chip, so you can see at a glance that you are not on the usual frequency. The same chip appears next to the band picker in the control panel, and bands with a custom frequency are marked in the band menu itself, so you can tell before you switch to one.</p>
+      <p>This matters because that frequency is what the app reports everywhere: the <strong>FREQ</strong> field of every contact you log, the frequency in your <strong>POTA self-spot</strong>, and your <strong>PSKReporter</strong> reception reports. It is also what the live spots map filters on. Setting it correctly is the difference between hunters finding you and hunters looking in the wrong place.</p>
+      <p>A few details:</p>
+      <ul>
+        <li><strong>It is per band and per mode.</strong> A custom 40 m frequency for FT8 does not carry over to FT4, because the two use different dial frequencies anyway. Set each one you need.</li>
+        <li><strong>It does not tune your radio.</strong> As everywhere else in the app, you still set the dial on the radio yourself. This tells the app what you have done.</li>
+        <li><strong>Reset to default</strong> is in the same dialog once a custom frequency is set.</li>
+        <li>The app checks your entry against the widest limits of the band and refuses something well outside them, which catches a mistyped digit such as <code>7.71</code> for <code>7.071</code>. The check applies the same either way you type it, so <code>7710</code> is refused just as <code>7.71</code> is. It is not checking your licence privileges, and it will not stop you using a frequency that is valid in your country but not in others.</li>
+      </ul>
+      <p>By default, <strong>custom frequencies are cleared each time the app starts</strong>. This is deliberate: a frequency set for one contest should not quietly follow you into next week's operating and mis-report every contact. If you would rather keep them between sessions, turn off <strong>Reset custom frequencies on launch</strong> in Settings, and get into the habit of checking the band bar before you transmit.</p>
     </section>
 
     <!-- 10. Tuning your antenna -->
@@ -839,6 +872,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
         <li><strong>Frequency Hold</strong>: see <a href="#8-choosing-your-transmit-frequency">Choosing your transmit frequency</a>.</li>
         <li><strong>Default Band</strong> and <strong>Default Mode</strong>: open on a specific band and mode, or return to whatever you last used.</li>
         <li><strong>Max retransmissions</strong>: 1 to 99, default 10.</li>
+        <li><strong>Reset custom frequencies on launch</strong>: on by default, clearing any custom dial frequencies each time the app starts. Turn it off to keep them between sessions. See <a href="#9-bands-and-modes">Working off the usual frequency</a>.</li>
         <li><strong>Allow duplicates in auto modes</strong>: off by default, so Hunter and Gatherer skip stations already worked on the current band and mode. The same station on a different band or mode is a new contact and is still worked. Turn on to work duplicates outright.</li>
         <li><strong>Gatherer Call Order</strong>: First to reply, Strongest signal, or Furthest distance.</li>
         <li><strong>Tune Duration</strong>: how long the tuning carrier runs before stopping itself.</li>
@@ -911,6 +945,9 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <p>Check the status pill reads RX, not Stopped. Check the RX Level meter is moving. If it reads QUIET, the audio is not reaching the app: check the cable, the interface, and that iOS granted microphone access. Check you are on the right dial frequency for the band and mode shown above the waterfall, and that your radio is in USB.</p>
       <h3 id="i-decode-fine-but-nobody-answers-me"><a href="#i-decode-fine-but-nobody-answers-me">I decode fine but nobody answers me</a></h3>
       <p>Your radio is probably not keying. Greyline transmits audio only, so VOX or data-VOX must be enabled on the radio. Confirm the yellow rows appear in the band activity list when you transmit, which means the app sent audio, and watch for RF output on the radio.</p>
+      <h3 id="a-camera-or-screenshot-sound-went-out-over-the-air"><a href="#a-camera-or-screenshot-sound-went-out-over-the-air">A camera or screenshot sound went out over the air</a></h3>
+      <p>In some markets, notably Japan and Korea, the law requires the camera shutter and screenshot sounds to play at all times and they cannot be silenced, muted, or turned down. On those devices the sound is mixed into the audio your phone is sending to the radio, so taking a screenshot during a transmit slot will put that shutter tone on the air.</p>
+      <p>There is nothing Greyline can do about this, since the sound is generated below the app and is deliberately outside any app's control. Take screenshots during a receive cycle instead: watch the slot timer and capture while it reads RX or DECODE, never TX.</p>
       <h3 id="every-station-shows-a-large-dt"><a href="#every-station-shows-a-large-dt">Every station shows a large DT</a></h3>
       <p>That is usually your clock, not theirs. Open Diagnostics and check the clock offset.</p>
       <h3 id="the-waterfall-is-all-one-colour"><a href="#the-waterfall-is-all-one-colour">The waterfall is all one colour</a></h3>
@@ -955,7 +992,8 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
 </div><!-- /.guide-layout -->
 
 <footer>
-  <p><a href="index.html">← Greyline FT8 Home</a> &nbsp;·&nbsp; <a href="radios.html">Connecting to Radios</a> &nbsp;·&nbsp; <a href="changelog.html">Release Notes</a> &nbsp;·&nbsp; <a href="fieldnotes.html">Field Notes</a> &nbsp;·&nbsp; &copy; 2026 Greyline FT8</p>
+  <p><a href="index.html">← Greyline FT8 Home</a> &nbsp;·&nbsp; <a href="radios.html">Connecting to Radios</a> &nbsp;·&nbsp; <a href="changelog.html">Release Notes</a> &nbsp;·&nbsp; <a href="userguide.html">User Guide</a> &nbsp;·&nbsp; <a href="fieldnotes.html">Field Notes</a> &nbsp;·&nbsp; <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="mailto:support@greylineft8.com">E-mail Support</a> &nbsp;·&nbsp; <a href="https://ko-fi.com/kb0rb" target="_blank" rel="noopener">Support Greyline</a></p>
+  <p>&copy; 2026 Greyline FT8. All rights reserved.</p>
 </footer>
 
 <script>

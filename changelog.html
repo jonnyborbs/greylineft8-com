@@ -225,7 +225,9 @@
     <li class="nav-hide-sm"><a href="changelog.html">Release Notes</a></li>
     <li class="nav-hide-sm"><a href="userguide.html">User Guide</a></li>
     <li class="nav-hide-sm"><a href="fieldnotes.html">Field Notes</a></li>
+
     <li><a href="privacy.html">Privacy</a></li>
+    <li class="nav-hide-sm"><a href="https://ko-fi.com/kb0rb" target="_blank" rel="noopener" style="color: var(--accent);">Support Greyline</a></li>
   </ul>
 </nav>
 <script>
@@ -257,7 +259,8 @@
     <label for="version-select">Jump to version:</label>
     <select id="version-select" onchange="document.getElementById(this.value).scrollIntoView({behavior:'smooth'})">
       <option value="" disabled selected>Select a version…</option>
-      <option value="v1-2">1.2 — Latest</option>
+      <option value="v1-3">1.3 — Latest</option>
+      <option value="v1-2">1.2</option>
       <option value="v1-1">1.1</option>
       <option value="v1-0-14">1.0.14</option>
       <option value="v1-0-13">1.0.13</option>
@@ -276,16 +279,38 @@
     </select>
   </div>
 
+  <!-- ── 1.3 ── -->
+  <div class="release" id="v1-3">
+    <div class="release-header">
+      <span class="release-version"><a href="#v1-3">Version 1.3</a></span>
+      <span class="release-tag">Latest</span>
+    </div>
+    <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">The one that lets you get really odd</p>
+
+    <div class="release-section-title">Shoutouts</div>
+    <ul class="shoutout-list">
+      <li><span class="shoutout-call">CT7DBJ</span><span>Suggesting (among other folks) the ability to pick even vs odd time slots for CQ calls</span></li>
+      <li><span class="shoutout-call">JK1TBL</span><span>Pointing out that not all FT4/FT8 takes place on the default frequencies</span></li>
+      <li><span class="shoutout-call">K7DFS</span><span>Requesting a tip jar link (aww, thanks)</span></li>
+    </ul>
+
+    <div class="release-section-title">Features</div>
+    <ul>
+      <li>You can now pick whether to call CQ on even (:00, :30) or odd (:15, :45, and the half-second FT4 variants) time slots. Note that this only applies to CQ calls you initiate, whether from the manual or automatic modes. When you respond to another user's call, you will always still use the opposite parity you heard them on.</li>
+      <li>Bands now have a custom frequency option — tap the pencil icon next to the displayed frequency above the waterfall to edit it. While this won't change anything on your radio, it <em>will</em> change what frequency you report to PSKReporter, the POTA cluster, and gets written into your logs. Customized bands will have an orange indicator to remind you they've been changed from their default, and there is a new setting in the Settings page which allows you to automatically return edited frequencies to their default on each app launch.</li>
+      <li>Added a new Buy me a Coffee link in the Settings menu. Totally optional, but I've been humbled by hearing folks tell me the app is underpriced for the value it provides. If you genuinely feel like you're getting more than 4 bucks worth of value from it, feel free to send me a note and know that I appreciate you!</li>
+    </ul>
+
+    <p class="release-footer">That's it, that's all, folks! Thanks for bringing me on your activations — now get out there and POTA on. 73!</p>
+  </div>
+
   <!-- ── 1.2 ── -->
   <div class="release" id="v1-2">
     <div class="release-header">
       <span class="release-version"><a href="#v1-2">Version 1.2</a></span>
-      <span class="release-tag">Latest</span>
     </div>
 
     <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">The one that makes logging even more awesome</p>
-
-    <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 1rem;">Be sure to check the release notes for prior versions to see what's new! I update the app regularly in response to feedback like yours. Read them at <a href="https://greylineft8.com/changelog.html">greylineft8.com/changelog.html</a>.</p>
 
     <div class="release-section-title">Shoutouts</div>
     <ul class="shoutout-list">
@@ -687,7 +712,8 @@
 </div>
 
 <footer>
-  <p><a href="index.html">← Greyline FT8 Home</a> &nbsp;·&nbsp; <a href="radios.html">Connecting to Radios</a> &nbsp;·&nbsp; <a href="fieldnotes.html">Field Notes</a> &nbsp;·&nbsp; <a href="userguide.html">User Guide</a> &nbsp;·&nbsp; &copy; 2026 Greyline FT8</p>
+  <p><a href="index.html">← Greyline FT8 Home</a> &nbsp;·&nbsp; <a href="radios.html">Connecting to Radios</a> &nbsp;·&nbsp; <a href="changelog.html">Release Notes</a> &nbsp;·&nbsp; <a href="userguide.html">User Guide</a> &nbsp;·&nbsp; <a href="fieldnotes.html">Field Notes</a> &nbsp;·&nbsp; <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="mailto:support@greylineft8.com">E-mail Support</a> &nbsp;·&nbsp; <a href="https://ko-fi.com/kb0rb" target="_blank" rel="noopener">Support Greyline</a></p>
+  <p>&copy; 2026 Greyline FT8. All rights reserved.</p>
 </footer>
 
 </body>
