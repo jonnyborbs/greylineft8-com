@@ -519,6 +519,24 @@
         </table>
       </div>
       <p>Green is scoped to the current band and mode, not your whole log: a station worked on 20 m is a genuinely new contact on 40 m, and the colour tells you what Hunter and Gatherer will actually do.</p>
+      <h4>Why a station was passed over</h4>
+      <p>When Hunter or Gatherer is running, it will sometimes leave a station alone. Left unexplained that looks like the app has stopped working, particularly when you are operating unattended and come back to find calls that went unanswered.</p>
+      <p>A small badge on the message says why:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Badge</th><th>What it means</th></tr></thead>
+          <tbody>
+            <tr><td><strong>WAIT 3m</strong></td><td>You tried to work this station and got nowhere, so it is set aside for a few minutes before it is tried again. The number counts down.</td></tr>
+            <tr><td><strong>SKIPPED</strong></td><td>Hunter gave up on this station after calling without a reply. It stays set aside until you re-arm Hunter or cancel the exchange.</td></tr>
+            <tr><td><strong>FILTERED</strong></td><td>Your CQ filter excludes this station's kind of call. See <a href="#14-settings-reference">CQ filtering</a>.</td></tr>
+            <tr><td><strong>WORKED</strong></td><td>You have already worked this station on this band and mode.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Badges only appear while an automatic mode is armed, because only then is anything being passed over. Switch to Standard and they disappear.</p>
+      <p>You will see them on different rows depending on the mode, which follows from what each mode does. Hunter answers other stations' CQs, so its badges are on CQ rows. Gatherer calls CQ and works whoever replies, so its badges are on the replies addressed to you.</p>
+      <p><strong>WORKED</strong> appears in Gatherer only. In Hunter the row is already green, which says the same thing.</p>
+      <p>A badge is not a fault. It is the app telling you it made a decision on purpose. If you want a station worked anyway, the relevant setting is in <strong>Settings › Operations</strong>: turn on <strong>Allow duplicates in auto modes</strong> for WORKED, or change the CQ filter for FILTERED. WAIT and SKIPPED clear on their own, and you can always tap the row to work that station by hand.</p>
       <h4>Tapping a row</h4>
       <ul>
         <li><strong>Tap a cyan or green CQ</strong> to answer it. The app drops out of any automatic mode, sets the correct slot timing, and starts calling that station.</li>
@@ -621,6 +639,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
         <li>If a station does not answer within the retransmission budget, Hunter gives up and will not call it again for the rest of this Hunter session. Tapping <strong>Abort</strong>, or turning Hunter off and on again, clears that memory.</li>
         <li>It logs the contact when its <code>73</code> goes out, then returns to scanning.</li>
       </ul>
+      <p>Each of those skips shows as a badge on the station's row, so you can see why a call went unanswered. See <a href="#the-band-activity-list">Why a station was passed over</a>.</p>
       <p>While Hunter is scanning, Next TX reads <strong>Pending Target</strong> and the pill stays on RX, because Hunter transmits nothing until it has someone to call.</p>
       <h3 id="gatherer-automatic-run"><a href="#gatherer-automatic-run">Gatherer (automatic run)</a></h3>
       <p>Gatherer calls CQ continuously and works everyone who answers, in order, without stopping. This is the mode for running a pile-up during an activation or a contest.</p>
@@ -640,6 +659,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <p>A setting with three options: <em>First to reply</em> (first in, first out), <em>Strongest signal</em>, or <em>Furthest distance</em> (callers whose grid you do not know go to the back). Re-hearing a caller already in the queue refreshes their report and timestamp but never re-sorts them.</p>
       <h4>Stuck partners</h4>
       <p>Some software repeats a bare signal report forever instead of sending a roger. Rather than burn the whole retransmission budget, Gatherer bails after three of these and moves to the next caller. A station it has bailed on is left alone for five minutes so its next transmission cannot immediately re-engage you.</p>
+      <p>While that station is set aside, its messages carry a <strong>WAIT</strong> badge counting down the remaining time, so a caller being passed over is never a mystery. See <a href="#the-band-activity-list">Why a station was passed over</a>.</p>
       <h3 id="switching-modes"><a href="#switching-modes">Switching modes</a></h3>
       <p>Changing mode, band, or FT8/FT4 tears down whatever was in progress cleanly. Changing band or mode also clears the activity list, so what you see always belongs to where you are now.</p>
     </section>
