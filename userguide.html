@@ -434,7 +434,7 @@
             <tr><td>Callsign</td><td>Your callsign (A–Z, 0–9 and <code>/</code>)</td><td><strong>Yes</strong>, you cannot transmit without one</td></tr>
             <tr><td>Location</td><td>Location permission, or a manually typed grid square</td><td><strong>Yes</strong>, a grid is required to transmit</td></tr>
             <tr><td>Audio access</td><td>Microphone permission</td><td><strong>Yes</strong>, nothing decodes without it</td></tr>
-            <tr><td>Lookups &amp; logging</td><td>QRZ / HamQTH / Cloudlog credentials</td><td>Optional, skippable</td></tr>
+            <tr><td>Lookups &amp; logging</td><td>QRZ / HamQTH / Cloudlog / World Radio League credentials</td><td>Optional, skippable</td></tr>
             <tr><td>Share your spots</td><td>PSKReporter and POTA spotting toggles</td><td>Optional, skippable</td></tr>
             <tr><td>Help &amp; resources</td><td>Links to cabling guides and support</td><td>No</td></tr>
             <tr><td>Finish</td><td>Warns you if the mic or grid is still missing</td><td>No</td></tr>
@@ -812,7 +812,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <h2><a href="#12-the-log"><span class="section-num">12.</span> The log</a></h2>
       <h3 id="the-summary-bar"><a href="#the-summary-bar">The summary bar</a></h3>
       <p><strong>Total</strong>, <strong>Today</strong>, <strong>DXCC</strong> (unique entities worked), and <strong>This park</strong> during an activation. <strong>New QSO</strong> opens a manual entry form.</p>
-      <p>If you have configured any logbook services, a small legend shows a coloured dot per service, QRZ green and Cloudlog blue, matching the dots in the Upload column.</p>
+      <p>If you have configured any logbook services, a small legend shows a coloured dot per service, QRZ teal, Cloudlog blue and World Radio League purple, matching the dots in the Upload column. A contact that a service rejected shows an X in that service's colour instead of an empty dot.</p>
       <h3 id="the-table"><a href="#the-table">The table</a></h3>
       <div class="table-wrap">
         <table>
@@ -847,8 +847,24 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <h3 id="importing"><a href="#importing">Importing</a></h3>
       <p><strong>Import ADIF</strong> reads an <code>.adi</code> or <code>.adif</code> file. The result tells you how many contacts were imported and how many were skipped as duplicates, as non-FT8/FT4 modes, or as malformed records. Imported contacts count toward your duplicate checking, since they are your own history of who you have worked, but they are never uploaded to a logbook.</p>
       <h3 id="uploading-to-a-logbook"><a href="#uploading-to-a-logbook">Uploading to a logbook</a></h3>
-      <p>Configure QRZ and/or Cloudlog in Settings and turn on their auto-log toggles, and each contact uploads in the background as it is logged. Nothing about that ever blocks operating; a failed upload just leaves the contact pending.</p>
+      <p>Configure QRZ, Cloudlog and/or World Radio League in Settings and turn on their auto-log toggles, and each contact uploads in the background as it is logged. Nothing about that ever blocks operating; a failed upload just leaves the contact pending.</p>
       <p>The cloud button in the toolbar shows how many contacts are still pending and uploads them on demand. With more than one service configured it becomes a menu so you can upload to one or all.</p>
+      <h3 id="when-an-upload-fails"><a href="#when-an-upload-fails">When an upload fails</a></h3>
+      <p>A warning appears above the search field only when something has actually gone wrong, so it costs you no space the rest of the time. It names the service and the reason, and counts the contacts affected. It clears itself once those contacts upload, once you replace the key, or once the service verifies successfully.</p>
+      <p><strong>View</strong> opens a list of everything that failed, grouped by reason, showing the callsign, band, mode and park for each contact. <strong>Retry All</strong> attempts them again.</p>
+      <p>Common reasons:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>What you see</th><th>What to do</th></tr></thead>
+          <tbody>
+            <tr><td>No internet connection</td><td>Nothing. Contacts stay pending and upload when you have signal again.</td></tr>
+            <tr><td>Authentication failed</td><td>Check the API key in Settings and verify it.</td></tr>
+            <tr><td>Needs to know which logbook to use</td><td>Choose a default logbook in Settings, under World Radio League.</td></tr>
+            <tr><td>Rate limit reached</td><td>Nothing. Large uploads pause and continue on their own.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>If a large upload stops early it tells you how many contacts are left. Tap the cloud button again to carry on from where it stopped.</p>
       <h3 id="selecting-contacts"><a href="#selecting-contacts">Selecting contacts</a></h3>
       <p><strong>Select</strong> enters selection mode, where you can upload, export or delete a group of contacts. Services the selection is already fully uploaded to are omitted from the upload menu. Deletion asks for confirmation and cannot be undone.</p>
       <h3 id="manual-entry"><a href="#manual-entry">Manual entry</a></h3>
@@ -923,12 +939,24 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
             <tr><td><strong>HamQTH username + password</strong></td><td>Looking up names, QTH and grids, worldwide</td><td>A free HamQTH account</td></tr>
             <tr><td><strong>Callook.info</strong></td><td>US callsign lookups</td><td>No credentials, used automatically</td></tr>
             <tr><td><strong>Cloudlog URL + API key</strong></td><td>Uploading contacts to Cloudlog or a compatible logbook</td><td>Server URL, API key, and station profile ID</td></tr>
+            <tr><td><strong>World Radio League API key</strong></td><td>Uploading contacts to your WRL logbooks</td><td>The API key from your WRL account, which needs a paid membership</td></tr>
           </tbody>
         </table>
       </div>
       <p>Lookups are tried in order: QRZ, then HamQTH, then Callook. Each service has a <strong>Verify</strong> or <strong>Test Login</strong> button so you can confirm the credentials before you rely on them, and each logbook has its own <strong>Auto-Log</strong> toggle, which stays disabled until the credentials are filled in.</p>
       <blockquote>
         <p><strong>A note on Cloudlog and POTA:</strong> Cloudlog applies the park reference from the station profile you point at, overriding the one in the uploaded contact. If you activate several parks, make sure the station profile matches, or export ADIF for POTA instead.</p>
+      </blockquote>
+      <h4>World Radio League</h4>
+      <p>Pick a <strong>Default Logbook</strong> and your contacts go there. The list loads from your account, so verify your key first.</p>
+      <p><strong>A logbook for each POTA activation</strong> is on by default. With it on, every activation gets its own logbook, named for your callsign, the park and the date, for example <code>KB0RB @ US-4578 08-22-2026</code>. The logbook is created when the first contact of the activation uploads, so an activation you never work anyone at leaves nothing behind. Turn it off and everything goes to your default logbook instead.</p>
+      <p>World Radio League has no park field on a contact, which is why the park lives in the logbook name. Export ADIF for your POTA submission as usual.</p>
+      <p>Contacts from activations you ran before this feature existed still go to a park logbook. Greyline works out which activation they belong to the same way the POTA export menu does, by grouping a run of contacts at one park. That works for the great majority of older activations, but it can get it wrong in a few cases: a non-park contact logged in the middle of an activation splits it in two, and two visits to the same park on the same day are treated as one.</p>
+      <blockquote>
+        <p>If contacts land somewhere you did not intend, you can move them between logbooks on the World Radio League site. Greyline cannot move them for you, because their API does not yet offer it.</p>
+      </blockquote>
+      <blockquote>
+        <p>It is worth setting the default logbook and the per-activation switch the way you want them before you start, since Greyline cannot move a contact once it has been uploaded.</p>
       </blockquote>
       <h3 id="about"><a href="#about">About</a></h3>
       <p>Author and version, plus:</p>

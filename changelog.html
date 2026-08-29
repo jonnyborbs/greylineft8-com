@@ -259,7 +259,8 @@
     <label for="version-select">Jump to version:</label>
     <select id="version-select" onchange="document.getElementById(this.value).scrollIntoView({behavior:'smooth'})">
       <option value="" disabled selected>Select a version…</option>
-      <option value="v1-3-2">1.3.2 — Latest</option>
+      <option value="v1-4">1.4 — Latest</option>
+      <option value="v1-3-2">1.3.2</option>
       <option value="v1-3-1">1.3.1</option>
       <option value="v1-3">1.3</option>
       <option value="v1-2">1.2</option>
@@ -281,11 +282,45 @@
     </select>
   </div>
 
+  <!-- ── 1.4 ── -->
+  <div class="release" id="v1-4">
+    <div class="release-header">
+      <span class="release-version"><a href="#v1-4">Version 1.4</a></span>
+      <span class="release-tag">Latest</span>
+    </div>
+    <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">The one that finally integrates World Radio League</p>
+    <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 1rem;">Be sure to check the release notes for prior versions to see what's new! I update the app regularly in response to feedback like yours. Read them at <a href="https://greylineft8.com/changelog.html">greylineft8.com/changelog.html</a>.</p>
+
+    <div style="background: rgba(251,146,60,0.1); border: 1px solid rgba(251,146,60,0.35); border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 0.5rem;">
+      <div style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #fb923c; margin-bottom: 0.4rem;">Note</div>
+      <p style="color: #fb923c; font-size: 0.95rem; margin: 0;">The WRL logging API is a work in progress, and I will continue to improve the app as their API evolves! What we have here now takes full advantage of what the service currently supports. Stay tuned for more features!</p>
+    </div>
+
+    <div class="release-section-title">Shoutouts</div>
+    <ul class="shoutout-list">
+      <li><span class="shoutout-call">KR3BST</span><span>Frequent reminders about WRL integration</span></li>
+    </ul>
+
+    <div class="release-section-title">Features</div>
+    <ul>
+      <li>Greyline now uploads your contacts to World Radio League (WRL), alongside QRZ and Cloudlog.</li>
+      <li>POTA activations get their own logbooks in WRL (named for your callsign, the park and the date) — this can be turned off and your contacts can land in your default logbook instead.</li>
+      <li>Log uploads now have robust retry and error messaging. As the logging system in Greyline gets more complex and supports more endpoints, clear errors are important.</li>
+      <li>Contacts which failed to upload to a configured service show an X in that service's color in the Upload column instead of an empty (or filled) dot, so you can spot them while scrolling.</li>
+    </ul>
+
+    <div class="release-section-title">Fixes</div>
+    <ul>
+      <li>Because we incorporated an X in the upload status column, the service indicator color for QRZ has been changed from green to teal, to avoid confusing "green X's".</li>
+    </ul>
+
+    <p class="release-footer">That's it, that's all, folks! Thanks for bringing me on your activations — now get out there and POTA on. 73!</p>
+  </div>
+
   <!-- ── 1.3.2 ── -->
   <div class="release" id="v1-3-2">
     <div class="release-header">
       <span class="release-version"><a href="#v1-3-2">Version 1.3.2</a></span>
-      <span class="release-tag">Latest</span>
     </div>
     <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">The one that's clearer when a POTA ends</p>
     <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 0.5rem;">Be sure to check the release notes for prior versions to see what's new! I update the app regularly in response to feedback like yours. Read them at <a href="https://greylineft8.com/changelog.html">greylineft8.com/changelog.html</a>.</p>
