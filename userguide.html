@@ -521,7 +521,7 @@
       <p>Green is scoped to the current band and mode, not your whole log: a station worked on 20 m is a genuinely new contact on 40 m, and the colour tells you what Hunter and Gatherer will actually do.</p>
       <h4>Why a station was passed over</h4>
       <p>When Hunter or Gatherer is running, it will sometimes leave a station alone. Left unexplained that looks like the app has stopped working, particularly when you are operating unattended and come back to find calls that went unanswered.</p>
-      <p>A small badge on the message says why:</p>
+      <p>A small badge after the message says why. It sits to the right of the message text rather than before it, so the messages stay aligned in a column you can read straight down:</p>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Badge</th><th>What it means</th></tr></thead>
@@ -649,19 +649,25 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
         <li>Unlike Standard, Gatherer's <strong>CQ has no retransmission limit</strong> and keeps calling. The per-exchange limit still applies.</li>
       </ul>
       <h4>The queue card</h4>
-      <p>Tap <strong>Queue (n)</strong> to open it. The station being worked sits at the top marked <strong>NEXT</strong>; everyone else follows in the order they will be worked. Each row shows the callsign, the operator's name if a lookup service is configured, how long ago you last heard them, the report you will give them, and, on a second line, grid, country and state, distance and bearing, to help you prioritise.</p>
+      <p>Tap <strong>Queue (n)</strong> to open it. The station being worked sits at the top marked <strong>ACTIVE</strong> and stays there for the whole exchange; everyone else follows in the order they will be worked. Each row shows the callsign, the operator's name if a lookup service is configured, how long ago you last heard them, the report you will give them, and, on a second line, grid, country and state, distance and bearing, to help you prioritise.</p>
       <ul>
         <li><strong>Drag a row</strong> to move it. A row you move is pinned, so newly-heard callers never displace your placement.</li>
-        <li><strong>Swipe or use the delete control</strong> to drop a caller.</li>
+        <li><strong>Drag the ACTIVE row down</strong>, or drag another station above it, to work someone else first. The station you were working is not dropped — it keeps the place you gave it and is worked when it comes back to the top, starting its exchange again from the report.</li>
+        <li>Any transmission already going out finishes; the change takes effect from the next slot.</li>
+        <li><strong>Swipe or use the delete control</strong> to drop a caller. Delete the ACTIVE row and the station being worked is dropped: the next caller takes the slot. Because that station is transmitting to you every cycle, dropping it also sets it aside for five minutes so it cannot immediately re-engage you — its rows carry a <strong>WAIT</strong> badge counting down. If you want it dropped but still eligible, drag it down the queue first, then delete it.</li>
         <li>Gatherer keeps running behind the card; the list updates live.</li>
       </ul>
+      <p>The count on the button is the number of rows in the card — the station being worked plus everyone waiting.</p>
       <h4>Call order</h4>
       <p>A setting with three options: <em>First to reply</em> (first in, first out), <em>Strongest signal</em>, or <em>Furthest distance</em> (callers whose grid you do not know go to the back). Re-hearing a caller already in the queue refreshes their report and timestamp but never re-sorts them.</p>
       <h4>Stuck partners</h4>
       <p>Some software repeats a bare signal report forever instead of sending a roger. Rather than burn the whole retransmission budget, Gatherer bails after three of these and moves to the next caller. A station it has bailed on is left alone for five minutes so its next transmission cannot immediately re-engage you.</p>
       <p>While that station is set aside, its messages carry a <strong>WAIT</strong> badge counting down the remaining time, so a caller being passed over is never a mystery. See <a href="#the-band-activity-list">Why a station was passed over</a>.</p>
       <h3 id="switching-modes"><a href="#switching-modes">Switching modes</a></h3>
-      <p>Changing mode, band, or FT8/FT4 tears down whatever was in progress cleanly. Changing band or mode also clears the activity list, so what you see always belongs to where you are now.</p>
+      <p>Changing mode, band, or FT8/FT4 tears down whatever was in progress cleanly, and stops a CQ you were calling.</p>
+      <p>An automatic mode is <strong>disarmed</strong> rather than carried across: changing band or FT8/FT4 drops Hunter or Gatherer back to Standard and clears the call queue, so you re-arm deliberately where you now are instead of finding out afterwards what an armed mode did in a place you had not looked at yet.</p>
+      <p>Changing band or mode also clears the activity list, so what you see always belongs to where you are now.</p>
+      <p>During a POTA activation nothing is spotted at the moment you change band or mode. The QSY spot goes out when you next call CQ — which, in Gatherer, means when you re-arm it.</p>
     </section>
 
     <!-- 7. Retransmissions and unfinished contacts -->
@@ -780,11 +786,24 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <p>With <strong>Self-spot to POTA</strong> enabled (Settings › Spotting, on by default), the app posts to the cluster automatically:</p>
       <ul>
         <li>when you start calling CQ,</li>
-        <li>when you change band or mode (a QSY spot),</li>
+        <li>when you change band or mode — the QSY spot goes out as you resume calling CQ, not at the moment you change,</li>
         <li>every ten minutes while you are running, so your spot stays near the top,</li>
         <li>and once when the activation ends.</li>
       </ul>
-      <p>A status line under the park field confirms each spot. Turn the setting off to activate without spotting at all; everything else about the activation still works.</p>
+      <p>A status line under the park field names the last spot that went out and how long ago:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Line</th><th>What went out</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Activation starting</strong></td><td>The first spot of this activation.</td></tr>
+            <tr><td><strong>Autospotted</strong></td><td>The ten-minute refresh, posted on its own.</td></tr>
+            <tr><td><strong>QSY sent</strong></td><td>A new band, mode or frequency was announced.</td></tr>
+            <tr><td><strong>QRT sent</strong></td><td>The closing spot as the activation ended.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The age counts up as you sit there — <code>Autospotted · 4 min ago</code> — so a glance tells you whether the cluster still has you. A spot that fails says so in orange instead. When you switch POTA off, the panel stays up for a few seconds so you can watch the closing spot land.</p>
+      <p>Turn the setting off to activate without spotting at all; everything else about the activation still works.</p>
       <h3 id="the-activation-counter"><a href="#the-activation-counter">The activation counter</a></h3>
       <p>While an activation is running, the log's summary bar grows a <strong>This park</strong> counter: red below five contacts, yellow from five, green at ten, which is the POTA minimum for a valid activation.</p>
       <p>It counts <strong>credited</strong> contacts, which is not the same as rows in the log. POTA gives one credit per callsign per band per mode per UTC day, so:</p>
@@ -1007,7 +1026,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <h3 id="hunter-keeps-skipping-a-station-i-want-to-work"><a href="#hunter-keeps-skipping-a-station-i-want-to-work">Hunter keeps skipping a station I want to work</a></h3>
       <p>It is either already in your log for this band and mode (the CQ row will be green), excluded by the CQ filter, or it timed out on Hunter earlier in this session. Tap the row to work it manually, since a manual tap ignores every filter.</p>
       <h3 id="gatherer-left-someone-unworked"><a href="#gatherer-left-someone-unworked">Gatherer left someone unworked</a></h3>
-      <p>Check the queue card. Callers already worked on this band and mode, callers excluded by the CQ filter, and callers Gatherer recently bailed on are not queued.</p>
+      <p>Check the queue card. Callers already worked on this band and mode, callers excluded by the CQ filter, and callers Gatherer recently bailed on are not queued — nor is a station you dropped from the card, for five minutes. A <strong>WAIT</strong> badge on their messages counts that down.</p>
       <h3 id="a-contact-i-made-is-missing-from-the-log"><a href="#a-contact-i-made-is-missing-from-the-log">A contact I made is missing from the log</a></h3>
       <p>Contacts are logged when the exchange completes from your side. If it stopped earlier than that, use <strong>New QSO</strong> in the log; the form pre-fills from the most recent exchange.</p>
     </section>
