@@ -51,7 +51,7 @@ def is_special(line):
 
 def collect_list_item(lines, start):
     """Collect a potentially multi-line list item starting at lines[start].
-    Continuation lines are any non-blank lines that don't start a new block."""
+    Stops at blank lines, new top-level list items, block starters, or indented sub-items."""
     text = lines[start][2:].strip()  # strip leading '- '
     i = start + 1
     while i < len(lines):
@@ -65,9 +65,39 @@ def collect_list_item(lines, start):
         if (line.strip().startswith('|') and i + 1 < len(lines) and
                 re.match(r'^\s*\|[-| ]+\|', lines[i + 1])):
             break
+        if re.match(r'^\s{2,}- ', line):  # indented sub-item
+            break
         text += ' ' + line.strip()
         i += 1
     return text, i
+
+
+def collect_sub_items(lines, start):
+    """Collect indented sub-items (lines starting with 2+ spaces + '- ') into text strings."""
+    sub_items = []
+    i = start
+    while i < len(lines):
+        line = lines[i]
+        if not re.match(r'^\s{2,}- ', line):
+            break
+        # strip leading whitespace and '- '
+        text = re.sub(r'^\s+-\s+', '', line).strip()
+        i += 1
+        # collect continuation lines (non-blank, not a new item of any kind)
+        while i < len(lines):
+            sl = lines[i]
+            if not sl.strip():
+                break
+            if sl.startswith('- ') or re.match(r'^\d+\. ', sl):
+                break
+            if re.match(r'^\s{2,}- ', sl):
+                break
+            if any(sl.startswith(p) for p in ('> ', '```', '#### ', '### ', '## ')):
+                break
+            text += ' ' + sl.strip()
+            i += 1
+        sub_items.append(text)
+    return sub_items, i
 
 
 def parse_block(lines, indent='      '):
@@ -141,7 +171,16 @@ def parse_block(lines, indent='      '):
             out.append(f'{indent}<ul>')
             while i < len(lines) and lines[i].startswith('- '):
                 item_text, i = collect_list_item(lines, i)
-                out.append(f'{indent}  <li>{inline(escape(item_text))}</li>')
+                sub_items, i = collect_sub_items(lines, i)
+                if sub_items:
+                    out.append(f'{indent}  <li>{inline(escape(item_text))}')
+                    out.append(f'{indent}    <ul>')
+                    for sub in sub_items:
+                        out.append(f'{indent}      <li>{inline(escape(sub))}</li>')
+                    out.append(f'{indent}    </ul>')
+                    out.append(f'{indent}  </li>')
+                else:
+                    out.append(f'{indent}  <li>{inline(escape(item_text))}</li>')
             out.append(f'{indent}</ul>')
             continue
 

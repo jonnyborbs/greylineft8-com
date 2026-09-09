@@ -519,6 +519,10 @@
         </table>
       </div>
       <p>Green is scoped to the current band and mode, not your whole log: a station worked on 20 m is a genuinely new contact on 40 m, and the colour tells you what Hunter and Gatherer will actually do.</p>
+      <h4>Which stations you can work</h4>
+      <p>A short vertical bar down the left of a row means that station transmits while you are listening — you can work it. Rows without the bar are transmitting at the same time you do, so you are largely deaf to them and could not answer them without moving to the other slot.</p>
+      <p>Under the default time sort, a heavier line also separates one slot from the next, so the list reads as alternating blocks. That grouping disappears if you sort by signal, frequency or callsign, because slots no longer run in order — the bar itself stays under every sort.</p>
+      <p>The bar follows <strong>where you are actually transmitting</strong>, not simply your <strong>Call CQ on</strong> setting. Those are usually the same, but while you are answering someone else the protocol puts you on the opposite slot to theirs, so the marking flips for the duration of that exchange and flips back when it ends. That is not a glitch: it always shows the slot you are free to listen in right now.</p>
       <h4>Why a station was passed over</h4>
       <p>When Hunter or Gatherer is running, it will sometimes leave a station alone. Left unexplained that looks like the app has stopped working, particularly when you are operating unattended and come back to find calls that went unanswered.</p>
       <p>A small badge after the message says why. It sits to the right of the message text rather than before it, so the messages stay aligned in a column you can read straight down:</p>
@@ -533,14 +537,26 @@
           </tbody>
         </table>
       </div>
-      <p>Badges only appear while an automatic mode is armed, because only then is anything being passed over. Switch to Standard and they disappear.</p>
       <p>You will see them on different rows depending on the mode, which follows from what each mode does. Hunter answers other stations' CQs, so its badges are on CQ rows. Gatherer calls CQ and works whoever replies, so its badges are on the replies addressed to you.</p>
       <p><strong>WORKED</strong> appears in Gatherer only. In Hunter the row is already green, which says the same thing.</p>
-      <p>A badge is not a fault. It is the app telling you it made a decision on purpose. If you want a station worked anyway, the relevant setting is in <strong>Settings › Operations</strong>: turn on <strong>Allow duplicates in auto modes</strong> for WORKED, or change the CQ filter for FILTERED. WAIT and SKIPPED clear on their own, and you can always tap the row to work that station by hand.</p>
+      <p><strong>In Standard you keep the WAIT and SKIPPED badges.</strong> Dropping out of an automatic mode — by tapping a station, or by switching mode — used to blank every badge, so you lost your picture of who had been set aside just as you went to do something about it. Those two are memories that outlive the mode change, so they stay. WORKED and FILTERED do not: the green row already says worked, and the CQ filter only acts on the automatic modes, so in Standard it is not excluding anything and a badge claiming otherwise would be wrong. If you have never armed an automatic mode, Standard shows no badges at all, exactly as before.</p>
+      <p>A badge is not a fault. It is the app telling you it made a decision on purpose. If you want a station worked anyway, the relevant setting is in <strong>Settings › Operations</strong>: turn on <strong>Allow duplicates in auto modes</strong> for WORKED, or change the CQ filter for FILTERED. WAIT expires on its own, SKIPPED clears when you re-arm Hunter, and you can always tap the row to work that station by hand.</p>
+      <p><strong>A station you tap in Gatherer loses its badge</strong>, because it is no longer being passed over — see <a href="#tapping-a-row">Tapping a row</a>.</p>
       <h4>Tapping a row</h4>
       <ul>
-        <li><strong>Tap a cyan or green CQ</strong> to answer it. The app drops out of any automatic mode, sets the correct slot timing, and starts calling that station.</li>
-        <li><strong>Tap a red message addressed to you</strong> to pick that exchange back up. The app works out what they sent and replies with whatever comes next in the sequence.</li>
+        <li><strong>Tap a cyan or green CQ</strong> to answer it. The app sets the correct slot timing and starts calling that station.
+          <ul>
+            <li><strong>In Hunter, you stay in Hunter.</strong> Tapping a CQ tells Hunter which station to work next rather than turning it off: Hunter runs the exchange itself, and when it finishes goes straight back to scanning under your <a href="#call-order">Call order</a>. Tapping while it is mid-exchange with someone else abandons that one in favour of yours.</li>
+            <li>Anywhere else — Standard, or Gatherer — the app drops to Standard first. Gatherer is running a CQ of its own, so answering someone else's CQ really does end that run.</li>
+          </ul>
+        </li>
+        <li><strong>Tap a red message addressed to you</strong> to pick that exchange back up. The app works out what they sent and replies with whatever comes next in the sequence.
+          <ul>
+            <li><strong>In Hunter you usually stay in Hunter</strong>, because it can finish any exchange where you are the one answering — which is every exchange Hunter starts. Sent you a report, and it replies with the roger; sent RR73, and it sends your 73. If that contact is already in your log, it re-sends the 73 without logging it a second time.</li>
+            <li>If they sent something only a CQ-calling station can answer — their grid, or a roger — the app drops to Standard, since finishing that exchange means being the station calling CQ, which Hunter never is.</li>
+            <li><strong>In Gatherer, tapping one of your callers moves them to the top of the queue</strong> and the run carries on. They are worked next, after whoever is being worked now finishes. This works even on a station Gatherer had passed over as already worked, filtered or in cooldown — tapping it overrides all three — and its badge disappears, since it is no longer being passed over. Tapping the station already being worked does nothing.</li>
+          </ul>
+        </li>
       </ul>
       <p>Rows that are neither a CQ nor addressed to you are not tappable, since there is nothing sensible to do with them.</p>
       <h4>The filter</h4>
@@ -595,7 +611,11 @@
       <p>The small <strong>TX / RX pill</strong> in the corner of that panel tells you whether the coming slot is yours to transmit on. While Hunter is scanning it stays on RX, because Hunter sends nothing until it finds a target.</p>
       <p>If nothing is queued, the panel shows your CQ message greyed out, a preview of what would go out if you tapped Call CQ.</p>
       <h4>Custom Message</h4>
-      <p>Expand it to send one message of your own on the next slot boundary, whichever slot that is. It accepts either free text (up to 13 characters) or a standard message such as <code>W6ABC KD9XYZ -09</code>; the field validates by trying to actually encode what you typed, so a legitimate standard message is never rejected for looking too long. Once queued, the button becomes a red <strong>X</strong> to cancel. A custom message does not appear in the Next TX panel.</p>
+      <p>Expand it and pick what the box is for: <strong>Call</strong> or <strong>Message</strong>.</p>
+      <p><strong>Call</strong> (the default) takes a callsign and starts a QSO with that station — for chasing a station that is working a pileup and never calls CQ, so there is no CQ of theirs to tap. Type <code>W6ABC</code>, and the hint under the field previews exactly what will go out (<code>Will send: W6ABC YOURCALL FN42</code>). Press <strong>Call</strong> and the app calls them, repeating until they come back or your retransmission limit runs out, then sequences the rest of the QSO for you like any other exchange. To stop, use the main button, which reads <strong>Abort — working W6ABC</strong>.</p>
+      <p>Timing is picked for you: the app transmits opposite to the slot it last heard that station in, so your call lands while they are listening. If you have never decoded them, it falls back to your <strong>Call CQ on</strong> slot setting, which is a coin flip until you hear them once.</p>
+      <p>Calling from Hunter keeps you in Hunter — it runs the exchange and returns to scanning afterwards. Calling from Gatherer ends the run, because you are answering someone else instead of the callers answering you.</p>
+      <p><strong>Message</strong> is the original behaviour: one message of your own on the next slot boundary, whichever slot that is. It accepts either free text (up to 13 characters) or a standard message such as <code>W6ABC KD9XYZ -09</code>; the field validates by trying to actually encode what you typed, so a legitimate standard message is never rejected for looking too long. Once queued, the button becomes a red <strong>X</strong> to cancel. A custom message does not appear in the Next TX panel.</p>
       <h4>RX Level</h4>
       <p>Your audio input level, labelled <strong>QUIET</strong>, <strong>OK</strong> or <strong>HOT</strong>. Aim for the green band. If it reads HOT, turn the audio down at the radio or interface, because an overdriven input decodes badly. The meter is suppressed during your own transmit slot.</p>
     </section>
@@ -633,14 +653,22 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <h3 id="hunter-automatic-search-and-pounce"><a href="#hunter-automatic-search-and-pounce">Hunter (automatic search and pounce)</a></h3>
       <p>Hunter watches for CQ calls and answers them one at a time, on its own.</p>
       <ul>
-        <li>It picks the <strong>strongest</strong> CQ available each cycle.</li>
+        <li>It picks a CQ from those heard in the cycle, per <strong>Hunter Call Order</strong> below.</li>
         <li>It skips stations already worked on this band and mode, unless <strong>Allow duplicates in auto modes</strong> is on.</li>
-        <li>It skips stations excluded by the <a href="#cq-filtering">CQ filter</a>.</li>
+        <li>It skips stations excluded by the <a href="#cq-filtering">CQ filter</a>. Tapping a station yourself overrides all of these — see <a href="#tapping-a-row">Tapping a row</a>.</li>
         <li>If a station does not answer within the retransmission budget, Hunter gives up and will not call it again for the rest of this Hunter session. Tapping <strong>Abort</strong>, or turning Hunter off and on again, clears that memory.</li>
         <li>It logs the contact when its <code>73</code> goes out, then returns to scanning.</li>
       </ul>
       <p>Each of those skips shows as a badge on the station's row, so you can see why a call went unanswered. See <a href="#the-band-activity-list">Why a station was passed over</a>.</p>
       <p>While Hunter is scanning, Next TX reads <strong>Pending Target</strong> and the pill stays on RX, because Hunter transmits nothing until it has someone to call.</p>
+      <h4>Call order</h4>
+      <p>A setting with two options:</p>
+      <ul>
+        <li><strong>Strongest signal</strong> — the default, and what Hunter has always done: answer the loudest CQ in the cycle.</li>
+        <li><strong>Furthest distance</strong> — answer the most distant CQ instead, for chasing DX rather than easy contacts. Stations whose grid you do not know rank below every station that can be placed, and are ordered among themselves by signal strength — so in a cycle where nobody sent a grid this behaves exactly like Strongest.</li>
+      </ul>
+      <p>Distance uses grids decoded off the air, never an online lookup, so it works with no network.</p>
+      <p>Hunter has no <em>First to reply</em> option, unlike Gatherer. Gatherer keeps a standing queue of callers waiting their turn, so the order they arrived in is meaningful; Hunter chooses among the CQs of a single cycle, where nobody is waiting.</p>
       <h3 id="gatherer-automatic-run"><a href="#gatherer-automatic-run">Gatherer (automatic run)</a></h3>
       <p>Gatherer calls CQ continuously and works everyone who answers, in order, without stopping. This is the mode for running a pile-up during an activation or a contest.</p>
       <ul>
@@ -652,6 +680,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <p>Tap <strong>Queue (n)</strong> to open it. The station being worked sits at the top marked <strong>ACTIVE</strong> and stays there for the whole exchange; everyone else follows in the order they will be worked. Each row shows the callsign, the operator's name if a lookup service is configured, how long ago you last heard them, the report you will give them, and, on a second line, grid, country and state, distance and bearing, to help you prioritise.</p>
       <ul>
         <li><strong>Drag a row</strong> to move it. A row you move is pinned, so newly-heard callers never displace your placement.</li>
+        <li><strong>Tap a caller's row in the band activity list</strong> to send them straight to the top, without opening this card. See <a href="#tapping-a-row">Tapping a row</a>.</li>
         <li><strong>Drag the ACTIVE row down</strong>, or drag another station above it, to work someone else first. The station you were working is not dropped — it keeps the place you gave it and is worked when it comes back to the top, starting its exchange again from the report.</li>
         <li>Any transmission already going out finishes; the change takes effect from the next slot.</li>
         <li><strong>Swipe or use the delete control</strong> to drop a caller. Delete the ACTIVE row and the station being worked is dropped: the next caller takes the slot. Because that station is transmitting to you every cycle, dropping it also sets it aside for five minutes so it cannot immediately re-engage you — its rows carry a <strong>WAIT</strong> badge counting down. If you want it dropped but still eligible, drag it down the queue first, then delete it.</li>
@@ -837,8 +866,8 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
         <table>
           <thead><tr><th>Column</th><th>Notes</th></tr></thead>
           <tbody>
-            <tr><td>Date / UTC</td><td>Always UTC.</td></tr>
-            <tr><td>Call</td><td>Carries a <strong>DUP</strong> badge when the contact shares POTA credit with another contact in the same activation. Both rows of a pair are flagged. A DUP is still a real contact and is exported normally.</td></tr>
+            <tr><td>Date / UTC</td><td>Always UTC. The date carries the year (<code>08-Sep-26</code>), since a log spanning years — or holding imported contacts of any age — makes a bare day and month ambiguous.</td></tr>
+            <tr><td>Call</td><td>Carries a <strong>DUP</strong> badge when the contact shares POTA credit with another contact in the same activation. Both rows of a pair are flagged. A DUP is still a real contact and is exported normally. An <strong>EXT</strong> badge means the row sits between two contacts of a POTA activation without belonging to it — external to that run. See <a href="#sorting">Sorting</a>.</td></tr>
             <tr><td>Band / Mode</td><td></td></tr>
             <tr><td>Sent / Rcvd</td><td>Signal reports.</td></tr>
             <tr><td>Grid</td><td>Their grid.</td></tr>
@@ -848,6 +877,15 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
         </table>
       </div>
       <p><strong>Search</strong> filters by callsign, band, country or name.</p>
+      <h3 id="sorting"><a href="#sorting">Sorting</a></h3>
+      <p>The sort button (⇅) in the toolbar offers:</p>
+      <ul>
+        <li><strong>Date (newest first)</strong> — the default. Every contact in date order, wherever it came from.</li>
+        <li><strong>Log order</strong> — the order contacts entered the log: ones you made newest-first, with each imported batch after them regardless of its dates.</li>
+      </ul>
+      <p>Log order was the only behaviour before, and it is why an imported contact could seem to vanish: import a LoTW report of contacts from last week into a log with thousands of entries and they land at the very bottom, findable by search but nowhere near the date you expect. Sorting is display only — it never rearranges the stored log, so exports, POTA activation grouping and the dividers below are unaffected by it.</p>
+      <p><strong>A wrinkle in older logs.</strong> An import is placed newest-first, matching the contacts you make, so log order runs newest-to-oldest throughout. Batches imported by an earlier version of the app kept whatever order the file itself used, and most logging programs export oldest-first — so in a log holding one of those, log order reads <em>oldest</em>-first from the point that import begins. Nothing is wrong with those contacts and re-importing will not rearrange them (they would all be skipped as duplicates); sort by date, which ignores how they arrived.</p>
+      <p>One consequence of date order is worth knowing. A contact that is not part of an activation can now fall <em>between</em> two contacts that are — an imported contact dated during a past activation, most often. It carries a red <strong>EXT</strong> badge to say so: it sits inside that run but is external to it and will not appear in its export. Contacts from activations made before the app tracked activation identity are never badged, as there is nothing to compare them against.</p>
       <h3 id="dividers"><a href="#dividers">Dividers</a></h3>
       <p>The log grows horizontal dividers to mark events, so you can see at a glance what belongs to what:</p>
       <ul>
@@ -930,6 +968,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
         <li><strong>Reset custom frequencies on launch</strong>: on by default, clearing any custom dial frequencies each time the app starts. Turn it off to keep them between sessions. See <a href="#9-bands-and-modes">Working off the usual frequency</a>.</li>
         <li><strong>Allow duplicates in auto modes</strong>: off by default, so Hunter and Gatherer skip stations already worked on the current band and mode. The same station on a different band or mode is a new contact and is still worked. Turn on to work duplicates outright.</li>
         <li><strong>Gatherer Call Order</strong>: First to reply, Strongest signal, or Furthest distance.</li>
+        <li><strong>Hunter Call Order</strong>: Strongest signal (default) or Furthest distance. See <a href="#call-order">Call order</a> under Hunter.</li>
         <li><strong>Tune Duration</strong>: how long the tuning carrier runs before stopping itself.</li>
       </ul>
       <h3 id="spotting"><a href="#spotting">Spotting</a></h3>
@@ -1024,9 +1063,11 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <h3 id="the-app-stopped-decoding-while-i-was-doing-something-else"><a href="#the-app-stopped-decoding-while-i-was-doing-something-else">The app stopped decoding while I was doing something else</a></h3>
       <p>Greyline only runs while it is on screen. Come back to it and it restarts. Turn on <strong>Keep Screen On</strong> so the device does not sleep mid-session.</p>
       <h3 id="hunter-keeps-skipping-a-station-i-want-to-work"><a href="#hunter-keeps-skipping-a-station-i-want-to-work">Hunter keeps skipping a station I want to work</a></h3>
-      <p>It is either already in your log for this band and mode (the CQ row will be green), excluded by the CQ filter, or it timed out on Hunter earlier in this session. Tap the row to work it manually, since a manual tap ignores every filter.</p>
+      <p>It is either already in your log for this band and mode (the CQ row will be green), excluded by the CQ filter, or it timed out on Hunter earlier in this session. Tap the row to work it manually: a tap ignores every filter, and it does not turn Hunter off — Hunter works the station you picked and then goes back to scanning.</p>
+      <p>If Hunter keeps choosing stations you would rather it did not, <strong>Hunter Call Order</strong> in Settings › Operations decides which of the CQs in each cycle it answers. See <a href="#call-order">Call order</a>.</p>
       <h3 id="gatherer-left-someone-unworked"><a href="#gatherer-left-someone-unworked">Gatherer left someone unworked</a></h3>
       <p>Check the queue card. Callers already worked on this band and mode, callers excluded by the CQ filter, and callers Gatherer recently bailed on are not queued — nor is a station you dropped from the card, for five minutes. A <strong>WAIT</strong> badge on their messages counts that down.</p>
+      <p>To work one of them anyway, tap their row in the band activity list: that forces them to the top of the queue regardless of why they were passed over.</p>
       <h3 id="a-contact-i-made-is-missing-from-the-log"><a href="#a-contact-i-made-is-missing-from-the-log">A contact I made is missing from the log</a></h3>
       <p>Contacts are logged when the exchange completes from your side. If it stopped earlier than that, use <strong>New QSO</strong> in the log; the form pre-fills from the most recent exchange.</p>
     </section>
