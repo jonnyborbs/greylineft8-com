@@ -565,6 +565,7 @@
       <h3 id="the-control-panel"><a href="#the-control-panel">The control panel</a></h3>
       <h4>Status line</h4>
       <p>Your callsign and grid on the left; a status pill on the right reading <strong>TX</strong> (red), <strong>RX</strong> (green), or <strong>Stopped</strong>. If it says Stopped, tap it to start the receiver. If microphone access was denied it says so, and tapping takes you to iOS Settings.</p>
+      <p>An orange <strong>Timing slow</strong> warning appears to the left of the pill when recent transmissions have been leaving late — see <em>Timing Health</em> under Diagnostics for what to do about it. It is not a radio fault: it means the app itself is struggling to keep up.</p>
       <h4>Band and frequency</h4>
       <p>Band picker, transmit frequency read-out, the suggested clear frequency (tap it to adopt it), a frequency slider covering 200–2900 Hz, and the FT8/FT4 selector. These lock during your transmit slot and unlock again on each receive cycle.</p>
       <h4>POTA panel</h4>
@@ -1008,7 +1009,8 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <h4>World Radio League</h4>
       <p>Pick a <strong>Default Logbook</strong> and your contacts go there. The list loads from your account, so verify your key first.</p>
       <p><strong>A logbook for each POTA activation</strong> is on by default. With it on, every activation gets its own logbook, named for your callsign, the park and the date, for example <code>KB0RB @ US-4578 08-22-2026</code>. The logbook is created when the first contact of the activation uploads, so an activation you never work anyone at leaves nothing behind. Turn it off and everything goes to your default logbook instead.</p>
-      <p>World Radio League has no park field on a contact, which is why the park lives in the logbook name. Export ADIF for your POTA submission as usual.</p>
+      <p>Each POTA contact also carries its park on the contact itself, so World Radio League knows where you operated from whichever way the switch is set. With the switch on, the park appears twice — in the logbook's name and on every contact in it. With it off, the contacts still carry their park, even though they share your default logbook. Export ADIF for your POTA submission as usual.</p>
+      <p><strong>If World Radio League does not recognise the park</strong>, it would normally refuse the whole contact. Rather than leave that contact stuck unuploaded — Greyline has no way for you to correct a park reference once a contact is logged — it sends the contact again without the park. You will see a notice at the top of the log saying so, and the contact keeps a purple <strong>NO PARK</strong> badge afterwards, so you can find it later. The contact is complete apart from the park, and your own log and ADIF export still have the park you entered. With per-activation logbooks on, the contact still lands in that activation's logbook, whose name carries the reference you typed — so a mistyped park stays visible there too, and the whole run stays together.</p>
       <p>Contacts from activations you ran before this feature existed still go to a park logbook. Greyline works out which activation they belong to the same way the POTA export menu does, by grouping a run of contacts at one park. That works for the great majority of older activations, but it can get it wrong in a few cases: a non-park contact logged in the middle of an activation splits it in two, and two visits to the same park on the same day are treated as one.</p>
       <blockquote>
         <p>If contacts land somewhere you did not intend, you can move them between logbooks on the World Radio League site. Greyline cannot move them for you, because their API does not yet offer it.</p>
@@ -1040,6 +1042,23 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <p>Which devices are actually being used for input and output.</p>
       <h3 id="transmit"><a href="#transmit">Transmit</a></h3>
       <p>Counters for transmissions started and completed. <strong>"Never completed"</strong> is the number to watch: it counts transmissions whose audio was handed to the system but never reported finishing, which is the signature of a radio's USB CODEC stalling.</p>
+      <h3 id="timing-health"><a href="#timing-health">Timing Health</a></h3>
+      <p>Everything else in Diagnostics describes the radio and the audio path. This section watches the app itself, and it is the first place to look if other stations stop answering you without any obvious cause.</p>
+      <p>FT8 and FT4 transmissions must start on the slot boundary. The app decides what to send at that instant, so if it is busy with something else, the transmission starts late. Its end still lands on the boundary — the opening is cut off instead — so a small delay costs you nothing and a large one means nobody decodes you.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Row</th><th>What it means</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Boundary transmissions</strong></td><td>How many transmissions this session started on a slot boundary. Tapping to transmit mid-slot is not counted.</td></tr>
+            <tr><td><strong>Started late</strong></td><td>How many of those reached the radio more than 250 ms after the boundary.</td></tr>
+            <tr><td><strong>Worst delay</strong></td><td>The largest delay seen this session.</td></tr>
+            <tr><td><strong>Decodes too late to use</strong></td><td>How many times a slot's decodes arrived after the next transmit decision, so the app answered using the previous cycle. This is what makes the app repeat a message instead of replying to what it just heard.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Started late</strong> and <strong>Decodes too late to use</strong> should stay at 0, and <strong>Worst delay</strong> in the tens of milliseconds. A healthy iPad on a real radio measures single-digit milliseconds across a whole activation.</p>
+      <p>Numbers that climb as a session goes on are the signature worth reporting: the app is gradually slowing down rather than failing outright. <strong>Reset timing stats</strong> clears the counters, which is useful for testing one thing at a time — reset, run for ten minutes with the Band Activity list filtered down or a screen closed, and see whether the count moves.</p>
+      <p>If it happens to you, the useful bug report is these four numbers plus how long the app had been running, your device, and whether an external display was attached. That is enough to reproduce it; a description of the symptom alone usually is not.</p>
       <h3 id="audio-session"><a href="#audio-session">Audio Session</a></h3>
       <p>Interruption and recovery counters, for diagnosing what happened after a phone call or a Siri activation.</p>
     </section>
@@ -1051,6 +1070,9 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <p>Check the status pill reads RX, not Stopped. Check the RX Level meter is moving. If it reads QUIET, the audio is not reaching the app: check the cable, the interface, and that iOS granted microphone access. Check you are on the right dial frequency for the band and mode shown above the waterfall, and that your radio is in USB.</p>
       <h3 id="i-decode-fine-but-nobody-answers-me"><a href="#i-decode-fine-but-nobody-answers-me">I decode fine but nobody answers me</a></h3>
       <p>Your radio is probably not keying. Greyline transmits audio only, so VOX or data-VOX must be enabled on the radio. Confirm the yellow rows appear in the band activity list when you transmit, which means the app sent audio, and watch for RF output on the radio.</p>
+      <h3 id="it-worked-for-an-hour-then-stations-stopped-answering"><a href="#it-worked-for-an-hour-then-stations-stopped-answering">It worked for an hour, then stations stopped answering</a></h3>
+      <p>Check Diagnostics › <strong>Timing Health</strong>. If <strong>Started late</strong> is climbing or <strong>Worst delay</strong> has grown into the hundreds of milliseconds, your transmissions are leaving after the slot boundary with their openings cut off, and the far end can no longer decode them. The orange <strong>Timing slow</strong> warning on the Operate screen means the same thing.</p>
+      <p>This is the app falling behind, not the radio. Backing out of a busy screen, clearing a very long band activity list, or restarting the app all buy it back. Please report it with the four Timing Health numbers, since it is a bug rather than something you should have to work around.</p>
       <h3 id="a-camera-or-screenshot-sound-went-out-over-the-air"><a href="#a-camera-or-screenshot-sound-went-out-over-the-air">A camera or screenshot sound went out over the air</a></h3>
       <p>In some markets, notably Japan and Korea, the law requires the camera shutter and screenshot sounds to play at all times and they cannot be silenced, muted, or turned down. On those devices the sound is mixed into the audio your phone is sending to the radio, so taking a screenshot during a transmit slot will put that shutter tone on the air.</p>
       <p>There is nothing Greyline can do about this, since the sound is generated below the app and is deliberately outside any app's control. Take screenshots during a receive cycle instead: watch the slot timer and capture while it reads RX or DECODE, never TX.</p>
