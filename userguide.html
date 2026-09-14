@@ -489,7 +489,7 @@
       <p><strong>Tap or drag horizontally</strong> anywhere on the waterfall to move your transmit frequency there. <strong>Drag vertically</strong> to adjust the display sensitivity: down makes the display more sensitive (weaker signals show), up makes it less. A read-out appears while you drag and the value is remembered.</p>
       <p>Adjusting sensitivity by dragging turns off <strong>Auto-calibrate Waterfall</strong>; setting a frequency by tapping switches frequency handling to <strong>Hold</strong>. Both are deliberate, because a manual choice should not be overwritten a second later. See <a href="#8-choosing-your-transmit-frequency">Choosing your transmit frequency</a>.</p>
       <h3 id="the-band-activity-list"><a href="#the-band-activity-list">The band activity list</a></h3>
-      <p>Every packet for the session, oldest at the top, newest at the bottom, scrolling to the newest automatically.</p>
+      <p>Every packet for the session, oldest at the top, newest at the bottom. The list follows new decodes as they arrive while you are at the bottom. Scroll up to look at something and it stays where you put it; scroll back down and it follows again. A tap made in the instant new decodes arrive and the list moves is ignored, so it can never land on a row that slid under your finger — just tap again.</p>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Column</th><th>Meaning</th></tr></thead>
@@ -500,12 +500,29 @@
             <tr><td><strong>Freq / Hz</strong></td><td>Audio frequency inside the passband.</td></tr>
             <tr><td><strong>Message</strong></td><td>The decoded text. Long compound callsigns scroll gently side to side rather than being cut off.</td></tr>
             <tr><td><strong>Grid</strong></td><td>The remote station's grid, remembered from any earlier message in the session, so it stays filled in during an exchange even when the current message does not carry one.</td></tr>
-            <tr><td><strong>Dist / Brg</strong></td><td>Great-circle distance and bearing from your grid. Shown when the pane is wide enough.</td></tr>
+            <tr><td><strong>Dist / Brg</strong></td><td>Great-circle distance and bearing from your grid. iPad only, when the pane is wide enough.</td></tr>
             <tr><td><strong>Country / Entity</strong></td><td>DXCC entity, state or province, and continent, resolved offline.</td></tr>
           </tbody>
         </table>
       </div>
-      <p><strong>Tap a column header</strong> (UTC, dB, Freq, Call) to sort by it.</p>
+      <p><strong>Tap a column heading</strong> to sort by it: <strong>UTC</strong>, <strong>dB</strong>, <strong>Freq</strong> (<strong>Hz</strong> on iPhone), or on iPad <strong>Dist</strong>. Tap the same heading again to reverse the order. The chevron beside the heading points down for the usual order and up when reversed.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Heading</th><th>First tap</th><th>Tap again</th></tr></thead>
+          <tbody>
+            <tr><td><strong>UTC</strong></td><td>Oldest first, newest at the bottom</td><td>Newest first, at the top</td></tr>
+            <tr><td><strong>dB</strong></td><td>Strongest first</td><td>Weakest first</td></tr>
+            <tr><td><strong>Freq / Hz</strong></td><td>Lowest first</td><td>Highest first</td></tr>
+            <tr><td><strong>Dist</strong></td><td>Furthest first</td><td>Nearest first</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li>Stations whose distance isn't known — no grid heard yet, or your own transmissions — stay at the bottom of a distance sort either way.</li>
+        <li>Changing the order takes you to the start of the new list.</li>
+        <li>Only in time order, oldest first, does the list follow new decodes. In any other order new decodes land throughout the list rather than at one end, so it stays where you put it.</li>
+        <li>If the column you are sorting by disappears because the pane became too narrow, the list goes back to sorting by time.</li>
+      </ul>
       <h4>Row colours</h4>
       <div class="table-wrap">
         <table>
@@ -520,8 +537,8 @@
       </div>
       <p>Green is scoped to the current band and mode, not your whole log: a station worked on 20 m is a genuinely new contact on 40 m, and the colour tells you what Hunter and Gatherer will actually do.</p>
       <h4>Which stations you can work</h4>
-      <p>A short vertical bar down the left of a row means that station transmits while you are listening — you can work it. Rows without the bar are transmitting at the same time you do, so you are largely deaf to them and could not answer them without moving to the other slot.</p>
-      <p>Under the default time sort, a heavier line also separates one slot from the next, so the list reads as alternating blocks. That grouping disappears if you sort by signal, frequency or callsign, because slots no longer run in order — the bar itself stays under every sort.</p>
+      <p>A short vertical bar down the left of a row means that station transmits while you are listening — you can work it. The speaker symbol at the top of that narrow column labels it. Rows without the bar are transmitting at the same time you do, so you are largely deaf to them and could not answer them without moving to the other slot.</p>
+      <p>Under time sort, in either direction, a heavier line also separates one slot from the next, so the list reads as alternating blocks. That grouping disappears if you sort by signal, frequency or distance, because slots no longer run in order — the bar itself stays under every sort.</p>
       <p>The bar follows <strong>where you are actually transmitting</strong>, not simply your <strong>Call CQ on</strong> setting. Those are usually the same, but while you are answering someone else the protocol puts you on the opposite slot to theirs, so the marking flips for the duration of that exchange and flips back when it ends. That is not a glitch: it always shows the slot you are free to listen in right now.</p>
       <h4>Why a station was passed over</h4>
       <p>When Hunter or Gatherer is running, it will sometimes leave a station alone. Left unexplained that looks like the app has stopped working, particularly when you are operating unattended and come back to find calls that went unanswered.</p>
@@ -561,6 +578,7 @@
       <p>Rows that are neither a CQ nor addressed to you are not tappable, since there is nothing sensible to do with them.</p>
       <h4>The filter</h4>
       <p>The funnel button in the navigation bar opens <strong>Only show CQ and my exchanges</strong>. With it on, the list shows CQ calls, anything addressed to you, and your own transmissions, and hides everything else. This is a display filter only: decoding, logging and the automatic modes carry on exactly as before. A banner along the bottom reminds you it is active; tap it to clear.</p>
+      <p>With the filter on, every row in the list can be tapped, so the rows get taller: each one is a comfortable target on its own rather than a line of text between two others. The text stays the same size. For larger text as well, turn on <strong>Settings › Display › High Visibility</strong>.</p>
       <p>You can choose whether this starts on, off, or as you left it under <strong>Settings › Display › Only show CQs</strong>.</p>
       <h3 id="the-control-panel"><a href="#the-control-panel">The control panel</a></h3>
       <h4>Status line</h4>
@@ -958,6 +976,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
         <li><strong>Distance Units</strong>: Automatic (follows the device), Miles, or Kilometers.</li>
         <li><strong>Default Map View</strong>: which Mapping mode to open in.</li>
         <li><strong>Only show CQs</strong>: the launch state of the band-activity filter, either On, Off, or as you left it.</li>
+        <li><strong>High Visibility</strong>: taller rows and larger text throughout the band activity list, whether or not the filter is on. It shows fewer rows at once. On iPhone the <strong>DT</strong> column is hidden to make room, which leaves the message column more space than the standard layout.</li>
         <li><strong>Keep Screen On</strong>: stops the device sleeping while the app is open. Recommended for long sessions.</li>
         <li><strong>Auto-calibrate Waterfall</strong>: on by default, tracking the band noise and adjusting the display continuously. Turn it off for a fixed floor you set yourself, either with the slider here or by dragging vertically on the waterfall. Always starts on at launch, since a floor from last night's band conditions is rarely right today.</li>
       </ul>
@@ -1056,7 +1075,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
           </tbody>
         </table>
       </div>
-      <p><strong>Started late</strong> and <strong>Decodes too late to use</strong> should stay at 0, and <strong>Worst delay</strong> in the tens of milliseconds. A healthy iPad on a real radio measures single-digit milliseconds across a whole activation.</p>
+      <p><strong>Started late</strong> should stay at 0, <strong>Decodes too late to use</strong> at or near 0, and <strong>Worst delay</strong> in the tens of milliseconds. For reference, eight hours of automatic operation on a real station measured a worst delay of 81 ms, no late transmissions, and 2 late decodes out of roughly 1,900 — an occasional late decode on a crowded band is normal.</p>
       <p>Numbers that climb as a session goes on are the signature worth reporting: the app is gradually slowing down rather than failing outright. <strong>Reset timing stats</strong> clears the counters, which is useful for testing one thing at a time — reset, run for ten minutes with the Band Activity list filtered down or a screen closed, and see whether the count moves.</p>
       <p>If it happens to you, the useful bug report is these four numbers plus how long the app had been running, your device, and whether an external display was attached. That is enough to reproduce it; a description of the symptom alone usually is not.</p>
       <h3 id="audio-session"><a href="#audio-session">Audio Session</a></h3>
