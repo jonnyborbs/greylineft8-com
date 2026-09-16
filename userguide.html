@@ -43,9 +43,9 @@
     }
 
     /* ── NAV ── */
-    nav.site-nav {
+    nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(10, 14, 20, 0.9);
+      background: rgba(10, 14, 20, 0.85);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       padding: 0 1.5rem;
@@ -54,7 +54,7 @@
     }
     .nav-brand {
       display: flex; align-items: center; gap: 0.5rem;
-      font-weight: 700; font-size: 1.1rem;
+      font-weight: 700; font-size: 1.1rem; line-height: 1.6;
       background: linear-gradient(135deg, #3b82f6, #22d3ee);
       background-clip: text;
       -webkit-background-clip: text;
@@ -62,9 +62,10 @@
       text-decoration: none;
     }
     .nav-brand img { width: 32px; height: 32px; border-radius: 7px; flex-shrink: 0; }
-    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links { display: flex; align-items: center; gap: 1.5rem; list-style: none; margin: 0; padding: 0; font-size: 0.9rem; line-height: 1; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; line-height: 1; white-space: nowrap; transition: color 0.2s; }
     .nav-links a:hover { color: var(--text); }
+    .nav-links li { margin: 0; padding: 0; line-height: 1; }
     .nav-toggle {
       display: none;
       background: none; border: none; cursor: pointer;
@@ -72,7 +73,7 @@
       padding: 0.2rem 0.1rem;
     }
     @media (max-width: 480px) {
-      nav.site-nav { padding: 0 1rem; }
+      nav { padding: 0 1rem; }
       .nav-brand { font-size: 0.95rem; }
       .nav-toggle { display: block; }
       .nav-links {
@@ -328,7 +329,7 @@
 </head>
 <body>
 
-<nav class="site-nav">
+<nav>
   <a class="nav-brand" href="index.html">
     <img src="images/app-icon-180.png" alt="Greyline FT8 icon" />
     Greyline FT8
