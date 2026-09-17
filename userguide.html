@@ -460,7 +460,7 @@
         <li><strong>Tune</strong>: the antenna-tuning carrier.</li>
         <li><strong>Settings</strong></li>
       </ul>
-      <p>The strip at the bottom of the Operate tab is always visible. It shows the slot phase, the countdown, your transmit frequency, the message queued to go out next, and a single action button. <strong>Tap the strip</strong> to open the full control panel as a sheet; drag it down to dismiss.</p>
+      <p>The strip at the bottom of the Operate tab is always visible. It shows the slot phase, the countdown, your transmit frequency with an icon for its mode (see <a href="#8-choosing-your-transmit-frequency">Choosing your transmit frequency</a>), the message queued to go out next, and a single action button. <strong>Tap the strip</strong> to open the full control panel as a sheet; drag it down to dismiss.</p>
       <p><strong>On iPad</strong>, a sidebar holds the whole control panel plus navigation, and the right-hand pane holds the waterfall and band activity. The button at the top-left of the sidebar collapses it, which is useful in the field: the band activity then fills the screen and grows its own compact timing strip along the top and a control bar along the bottom.</p>
     </section>
 
@@ -488,14 +488,14 @@
         <li><strong>Small triangles</strong> along the top mark each decoded signal. Yellow means a callsign you have not heard before this session.</li>
       </ul>
       <p><strong>Tap or drag horizontally</strong> anywhere on the waterfall to move your transmit frequency there. <strong>Drag vertically</strong> to adjust the display sensitivity: down makes the display more sensitive (weaker signals show), up makes it less. A read-out appears while you drag and the value is remembered.</p>
-      <p>Adjusting sensitivity by dragging turns off <strong>Auto-calibrate Waterfall</strong>; setting a frequency by tapping switches frequency handling to <strong>Hold</strong>. Both are deliberate, because a manual choice should not be overwritten a second later. See <a href="#8-choosing-your-transmit-frequency">Choosing your transmit frequency</a>.</p>
+      <p>Adjusting sensitivity by dragging turns off <strong>Auto-calibrate Waterfall</strong>; setting a frequency by tapping switches the TX frequency mode to <strong>Hold</strong>. Both are deliberate, because a manual choice should not be overwritten a second later. See <a href="#8-choosing-your-transmit-frequency">Choosing your transmit frequency</a>.</p>
       <h3 id="the-band-activity-list"><a href="#the-band-activity-list">The band activity list</a></h3>
       <p>Every packet for the session, oldest at the top, newest at the bottom. The list follows new decodes as they arrive while you are at the bottom. Scroll up to look at something and it stays where you put it; scroll back down and it follows again. A tap made in the instant new decodes arrive and the list moves is ignored, so it can never land on a row that slid under your finger — just tap again.</p>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Column</th><th>Meaning</th></tr></thead>
           <tbody>
-            <tr><td><strong>UTC</strong></td><td>The slot the message was decoded in, as HHMMSS.</td></tr>
+            <tr><td><strong>UTC</strong></td><td>The slot the message was decoded in, as HHMMSS. For your own transmissions it's the slot start, except when you tapped to transmit mid-slot, which shows the moment it actually went out.</td></tr>
             <tr><td><strong>dB</strong></td><td>Signal-to-noise ratio, in the same terms WSJT-X uses, so the numbers are comparable. Your own transmissions show <code>TX</code>.</td></tr>
             <tr><td><strong>DT</strong></td><td>How far off the slot boundary the other station's transmission arrived, in seconds. The app subtracts its own audio latency, so what you see is the other station's timing error, not yours. Values within a few tenths are normal.</td></tr>
             <tr><td><strong>Freq / Hz</strong></td><td>Audio frequency inside the passband.</td></tr>
@@ -586,7 +586,7 @@
       <p>Your callsign and grid on the left; a status pill on the right reading <strong>TX</strong> (red), <strong>RX</strong> (green), or <strong>Stopped</strong>. If it says Stopped, tap it to start the receiver. If microphone access was denied it says so, and tapping takes you to iOS Settings.</p>
       <p>An orange <strong>Timing slow</strong> warning appears to the left of the pill when recent transmissions have been leaving late — see <em>Timing Health</em> under Diagnostics for what to do about it. It is not a radio fault: it means the app itself is struggling to keep up.</p>
       <h4>Band and frequency</h4>
-      <p>Band picker, transmit frequency read-out, the suggested clear frequency (tap it to adopt it), a frequency slider covering 200–2900 Hz, and the FT8/FT4 selector. These lock during your transmit slot and unlock again on each receive cycle.</p>
+      <p>Band picker, transmit frequency read-out with its <strong>Auto / Hold / Partner</strong> menu, the suggested clear frequency (tap it to adopt it; in Hold it becomes a <strong>Resume Auto</strong> button), a frequency slider covering 200–2900 Hz, and the FT8/FT4 selector. These lock during your transmit slot and unlock again on each receive cycle. The frequency mode menu locks whenever you are transmitting, in any mode, since a change can't affect what is already on the air.</p>
       <h4>POTA panel</h4>
       <p>See <a href="#11-pota-activations">POTA activations</a>.</p>
       <h4>Mode chips</h4>
@@ -730,9 +730,9 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <p>Greyline keeps those exchanges alive:</p>
       <ul>
         <li>When an exchange ends without confirmation, the station is remembered for <strong>10 minutes</strong>.</li>
-        <li>If that station later transmits in a way that asks for closure, repeating their roger when you owe them an <code>RR73</code>, or repeating their <code>RR73</code> when you owe them a <code>73</code>, the app will send the closing message again.</li>
+        <li>If that station later transmits in a way that asks for closure, repeating their roger when you owe them an <code>RR73</code>, or repeating their <code>RR73</code> when you owe them a <code>73</code>, the app will send the closing message again, <strong>once per request</strong>. If that one is missed too, they'll ask again and get another. If they go quiet, the app doesn't keep transmitting at them: silence means your message landed, or that you can no longer hear them.</li>
         <li>It does this <strong>only in a slot it would otherwise have spent idle</strong>: Standard when nothing else is going on, Hunter while scanning, Gatherer between callers. A close-out never interrupts an exchange in progress, and in Gatherer it takes priority over starting a new caller, since closing beats starting.</li>
-        <li>Attempts are capped at your retransmission limit, once per contact. After that, or after ten minutes, the entry is dropped.</li>
+        <li>Your retransmission limit caps how many of a station's requests the app will answer. After that many, or after ten minutes, the entry is dropped.</li>
         <li><strong>Nothing is logged twice.</strong> The contact was already written to the log, and a close-out only puts the courtesy message back on the air.</li>
       </ul>
       <p>Changing band or mode, or restarting the app, clears all of these, since a close-out fired on the wrong band would be wrong.</p>
@@ -742,18 +742,20 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
     <!-- 8. Choosing your transmit frequency -->
     <section class="guide-section" id="8-choosing-your-transmit-frequency">
       <h2><a href="#8-choosing-your-transmit-frequency"><span class="section-num">8.</span> Choosing your transmit frequency</a></h2>
-      <p><strong>Settings › Operations › Frequency Hold</strong> governs how your transmit frequency is managed:</p>
+      <p>The <strong>TX frequency mode</strong> decides how your transmit frequency is managed:</p>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Mode</th><th>Behaviour</th></tr></thead>
+          <thead><tr><th>Mode</th><th>Icon</th><th>Behaviour</th></tr></thead>
           <tbody>
-            <tr><td><strong>Auto Select</strong> (default)</td><td>The suggested clear frequency from each receive cycle is applied automatically. You spread out into quiet spectrum without thinking about it.</td></tr>
-            <tr><td><strong>Use Partner</strong></td><td>Picks a clear frequency when <em>you</em> start a CQ, but moves to match a station you engage.</td></tr>
-            <tr><td><strong>Hold</strong></td><td>Never moves on its own. The suggestion is still drawn on the waterfall, but only a tap applies it.</td></tr>
+            <tr><td><strong>Auto</strong> (default)</td><td>wand</td><td>The suggested clear frequency from each receive cycle is applied automatically. You spread out into quiet spectrum without thinking about it.</td></tr>
+            <tr><td><strong>Hold</strong></td><td>lock</td><td>Never moves on its own. The suggestion is still drawn on the waterfall, but only a tap applies it.</td></tr>
+            <tr><td><strong>Partner</strong></td><td>two people</td><td>Picks a clear frequency when <em>you</em> start a CQ, but moves to match a station you engage.</td></tr>
           </tbody>
         </table>
       </div>
-      <p>Tapping the waterfall or moving the slider always wins: it sets the frequency and switches Auto Select to Hold, so your choice is not overwritten on the next cycle. The app resets to Auto Select at every launch, since last session's clear frequency is stale.</p>
+      <p>Change it from the menu beside <strong>TX Frequency</strong> in the control panel, or in <strong>Settings › Operations › TX Frequency</strong>; both are the same setting. The icon beside the frequency on the Operate strip always shows the current mode. The menu is locked while you are transmitting.</p>
+      <p>Choosing a frequency yourself always wins. Tapping the waterfall, moving the slider, or <strong>Tune to</strong> on a station's details sets the frequency and switches to <strong>Hold</strong> from either Auto or Partner, so your choice isn't overwritten on the next cycle or the next QSO. The status line says so when it happens. To go back, tap the green <strong>Resume Auto</strong> button in the control panel, which appears in place of the suggested frequency while you're in Hold. It applies the current suggestion and switches to Auto in one step.</p>
+      <p>The app starts in Auto at every launch, since last session's clear frequency is stale.</p>
     </section>
 
     <!-- 9. Bands and modes -->
@@ -951,11 +953,13 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
     <!-- 13. Mapping -->
     <section class="guide-section" id="13-mapping">
       <h2><a href="#13-mapping"><span class="section-num">13.</span> Mapping</a></h2>
-      <p>One map, three things it can show. Pick with the dropdown at the top left.</p>
+      <p>One map, three things it can show. Pick with the first dropdown at the top left; the second picks how far back to look: 5, 15, 30 or 60 minutes, or longer. Each view remembers its own choice.</p>
+      <p>For Live Spots and Stations Heard, the longest choice is <strong>This band/mode</strong>: everything since you last changed band or mode, or since the app started. The line under the dropdowns says when that was, for example <em>20m FT8 since 14:05</em> (UTC). Changing band or mode starts both views again from empty, and the timed windows never reach back past that point either.</p>
       <h3 id="live-spots"><a href="#live-spots">Live Spots</a></h3>
-      <p>Stations that have reported hearing <em>you</em> on pskreporter.info, for the current band and mode. Refreshed every five minutes automatically; the refresh button forces it. Dots are coloured by the report they gave you: blue weak, green good, orange strong.</p>
+      <p>Stations that have reported hearing <em>you</em> on pskreporter.info, for the current band and mode. Refreshed every five minutes automatically; the refresh button forces it. Dots are coloured by the latest report each station gave you: blue weak, green good, orange strong. Opens on <strong>This band/mode</strong> by default.</p>
+      <p>Reports reach pskreporter.info in batches, so the 5-minute window can look empty just before the next refresh.</p>
       <h3 id="stations-heard"><a href="#stations-heard">Stations Heard</a></h3>
-      <p>Stations <em>you</em> decoded, coloured the same way, over a window you choose: 5, 15, 30 or 60 minutes, or the whole session. Only stations whose grid the app has seen can be plotted.</p>
+      <p>Stations <em>you</em> decoded, coloured the same way. Opens on the last 15 minutes by default. Only stations whose grid the app has seen can be plotted.</p>
       <h3 id="contacts-logged"><a href="#contacts-logged">Contacts Logged</a></h3>
       <p>Every grid in your log, across all bands, coloured by band. A grid worked on several bands fans out into a small cluster as you zoom in. The window here runs over your whole logbook, not just this session.</p>
       <p>The map centres on your grid when it opens. Which mode it opens in is a setting: <strong>Settings › Display › Default Map View</strong>.</p>
@@ -983,7 +987,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       </ul>
       <h3 id="operations"><a href="#operations">Operations</a></h3>
       <ul>
-        <li><strong>Frequency Hold</strong>: see <a href="#8-choosing-your-transmit-frequency">Choosing your transmit frequency</a>.</li>
+        <li><strong>TX Frequency</strong>: Auto, Hold or Partner. See <a href="#8-choosing-your-transmit-frequency">Choosing your transmit frequency</a>.</li>
         <li><strong>Default Band</strong> and <strong>Default Mode</strong>: open on a specific band and mode, or return to whatever you last used.</li>
         <li><strong>Max retransmissions</strong>: 1 to 99, default 10.</li>
         <li><strong>Reset custom frequencies on launch</strong>: on by default, clearing any custom dial frequencies each time the app starts. Turn it off to keep them between sessions. See <a href="#9-bands-and-modes">Working off the usual frequency</a>.</li>
@@ -1073,6 +1077,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
             <tr><td><strong>Started late</strong></td><td>How many of those reached the radio more than 250 ms after the boundary.</td></tr>
             <tr><td><strong>Worst delay</strong></td><td>The largest delay seen this session.</td></tr>
             <tr><td><strong>Decodes too late to use</strong></td><td>How many times a slot's decodes arrived after the next transmit decision, so the app answered using the previous cycle. This is what makes the app repeat a message instead of replying to what it just heard.</td></tr>
+            <tr><td><strong>Stale decodes dropped</strong></td><td>How many times a slot's decodes were discarded because you changed band or mode while they were being decoded. They would otherwise appear in the new band's list and be reported to PSKReporter on the wrong frequency. Up to one per change is normal and not a problem.</td></tr>
           </tbody>
         </table>
       </div>
