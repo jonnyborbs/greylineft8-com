@@ -485,6 +485,7 @@
       <ul>
         <li><strong>The white bracket</strong> is your transmit frequency. The bright left edge is the frequency itself; the dimmer right edge is 50 Hz higher, the width an FT8 signal actually occupies.</li>
         <li><strong>The dashed line</strong> is the app's suggestion for a clear frequency, recalculated every receive cycle from the noise floor and where signals were just decoded. It changes colour to stay visible against whatever is behind it.</li>
+        <li><strong>The Drive slider</strong> to the right of the waterfall sets your transmit level, unless it is switched off in <strong>Settings › Display</strong>. See <a href="#setting-your-transmit-drive">Setting your transmit drive</a>.</li>
         <li><strong>Small triangles</strong> along the top mark each decoded signal. Yellow means a callsign you have not heard before this session.</li>
       </ul>
       <p><strong>Tap or drag horizontally</strong> anywhere on the waterfall to move your transmit frequency there. <strong>Drag vertically</strong> to adjust the display sensitivity: down makes the display more sensitive (weaker signals show), up makes it less. A read-out appears while you drag and the value is remembered.</p>
@@ -801,15 +802,29 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <p>By default, <strong>custom frequencies are cleared each time the app starts</strong>. This is deliberate: a frequency set for one contest should not quietly follow you into next week's operating and mis-report every contact. If you would rather keep them between sessions, turn off <strong>Reset custom frequencies on launch</strong> in Settings, and get into the habit of checking the band bar before you transmit.</p>
     </section>
 
-    <!-- 10. Tuning your antenna -->
-    <section class="guide-section" id="10-tuning-your-antenna">
-      <h2><a href="#10-tuning-your-antenna"><span class="section-num">10.</span> Tuning your antenna</a></h2>
-      <p>The <strong>Tune</strong> screen transmits a steady carrier so you can adjust an antenna or tuner.</p>
+    <!-- 10. Using the Tuning function -->
+    <section class="guide-section" id="10-using-the-tuning-function">
+      <h2><a href="#10-using-the-tuning-function"><span class="section-num">10.</span> Using the Tuning function</a></h2>
+      <p>The <strong>Tune</strong> screen transmits a steady carrier so you can adjust your antenna, tuner, VOX or Drive settings. It runs at exactly the level your FT8 and FT4 transmissions use, so anything you set against it holds when you go back on the air.</p>
       <p>Set a duration (5 seconds to 2 minutes, or Infinite), then <strong>Start Tuning</strong>. The screen goes black with a countdown large enough to read from across a field, plus <strong>Cancel</strong> and <strong>Extend</strong> buttons. The screen is kept awake while tuning, since you are probably not holding the device.</p>
       <ul>
         <li>The carrier uses whatever transmit frequency is shown; the screen refreshes the clear- frequency suggestion when you open it so the displayed frequency is the one that will actually be sent.</li>
         <li>All automatic transmission is suppressed while tuning.</li>
         <li>Leaving the screen cancels the carrier. The transmitter is never left keyed with no visible countdown or stop button.</li>
+      </ul>
+      <h3 id="setting-your-transmit-drive"><a href="#setting-your-transmit-drive">Setting your transmit drive</a></h3>
+      <p><strong>Drive</strong> controls how hard the app feeds your radio. It is on the Tune screen — before and during tuning — and beside the waterfall on the Operate screen. Both show the same value. The waterfall one can be turned off with <strong>Settings › Display › Show drive slider</strong>, which gives that width back to the waterfall; the Tune screen always has it.</p>
+      <p>It is separate from the phone's volume buttons, which still apply on top. That is the point: the volume buttons are coarse, shared with everything else on the phone, and easily knocked; Drive is fine (1 dB steps), remembered between sessions, and only affects transmission.</p>
+      <p><strong>Drive only reduces.</strong> 0 dB is full output. Going higher isn't possible, because the audio is already at maximum before it leaves the app, and anything more would distort. If 0 dB is too quiet for your radio, turn the phone's volume up, or raise the input gain on the radio or interface. WSJT-X calls this same control "Pwr".</p>
+      <p><strong>To set it:</strong></p>
+      <ol>
+        <li>Start tuning, and watch the ALC meter on your radio.</li>
+        <li>Drag Drive down until ALC barely moves, or sits where your radio's manual recommends for data modes.</li>
+        <li>That setting is correct for FT8 and FT4 as well: the tuning carrier is transmitted at exactly the level your transmissions use.</li>
+      </ol>
+      <p>Changes take effect immediately, even in the middle of a transmission, so you can adjust while calling CQ and watch the meter respond.</p>
+      <p><strong>Overdriving is the most common cause of a wide, distorted signal</strong> — other stations see it as splatter, and it wins you nothing. If your ALC pegs at any usable Drive setting, the drive into your radio is too high somewhere else in the chain: try the radio's data or ACC input gain setting.</p>
+      <ul>
         <li>Tuning works even from a cold start: it will bring the audio up on its own and put it back afterwards.</li>
       </ul>
       <p><strong>Be considerate</strong>: find a clear frequency before you key up. A tuning carrier on top of someone's QSO is unmistakable.</p>
@@ -982,6 +997,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
         <li><strong>Default Map View</strong>: which Mapping mode to open in.</li>
         <li><strong>Only show CQs</strong>: the launch state of the band-activity filter, either On, Off, or as you left it.</li>
         <li><strong>High Visibility</strong>: taller rows and larger text throughout the band activity list, whether or not the filter is on. It shows fewer rows at once. On iPhone the <strong>DT</strong> column is hidden to make room, which leaves the message column more space than the standard layout.</li>
+        <li><strong>Show drive slider</strong>: shows the transmit Drive slider beside the waterfall. Off gives that space back to the waterfall; the Tune screen's slider is always available. See <a href="#setting-your-transmit-drive">Setting your transmit drive</a>.</li>
         <li><strong>Keep Screen On</strong>: stops the device sleeping while the app is open. Recommended for long sessions.</li>
         <li><strong>Auto-calibrate Waterfall</strong>: on by default, tracking the band noise and adjusting the display continuously. Turn it off for a fixed floor you set yourself, either with the slider here or by dragging vertically on the waterfall. Always starts on at launch, since a floor from last night's band conditions is rarely right today.</li>
       </ul>
@@ -1065,7 +1081,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <h3 id="audio-route"><a href="#audio-route">Audio Route</a></h3>
       <p>Which devices are actually being used for input and output.</p>
       <h3 id="transmit"><a href="#transmit">Transmit</a></h3>
-      <p>Counters for transmissions started and completed. <strong>"Never completed"</strong> is the number to watch: it counts transmissions whose audio was handed to the system but never reported finishing, which is the signature of a radio's USB CODEC stalling.</p>
+      <p>Counters for transmissions started and completed, plus <strong>TX drive</strong>, the level set by the Drive slider. <strong>"Never completed"</strong> is the number to watch: it counts transmissions whose audio was handed to the system but never reported finishing, which is the signature of a radio's USB CODEC stalling.</p>
       <h3 id="timing-health"><a href="#timing-health">Timing Health</a></h3>
       <p>Everything else in Diagnostics describes the radio and the audio path. This section watches the app itself, and it is the first place to look if other stations stop answering you without any obvious cause.</p>
       <p>FT8 and FT4 transmissions must start on the slot boundary. The app decides what to send at that instant, so if it is busy with something else, the transmission starts late. Its end still lands on the boundary — the opening is cut off instead — so a small delay costs you nothing and a large one means nobody decodes you.</p>

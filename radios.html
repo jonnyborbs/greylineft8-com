@@ -169,6 +169,7 @@
     .radio-badge.full { background: rgba(34, 197, 94, 0.12); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
     .radio-badge.partial { background: rgba(251, 191, 36, 0.12); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
     .radio-badge.not-recommended { background: rgba(239, 68, 68, 0.12); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .radio-badge.pending { background: rgba(239, 68, 68, 0.12); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
     .radio-body p { margin-bottom: 0; font-size: 0.9rem; }
 
     @media (max-width: 600px) {
@@ -241,7 +242,7 @@
 
   <ul>
     <li>Make sure to enable VOX on the radio for Greyline FT8 to work properly. You may have to adjust your VOX delay and VOX gain settings as well as the output volume on your Apple device for activation to work properly.</li>
-    <li>To avoid overdriving, connect your audio interface to your Apple device, turn the device's volume all the way down, start a CQ call and slowly increase the device's volume until the radio's VOX opens.</li>
+    <li>To avoid overdriving, connect your audio interface to your Apple device, turn the device's volume all the way down, and use the Tuning view in the app to gradually increase the input gain until the radio's VOX opens. You can use a combination of the device volume controls and this gain control to get the ideal balance.</li>
     <li>💡 <b>Helpful tip:</b> use your ALC meter to determine if your input gain is too high. You want it in the upper 25% when transmitting.</li>
     <li>To avoid overwhelming the Apple device's input, set your transciever's AF gain to the lowest level possible for Greyline FT8's waterfall to start displaying signals. Slight increases to the AF gain may improve signal readability, but too much AF gain will cause distortion and difficulty decoding.</li>
     <li>Below are some popular field radios that have been tested with the app and how you can connect them. This list is not complete and many, many other radios will work just great!</li>
@@ -347,9 +348,9 @@
       <div class="radio-body">
         <div class="radio-header">
           <span class="radio-name">Icom IC-705</span>
-          <span class="radio-badge full">Fully Supported</span>
+          <span class="radio-badge pending">Support Pending</span>
         </div>
-        <p>Fully supported, when using a USB-C or Lightning → TRRS adapter or a Digirig and a splitter to 2.5mm TRS for Microphone and 3.5mm TRS for Headphones. Icom does not support VOX over the USB connection on this radio, so a direct USB interface will not work properly. Also, if using an audio interface cable, be sure to set the radio to USB (Upper Sideband) and not USB-D. VOX is not supported in DATA modes.</p>
+        <p>The IC-705 has many unique requirements. Users have reported difficulty getting it to work with off the shelf components. A solution is being worked on, so stay tuned for updates!</p>
       </div>
     </div>
 
@@ -375,7 +376,15 @@
           <span class="radio-name">Icom IC-7300/Mk2</span>
           <span class="radio-badge full">Fully Supported</span>
         </div>
-        <p>Fully supported, when using a USB-C or Lightning → TRRS adapter or a Digirig and the cable kit specified for the IC-706. Note that the Digirig option is much preferred for this radio. Icom does not support VOX over the USB connection on this radio, so a direct USB interface will not work properly. Also, if using an audio interface cable, be sure to set the radio to USB (Upper Sideband) and not USB-D. VOX is not supported in DATA modes. You may need to adjust the ACC Mod setting as well as your Apple device volume to get the best ALC readings.</p>
+        <p>Fully supported, when using a USB-C or Lightning → TRRS adapter or a Digirig and the cable kit specified for the IC-706. Note that the Digirig option is much preferred for this radio. Icom does not support VOX over the USB connection on this radio, so a direct USB interface will not work properly. Also, if using an audio interface cable, be sure to set the radio to USB (Upper Sideband) and not USB-D. VOX is not supported in DATA modes.</p>
+        <br>
+        <p>To get the best ALC readings, adjust the ACC Mod setting on the radio and the app's <strong>Drive</strong> slider, found beside the waterfall and on the Tune screen. Your Apple device volume applies on top of Drive, so  use Drive for the fine adjustment. See <a href="userguide.html#setting-your-transmit-drive">Setting your transmit drive</a> for details.</p>
+        <br>
+        <p>Recommended starting points, both under <strong>Menu &gt; Set &gt; Connectors</strong>:</p>
+        <ul>
+          <li><strong>ACC/USB AF Output Level</strong>: 35%</li>
+          <li><strong>ACC MOD Level</strong> and <strong>USB MOD Level</strong>: 1%</li>
+        </ul>
       </div>
     </div>
 
@@ -469,7 +478,7 @@
     <li><a href="https://amzn.to/4e7HP81" target="_blank" rel="noopener">Lightning to 3.5mm Headphone Jack Adapter (Apple)</a> — for connecting Lightning-equipped iPhones/iPads to a TRRS audio cable.</li>
     <li><a href="https://amzn.to/4fDF0ww" target="_blank" rel="noopener">3.5mm TRRS Extension Cable</a> — Moves your Apple device a comfortable distance from the radio.</li>
     <li><a href="https://amzn.to/4vMIIc1" target="_blank" rel="noopener">3.5mm TRRS to Dual 3.5mm TRS Splitter (Mic + Headphone)</a> — splits a single TRRS connection into separate microphone and headphone jacks.</li>
-    <li><a href="https://amzn.to/4v2rW8F" target="_blank" rel="noopener">3.5mm to 2.5mm TRS Adapter</a> — for radios with a 2.5mm microphone jack, such as the Icom IC-705.</li>
+    <li><a href="https://amzn.to/4v2rW8F" target="_blank" rel="noopener">3.5mm to 2.5mm TRS Adapter</a> — for radios with a 2.5mm microphone jack</li>
     <li><a href="https://amzn.to/4vG7kTG" target="_blank" rel="noopener">Digirig Mobile Interface</a> — the gold standard USB sound card and PTT interface. Be sure you also have the correct cables to hook your rig to the interface.</li>
     <li><a href="https://amzn.to/4fJkSJp" target="_blank" rel="noopener">Digirig Lite Interface</a> — Digirig Mobile's simpler cousin. The same gold standard USB sound card, but smaller, cheaper, and without the serial interface (which Greyline FT8 does not use anyway). The advantage to the Lite model is that it adds its own VOX circuit, so if your radio does not support VOX this is your best option. Be sure you also have the correct cables to hook your rig to the interface.</li>
   </ul>

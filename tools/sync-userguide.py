@@ -52,7 +52,7 @@ def is_special(line):
 def collect_list_item(lines, start):
     """Collect a potentially multi-line list item starting at lines[start].
     Stops at blank lines, new top-level list items, block starters, or indented sub-items."""
-    text = lines[start][2:].strip()  # strip leading '- '
+    text = re.sub(r'^(?:-|\d+\.)\s+', '', lines[start]).strip()
     i = start + 1
     while i < len(lines):
         line = lines[i]
@@ -188,8 +188,7 @@ def parse_block(lines, indent='      '):
         if re.match(r'^\d+\. ', line):
             out.append(f'{indent}<ol>')
             while i < len(lines) and re.match(r'^\d+\. ', lines[i]):
-                item_text = re.sub(r'^\d+\. ', '', lines[i]).strip()
-                i += 1
+                item_text, i = collect_list_item(lines, i)
                 out.append(f'{indent}  <li>{inline(escape(item_text))}</li>')
             out.append(f'{indent}</ol>')
             continue
