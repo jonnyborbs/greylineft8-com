@@ -260,7 +260,8 @@
     <label for="version-select">Jump to version:</label>
     <select id="version-select" onchange="document.getElementById(this.value).scrollIntoView({behavior:'smooth'})">
       <option value="" disabled selected>Select a version…</option>
-      <option value="v1-4-7">1.4.7 — Latest</option>
+      <option value="v1-4-8">1.4.8 — Latest</option>
+      <option value="v1-4-7">1.4.7</option>
       <option value="v1-4-6">1.4.6</option>
       <option value="v1-4-5">1.4.5</option>
       <option value="v1-4-4">1.4.4</option>
@@ -290,11 +291,47 @@
     </select>
   </div>
 
+  <!-- ── 1.4.8 ── -->
+  <div class="release" id="v1-4-8">
+    <div class="release-header">
+      <span class="release-version"><a href="#v1-4-8">Version 1.4.8</a></span>
+      <span class="release-tag">Latest</span>
+    </div>
+    <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">The one that adds experimental Bluetooth support</p>
+    <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 0.75rem;">Love Greyline? Stop by my <a href="https://ko-fi.com/kb0rb" target="_blank" rel="noopener">Ko-Fi</a>!</p>
+
+    <div style="background: rgba(251,146,60,0.1); border: 1px solid rgba(251,146,60,0.35); border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1rem;">
+      <div style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #fb923c; margin-bottom: 0.4rem;">Note</div>
+      <p style="color: #fb923c; font-size: 0.95rem; margin: 0;">The WRL logging API is a work in progress, and I will continue to improve the app as their API evolves! What we have here now takes full advantage of what the service currently supports. Stay tuned for more features!</p>
+    </div>
+
+    <div class="release-section-title">Shoutouts</div>
+    <ul class="shoutout-list">
+      <li><span class="shoutout-call">W5REZ</span><span>Suggesting Bluetooth support for the LiNKMP500</span></li>
+    </ul>
+
+    <div class="release-section-title">Features</div>
+    <ul>
+      <li>Experimental Bluetooth support. If you have a Bluetooth interface that offers a microphone via "hands-free" profile, Greyline will now try and use it. This only happens when no USB or wired interface is connected.</li>
+    </ul>
+
+    <div style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.35); border-radius: 8px; padding: 0.75rem 1rem; margin: 1rem 0;">
+      <div style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #f87171; margin-bottom: 0.4rem;">Safety warning</div>
+      <p style="color: #f87171; font-size: 0.95rem; margin: 0;">Headphones like AirPods Pro also offer a microphone, so the app may pick them. Playing an FT8 signal over earbuds like that could present hearing danger. The app will pause the audio stream and warn you not to do this before transmitting over any Bluetooth device.</p>
+    </div>
+
+    <div style="background: rgba(251,146,60,0.1); border: 1px solid rgba(251,146,60,0.35); border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1rem;">
+      <div style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #fb923c; margin-bottom: 0.4rem;">Note</div>
+      <p style="color: #fb923c; font-size: 0.95rem; margin: 0;">Note: Bluetooth introduces latency into the data stream. We can’t avoid this, and it may cause you to miss calls or send ones that can’t be decoded. The hands-free profile is also optimized for telephone audio, which starts at about 500hz. Signals way at the bottom of the band you’re on may not be heard as a result.</p>
+    </div>
+
+    <p class="release-footer">That's it, that's all, folks! Thanks for bringing me on your activations — now get out there and POTA on. 73!</p>
+  </div>
+
   <!-- ── 1.4.7 ── -->
   <div class="release" id="v1-4-7">
     <div class="release-header">
       <span class="release-version"><a href="#v1-4-7">Version 1.4.7</a></span>
-      <span class="release-tag">Latest</span>
     </div>
     <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">The one that adds manual gain control</p>
     <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 0.75rem;">Love Greyline? Stop by my <a href="https://ko-fi.com/kb0rb" target="_blank" rel="noopener">Ko-Fi</a>!</p>

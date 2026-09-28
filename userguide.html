@@ -412,6 +412,22 @@
       <h3 id="a-transceiver-with-a-sound-card-interface"><a href="#a-transceiver-with-a-sound-card-interface">A transceiver with a sound-card interface</a></h3>
       <p>Any interface that presents itself to iOS as a USB audio device will work: a Digirig, a SignaLink, a radio with a built-in USB CODEC, or a simple isolated audio cable pair. The app detects the interface automatically when you plug it in and switches to it, and switches back if you unplug it.</p>
       <p>Looking for information on supported radios and how to configure them? See <a href="radios.html">Connecting to Radios</a>.</p>
+      <p><strong>Bluetooth audio is experimental.</strong> A Bluetooth interface that offers a microphone (the "hands-free" profile, as a headset does) can be used, but only when no USB or wired interface is connected — those always win. Every time the app switches to a Bluetooth device, it <strong>pauses all audio</strong> and shows a warning with two choices, like the disconnection alert:</p>
+      <ul>
+        <li><strong>Use Bluetooth Audio</strong> resumes audio on the Bluetooth device.</li>
+        <li><strong>Close</strong> leaves audio stopped. Tap the status pill to start it when you're ready.</li>
+      </ul>
+      <p>Either way, a CQ or automatic mode that was running stays stopped, as after any audio-device change.</p>
+      <blockquote>
+        <p><strong>Never use earphones or earbuds with Greyline.</strong> Transmit audio is loud, and in your ears it can damage your hearing quickly. That is why audio pauses until you have seen the warning.</p>
+      </blockquote>
+      <p>Expect some drawbacks:</p>
+      <ul>
+        <li><strong>Latency.</strong> Bluetooth adds roughly a tenth to a quarter of a second each way. Received signals are timed correctly, but your transmissions leave that much late, which other stations see as a positive DT.</li>
+        <li><strong>Audio quality.</strong> Bluetooth microphones use a narrowband voice codec, so quiet signals, and those near the bottom of the waterfall, may decode less reliably.</li>
+        <li><strong>Output-only devices won't work.</strong> If a Bluetooth device only plays audio (as speakers do), iOS won't offer it as a microphone and the app stays on its current input.</li>
+      </ul>
+      <p>If your interface also has a USB connection, use that.</p>
       <h3 id="keying"><a href="#keying">Keying</a></h3>
       <p>The app has no CAT control and does not key your radio over a serial line. It transmits audio, and your radio needs to key from that audio, using VOX or the "data VOX" setting most modern radios have on their USB audio input. Every transmission begins with a tenth of a second of silence to give the radio time to key up before the signal starts.</p>
       <h3 id="an-accurate-clock"><a href="#an-accurate-clock">An accurate clock</a></h3>
@@ -1123,6 +1139,8 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <p>Either the level is far too high, in which case everything reads red and you should turn the audio down at the radio, or the floor is set wrong. Turn <strong>Auto-calibrate Waterfall</strong> back on, or drag vertically on the waterfall to adjust.</p>
       <h3 id="an-audio-device-disconnected-alert-appeared"><a href="#an-audio-device-disconnected-alert-appeared">An "Audio Device Disconnected" alert appeared</a></h3>
       <p>iOS fell back to the built-in microphone and speaker, usually because the interface was unplugged or lost power. Reconnect it, or choose <strong>Use Internal Audio</strong> to carry on with the device's own audio.</p>
+      <h3 id="a-bluetooth-audio-is-experimental-pop-up-appeared"><a href="#a-bluetooth-audio-is-experimental-pop-up-appeared">A "Bluetooth Audio Is Experimental" pop-up appeared</a></h3>
+      <p>The app switched to a Bluetooth microphone and speaker because no USB or wired interface was connected, and paused audio until you choose. <strong>Use Bluetooth Audio</strong> resumes on that device; <strong>Close</strong> leaves audio stopped. It works, with the caveats under <a href="#a-transceiver-with-a-sound-card-interface">A transceiver with a sound-card interface</a>. The warning appears every time a Bluetooth device is connected.</p>
       <h3 id="the-app-stopped-decoding-while-i-was-doing-something-else"><a href="#the-app-stopped-decoding-while-i-was-doing-something-else">The app stopped decoding while I was doing something else</a></h3>
       <p>Greyline only runs while it is on screen. Come back to it and it restarts. Turn on <strong>Keep Screen On</strong> so the device does not sleep mid-session.</p>
       <h3 id="hunter-keeps-skipping-a-station-i-want-to-work"><a href="#hunter-keeps-skipping-a-station-i-want-to-work">Hunter keeps skipping a station I want to work</a></h3>
