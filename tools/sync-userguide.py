@@ -20,6 +20,19 @@ def escape(t):
     return t.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
 
 
+USED_IDS = set()
+
+
+def unique_id(slug):
+    """Return slug, suffixed if a previous heading already claimed it."""
+    candidate, n = slug, 2
+    while candidate in USED_IDS:
+        candidate = f'{slug}-{n}'
+        n += 1
+    USED_IDS.add(candidate)
+    return candidate
+
+
 def slugify(text):
     text = text.lower()
     text = re.sub(r'[^a-z0-9\s-]', '', text)
@@ -115,7 +128,9 @@ def parse_block(lines, indent='      '):
 
         # h4
         if line.startswith('#### '):
-            out.append(f'{indent}<h4>{inline(escape(line[5:].strip()))}</h4>')
+            h4_title = line[5:].strip()
+            h4_slug = unique_id(slugify(h4_title))
+            out.append(f'{indent}<h4 id="{h4_slug}">{inline(escape(h4_title))}</h4>')
             i += 1
             continue
 
@@ -239,7 +254,7 @@ def process_section(sec_text):
     i = 1
     while i < len(subsections):
         h3_title = subsections[i][4:].strip()
-        h3_slug = slugify(h3_title)
+        h3_slug = unique_id(slugify(h3_title))
         out.append(f'      <h3 id="{h3_slug}"><a href="#{h3_slug}">'
                    f'{inline(escape(h3_title))}</a></h3>')
         if i + 1 < len(subsections):
@@ -248,6 +263,55 @@ def process_section(sec_text):
 
     out.append('    </section>')
     return '\n'.join(out)
+
+
+def normalize(text):
+    text = re.sub(r'<[^>]+>', '', text)
+    text = (text.replace('&amp;', '&').replace('&lt;', '<')
+                .replace('&gt;', '>').replace('&nbsp;', ' '))
+    return re.sub(r'\s+', ' ', text).strip()
+
+
+def check_links(html):
+    """Report broken internal anchors and a table of contents that has drifted.
+
+    The TOC lives outside the CONTENT markers, so the sync never touches it and
+    it silently goes stale when a section is renamed or renumbered.
+    """
+    problems = []   # links that are actually broken
+    notes = []      # wording drift, which may be deliberate
+
+    ids = re.findall(r'id="([^"]+)"', html)
+    duplicates = sorted({i for i in ids if ids.count(i) > 1})
+    for dup in duplicates:
+        problems.append(f'duplicate id: #{dup}')
+
+    id_set = set(ids)
+    for ref in sorted(set(re.findall(r'href="#([^"]+)"', html))):
+        if ref not in id_set:
+            problems.append(f'broken link: #{ref} has no matching id')
+
+    toc_match = re.search(r'<ol class="toc-list">(.*?)</ol>', html, re.DOTALL)
+    if not toc_match:
+        problems.append('table of contents not found — check the toc-list markup')
+    else:
+        toc = [(href, normalize(label)) for href, label in
+               re.findall(r'<li><a href="#([^"]+)">(.*?)</a></li>', toc_match.group(1))]
+        headings = [(slug, f'{num}. {normalize(title)}') for slug, num, title in
+                    re.findall(r'<h2><a href="#([^"]+)">'
+                               r'<span class="section-num">(\d+)\.</span>(.*?)</a></h2>', html)]
+        if len(toc) != len(headings):
+            problems.append(f'table of contents has {len(toc)} entries '
+                            f'but the guide has {len(headings)} sections')
+        for (toc_slug, toc_label), (slug, label) in zip(toc, headings):
+            if toc_slug != slug:
+                problems.append(f'table of contents points at #{toc_slug} '
+                                f'but that section is now #{slug} ("{label}")')
+            elif toc_label != label:
+                notes.append(f'table of contents reads "{toc_label}" '
+                             f'where the section is titled "{label}"')
+
+    return problems, notes
 
 
 def main():
@@ -299,6 +363,19 @@ def main():
     changed = result != html
     print(f'Done. Synced {len(sections_raw)} sections from {MD_SOURCE}'
           + ('' if changed else ' (no changes)'))
+
+    problems, notes = check_links(result)
+    if problems:
+        print(f'\nWARNING: {len(problems)} broken link(s) — '
+              f'the table of contents is hand-maintained and needs fixing by hand:',
+              file=sys.stderr)
+        for p in problems:
+            print(f'  - {p}', file=sys.stderr)
+    if notes:
+        print(f'\nFYI: {len(notes)} wording difference(s), harmless if deliberate:',
+              file=sys.stderr)
+        for n in notes:
+            print(f'  - {n}', file=sys.stderr)
 
 
 if __name__ == '__main__':

@@ -384,7 +384,7 @@
         <li><a href="#7-retransmissions-and-unfinished-contacts">7. Retransmissions &amp; unfinished contacts</a></li>
         <li><a href="#8-choosing-your-transmit-frequency">8. Choosing your transmit frequency</a></li>
         <li><a href="#9-bands-and-modes">9. Bands and modes</a></li>
-        <li><a href="#10-tuning-your-antenna">10. Tuning your antenna</a></li>
+        <li><a href="#10-using-the-tuning-function">10. Using the Tuning function</a></li>
         <li><a href="#11-pota-activations">11. POTA activations</a></li>
         <li><a href="#12-the-log">12. The log</a></li>
         <li><a href="#13-mapping">13. Mapping</a></li>
@@ -541,7 +541,7 @@
         <li>Only in time order, oldest first, does the list follow new decodes. In any other order new decodes land throughout the list rather than at one end, so it stays where you put it.</li>
         <li>If the column you are sorting by disappears because the pane became too narrow, the list goes back to sorting by time.</li>
       </ul>
-      <h4>Row colours</h4>
+      <h4 id="row-colours">Row colours</h4>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Colour</th><th>Meaning</th></tr></thead>
@@ -554,11 +554,11 @@
         </table>
       </div>
       <p>Green is scoped to the current band and mode, not your whole log: a station worked on 20 m is a genuinely new contact on 40 m, and the colour tells you what Hunter and Gatherer will actually do.</p>
-      <h4>Which stations you can work</h4>
+      <h4 id="which-stations-you-can-work">Which stations you can work</h4>
       <p>A short vertical bar down the left of a row means that station transmits while you are listening — you can work it. The speaker symbol at the top of that narrow column labels it. Rows without the bar are transmitting at the same time you do, so you are largely deaf to them and could not answer them without moving to the other slot.</p>
       <p>Under time sort, in either direction, a heavier line also separates one slot from the next, so the list reads as alternating blocks. That grouping disappears if you sort by signal, frequency or distance, because slots no longer run in order — the bar itself stays under every sort.</p>
       <p>The bar follows <strong>where you are actually transmitting</strong>, not simply your <strong>Call CQ on</strong> setting. Those are usually the same, but while you are answering someone else the protocol puts you on the opposite slot to theirs, so the marking flips for the duration of that exchange and flips back when it ends. That is not a glitch: it always shows the slot you are free to listen in right now.</p>
-      <h4>Why a station was passed over</h4>
+      <h4 id="why-a-station-was-passed-over">Why a station was passed over</h4>
       <p>When Hunter or Gatherer is running, it will sometimes leave a station alone. Left unexplained that looks like the app has stopped working, particularly when you are operating unattended and come back to find calls that went unanswered.</p>
       <p>A small badge after the message says why. It sits to the right of the message text rather than before it, so the messages stay aligned in a column you can read straight down:</p>
       <div class="table-wrap">
@@ -577,12 +577,12 @@
       <p><strong>In Standard you keep the WAIT and SKIPPED badges.</strong> Dropping out of an automatic mode — by tapping a station, or by switching mode — used to blank every badge, so you lost your picture of who had been set aside just as you went to do something about it. Those two are memories that outlive the mode change, so they stay. WORKED and FILTERED do not: the green row already says worked, and the CQ filter only acts on the automatic modes, so in Standard it is not excluding anything and a badge claiming otherwise would be wrong. If you have never armed an automatic mode, Standard shows no badges at all, exactly as before.</p>
       <p>A badge is not a fault. It is the app telling you it made a decision on purpose. If you want a station worked anyway, the relevant setting is in <strong>Settings › Operations</strong>: turn on <strong>Allow duplicates in auto modes</strong> for WORKED, or change the CQ filter for FILTERED. WAIT expires on its own, SKIPPED clears when you re-arm Hunter, and you can always tap the row to work that station by hand.</p>
       <p><strong>A station you tap in Gatherer loses its badge</strong>, because it is no longer being passed over — see <a href="#tapping-a-row">Tapping a row</a>.</p>
-      <h4>Tapping a row</h4>
+      <h4 id="tapping-a-row">Tapping a row</h4>
       <ul>
         <li><strong>Tap a cyan or green CQ</strong> to answer it. The app sets the correct slot timing and starts calling that station.
           <ul>
             <li><strong>In Hunter, you stay in Hunter.</strong> Tapping a CQ tells Hunter which station to work next rather than turning it off: Hunter runs the exchange itself, and when it finishes goes straight back to scanning under your <a href="#call-order">Call order</a>. Tapping while it is mid-exchange with someone else abandons that one in favour of yours.</li>
-            <li>Anywhere else — Standard, or Gatherer — the app drops to Standard first. Gatherer is running a CQ of its own, so answering someone else's CQ really does end that run.</li>
+            <li><strong>In Gatherer, you stay in Gatherer.</strong> The station goes to the top of the queue, like a caller you tapped, and is worked after whoever is being worked now. Gatherer opens with your report rather than your grid, the way WSJT-X's <em>Skip Tx1</em> option answers a CQ, and a WSJT-X station replies with its roger as usual. If they work someone else instead, Gatherer gives up after your retry limit and moves on, as it does for any caller who doesn't answer.</li>
           </ul>
         </li>
         <li><strong>Tap a red message addressed to you</strong> to pick that exchange back up. The app works out what they sent and replies with whatever comes next in the sequence.
@@ -590,25 +590,47 @@
             <li><strong>In Hunter you usually stay in Hunter</strong>, because it can finish any exchange where you are the one answering — which is every exchange Hunter starts. Sent you a report, and it replies with the roger; sent RR73, and it sends your 73. If that contact is already in your log, it re-sends the 73 without logging it a second time.</li>
             <li>If they sent something only a CQ-calling station can answer — their grid, or a roger — the app drops to Standard, since finishing that exchange means being the station calling CQ, which Hunter never is.</li>
             <li><strong>In Gatherer, tapping one of your callers moves them to the top of the queue</strong> and the run carries on. They are worked next, after whoever is being worked now finishes. This works even on a station Gatherer had passed over as already worked, filtered or in cooldown — tapping it overrides all three — and its badge disappears, since it is no longer being passed over. Tapping the station already being worked does nothing.</li>
+            <li><strong>In Gatherer, tapping a station asking you to close</strong> (their roger, <code>RR73</code> or <code>73</code>) also keeps the run going. If you owe them a closing message, it goes to the top of the queue and is re-sent next, without logging the contact a second time. If their roger is for a contact that never made it into your log, they are queued as a caller instead, and logged when the exchange completes. If nothing is left to send them, a status line says so and nothing else changes.</li>
           </ul>
         </li>
       </ul>
-      <p>Rows that are neither a CQ nor addressed to you are not tappable, since there is nothing sensible to do with them.</p>
-      <h4>The filter</h4>
+      <p>Tapping any other row does nothing, so a stray tap on a moving list never starts a transmission. To call a station from one of those rows, long-press it instead.</p>
+      <h4 id="long-pressing-a-row">Long-pressing a row</h4>
+      <p>Many stations, POTA activators especially, work one contact after another without calling CQ in between. There is no CQ of theirs to tap, but their exchanges with other stations are in the list. <strong>Long-press any row</strong> to call one of the stations on it.</p>
+      <p>The menu lists the station that is <strong>running</strong> first: the one working contacts back to back, which is usually who you want. The app works out which station that is from the message:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Row</th><th>Example</th><th>Listed first</th></tr></thead>
+          <tbody>
+            <tr><td>A report or <code>RR73</code></td><td><code>JA1XYZ JQ3JUK RR73</code></td><td>the sender, <strong>JQ3JUK</strong></td></tr>
+            <tr><td>A grid, a roger or <code>73</code></td><td><code>JQ3JUK JA1XYZ 73</code></td><td>the station it was sent to, <strong>JQ3JUK</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The other station on the row is listed second, so if the app picks the wrong one, the right one is still a tap away. A long-press on a CQ offers that station alone, and does the same as tapping it.</p>
+      <p>What <strong>Call</strong> does depends on the mode:</p>
+      <ul>
+        <li><strong>Standard:</strong> calls the station, the same as <a href="#custom-message">Custom Message › Call</a>. Your call goes out in the slot that station is listening in. If you have never decoded them transmitting, the row you pressed settles the timing. Calling abandons any exchange in progress, as tapping a CQ does.</li>
+        <li><strong>Hunter:</strong> runs the exchange as a Hunter exchange and returns to scanning afterwards. If you have never decoded that station transmitting, Hunter has nothing to run it from, so the app switches to Standard and calls from there.</li>
+        <li><strong>Gatherer:</strong> puts the station at the top of the queue, like tapping a caller, and the station being worked now finishes first. Gatherer opens with your report, so it needs a decode of that station transmitting to measure one. Until it has one, the item is greyed out and reads <strong>No report, can't call</strong>.</li>
+      </ul>
+      <p>Your own transmissions and rows addressed to you have no menu: tap a row addressed to you to pick that exchange back up. Free text and unreadable callsigns have no menu either.</p>
+      <h4 id="the-filter">The filter</h4>
       <p>The funnel button in the navigation bar opens <strong>Only show CQ and my exchanges</strong>. With it on, the list shows CQ calls, anything addressed to you, and your own transmissions, and hides everything else. This is a display filter only: decoding, logging and the automatic modes carry on exactly as before. A banner along the bottom reminds you it is active; tap it to clear.</p>
+      <p>The filter also hides other stations' exchanges, which is where a station running contacts back to back shows up, so turn it off to <a href="#long-pressing-a-row">long-press</a> one of those rows.</p>
       <p>With the filter on, every row in the list can be tapped, so the rows get taller: each one is a comfortable target on its own rather than a line of text between two others. The text stays the same size. For larger text as well, turn on <strong>Settings › Display › High Visibility</strong>.</p>
       <p>You can choose whether this starts on, off, or as you left it under <strong>Settings › Display › Only show CQs</strong>.</p>
       <h3 id="the-control-panel"><a href="#the-control-panel">The control panel</a></h3>
-      <h4>Status line</h4>
+      <h4 id="status-line">Status line</h4>
       <p>Your callsign and grid on the left; a status pill on the right reading <strong>TX</strong> (red), <strong>RX</strong> (green), or <strong>Stopped</strong>. If it says Stopped, tap it to start the receiver. If microphone access was denied it says so, and tapping takes you to iOS Settings.</p>
       <p>An orange <strong>Timing slow</strong> warning appears to the left of the pill when recent transmissions have been leaving late — see <em>Timing Health</em> under Diagnostics for what to do about it. It is not a radio fault: it means the app itself is struggling to keep up.</p>
-      <h4>Band and frequency</h4>
+      <h4 id="band-and-frequency">Band and frequency</h4>
       <p>Band picker, transmit frequency read-out with its <strong>Auto / Hold / Partner</strong> menu, the suggested clear frequency (tap it to adopt it; in Hold it becomes a <strong>Resume Auto</strong> button), a frequency slider covering 200–2900 Hz, and the FT8/FT4 selector. These lock during your transmit slot and unlock again on each receive cycle. The frequency mode menu locks whenever you are transmitting, in any mode, since a change can't affect what is already on the air.</p>
-      <h4>POTA panel</h4>
+      <h4 id="pota-panel">POTA panel</h4>
       <p>See <a href="#11-pota-activations">POTA activations</a>.</p>
-      <h4>Mode chips</h4>
+      <h4 id="mode-chips">Mode chips</h4>
       <p>Standard / Hunter / Gatherer, grouped under "Manual" and "Automatic" brackets. Hunter and Gatherer are greyed out until a callsign and grid are set.</p>
-      <h4>Call CQ on</h4>
+      <h4 id="call-cq-on">Call CQ on</h4>
       <p>A dropdown reading <strong>Even slots</strong> or <strong>Odd slots</strong>. It decides which half of the cycle your CQ goes out on:</p>
       <div class="table-wrap">
         <table>
@@ -624,7 +646,7 @@
       <p><strong>The dropdown greys out whenever you are armed to transmit</strong>, meaning while you are calling CQ, mid-exchange, in Hunter or Gatherer, or sending any message. Stop what you are doing to change it, and the new choice takes effect from your next CQ. This is deliberate: changing halfway through a contact would move your transmissions onto the slot your partner is using, and neither of you would hear the other again.</p>
       <p>Your choice is remembered between launches.</p>
       <p>Most operators never need to touch this. Reach for it when the half you are on is crowded, or when you have agreed a slot with someone you are trying to work.</p>
-      <h4>The main button</h4>
+      <h4 id="the-main-button">The main button</h4>
       <p>What it does depends on where you are:</p>
       <div class="table-wrap">
         <table>
@@ -639,7 +661,7 @@
           </tbody>
         </table>
       </div>
-      <h4>Next TX</h4>
+      <h4 id="next-tx">Next TX</h4>
       <p>The exact message that will go out, in the same form the other station will see it. Two details worth knowing:</p>
       <ul>
         <li><strong>The number in parentheses is how many more copies will be sent after the one currently going out.</strong> If it reads <code>W6ABC KB0RB -12 (7)</code>, that message is being sent now and will be repeated up to seven more times if the other station does not respond. It counts down with each repeat and disappears when the budget is spent. See <a href="#7-retransmissions-and-unfinished-contacts">Retransmissions</a>.</li>
@@ -647,13 +669,14 @@
       </ul>
       <p>The small <strong>TX / RX pill</strong> in the corner of that panel tells you whether the coming slot is yours to transmit on. While Hunter is scanning it stays on RX, because Hunter sends nothing until it finds a target.</p>
       <p>If nothing is queued, the panel shows your CQ message greyed out, a preview of what would go out if you tapped Call CQ.</p>
-      <h4>Custom Message</h4>
+      <h4 id="custom-message">Custom Message</h4>
       <p>Expand it and pick what the box is for: <strong>Call</strong> or <strong>Message</strong>.</p>
       <p><strong>Call</strong> (the default) takes a callsign and starts a QSO with that station — for chasing a station that is working a pileup and never calls CQ, so there is no CQ of theirs to tap. Type <code>W6ABC</code>, and the hint under the field previews exactly what will go out (<code>Will send: W6ABC YOURCALL FN42</code>). Press <strong>Call</strong> and the app calls them, repeating until they come back or your retransmission limit runs out, then sequences the rest of the QSO for you like any other exchange. To stop, use the main button, which reads <strong>Abort — working W6ABC</strong>.</p>
       <p>Timing is picked for you: the app transmits opposite to the slot it last heard that station in, so your call lands while they are listening. If you have never decoded them, it falls back to your <strong>Call CQ on</strong> slot setting, which is a coin flip until you hear them once.</p>
-      <p>Calling from Hunter keeps you in Hunter — it runs the exchange and returns to scanning afterwards. Calling from Gatherer ends the run, because you are answering someone else instead of the callers answering you.</p>
+      <p>If the station is in the band activity list, <a href="#long-pressing-a-row">long-pressing its row</a> does the same without typing, and the row settles the timing even if you have never decoded them transmitting.</p>
+      <p>Calling from Hunter keeps you in Hunter — it runs the exchange and returns to scanning afterwards — as long as you have decoded that station transmitting. If you never have, Hunter has nothing to run the exchange from, so the app switches to Standard and calls them from there. Calling from Gatherer ends the run, because you are answering someone else instead of the callers answering you.</p>
       <p><strong>Message</strong> is the original behaviour: one message of your own on the next slot boundary, whichever slot that is. It accepts either free text (up to 13 characters) or a standard message such as <code>W6ABC KD9XYZ -09</code>; the field validates by trying to actually encode what you typed, so a legitimate standard message is never rejected for looking too long. Once queued, the button becomes a red <strong>X</strong> to cancel. A custom message does not appear in the Next TX panel.</p>
-      <h4>RX Level</h4>
+      <h4 id="rx-level">RX Level</h4>
       <p>Your audio input level, labelled <strong>QUIET</strong>, <strong>OK</strong> or <strong>HOT</strong>. Aim for the green band. If it reads HOT, turn the audio down at the radio or interface, because an overdriven input decodes badly. The meter is suppressed during your own transmit slot.</p>
     </section>
 
@@ -693,12 +716,13 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
         <li>It picks a CQ from those heard in the cycle, per <strong>Hunter Call Order</strong> below.</li>
         <li>It skips stations already worked on this band and mode, unless <strong>Allow duplicates in auto modes</strong> is on.</li>
         <li>It skips stations excluded by the <a href="#cq-filtering">CQ filter</a>. Tapping a station yourself overrides all of these — see <a href="#tapping-a-row">Tapping a row</a>.</li>
+        <li>It answers CQs only. To chase a station that works one contact after another without calling CQ, <a href="#long-pressing-a-row">long-press</a> one of its rows: Hunter calls it and goes back to scanning afterwards.</li>
         <li>If a station does not answer within the retransmission budget, Hunter gives up and will not call it again for the rest of this Hunter session. Tapping <strong>Abort</strong>, or turning Hunter off and on again, clears that memory.</li>
         <li>It logs the contact when its <code>73</code> goes out, then returns to scanning.</li>
       </ul>
       <p>Each of those skips shows as a badge on the station's row, so you can see why a call went unanswered. See <a href="#the-band-activity-list">Why a station was passed over</a>.</p>
       <p>While Hunter is scanning, Next TX reads <strong>Pending Target</strong> and the pill stays on RX, because Hunter transmits nothing until it has someone to call.</p>
-      <h4>Call order</h4>
+      <h4 id="call-order">Call order</h4>
       <p>A setting with two options:</p>
       <ul>
         <li><strong>Strongest signal</strong> — the default, and what Hunter has always done: answer the loudest CQ in the cycle.</li>
@@ -713,20 +737,20 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
         <li>Gatherer works the queue one at a time: report, wait for their roger, <code>RR73</code>, log, next caller. When the queue empties it goes back to calling CQ.</li>
         <li>Unlike Standard, Gatherer's <strong>CQ has no retransmission limit</strong> and keeps calling. The per-exchange limit still applies.</li>
       </ul>
-      <h4>The queue card</h4>
+      <h4 id="the-queue-card">The queue card</h4>
       <p>Tap <strong>Queue (n)</strong> to open it. The station being worked sits at the top marked <strong>ACTIVE</strong> and stays there for the whole exchange; everyone else follows in the order they will be worked. Each row shows the callsign, the operator's name if a lookup service is configured, how long ago you last heard them, the report you will give them, and, on a second line, grid, country and state, distance and bearing, to help you prioritise.</p>
       <ul>
         <li><strong>Drag a row</strong> to move it. A row you move is pinned, so newly-heard callers never displace your placement.</li>
-        <li><strong>Tap a caller's row in the band activity list</strong> to send them straight to the top, without opening this card. See <a href="#tapping-a-row">Tapping a row</a>.</li>
+        <li><strong>Tap a station in the band activity list</strong> to send them straight to the top, without opening this card: a caller, someone calling CQ, or a station asking you to close. See <a href="#tapping-a-row">Tapping a row</a>. For a station in someone else's exchange, <a href="#long-pressing-a-row">long-press</a> its row.</li>
         <li><strong>Drag the ACTIVE row down</strong>, or drag another station above it, to work someone else first. The station you were working is not dropped — it keeps the place you gave it and is worked when it comes back to the top, starting its exchange again from the report.</li>
         <li>Any transmission already going out finishes; the change takes effect from the next slot.</li>
         <li><strong>Swipe or use the delete control</strong> to drop a caller. Delete the ACTIVE row and the station being worked is dropped: the next caller takes the slot. Because that station is transmitting to you every cycle, dropping it also sets it aside for five minutes so it cannot immediately re-engage you — its rows carry a <strong>WAIT</strong> badge counting down. If you want it dropped but still eligible, drag it down the queue first, then delete it.</li>
         <li>Gatherer keeps running behind the card; the list updates live.</li>
       </ul>
       <p>The count on the button is the number of rows in the card — the station being worked plus everyone waiting.</p>
-      <h4>Call order</h4>
+      <h4 id="call-order-2">Call order</h4>
       <p>A setting with three options: <em>First to reply</em> (first in, first out), <em>Strongest signal</em>, or <em>Furthest distance</em> (callers whose grid you do not know go to the back). Re-hearing a caller already in the queue refreshes their report and timestamp but never re-sorts them.</p>
-      <h4>Stuck partners</h4>
+      <h4 id="stuck-partners">Stuck partners</h4>
       <p>Some software repeats a bare signal report forever instead of sending a roger. Rather than burn the whole retransmission budget, Gatherer bails after three of these and moves to the next caller. A station it has bailed on is left alone for five minutes so its next transmission cannot immediately re-engage you.</p>
       <p>While that station is set aside, its messages carry a <strong>WAIT</strong> badge counting down the remaining time, so a caller being passed over is never a mystery. See <a href="#the-band-activity-list">Why a station was passed over</a>.</p>
       <h3 id="switching-modes"><a href="#switching-modes">Switching modes</a></h3>
@@ -958,7 +982,25 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <p><strong>Import ADIF</strong> reads an <code>.adi</code> or <code>.adif</code> file. The result tells you how many contacts were imported and how many were skipped as duplicates, as non-FT8/FT4 modes, or as malformed records. Imported contacts count toward your duplicate checking, since they are your own history of who you have worked, but they are never uploaded to a logbook.</p>
       <h3 id="uploading-to-a-logbook"><a href="#uploading-to-a-logbook">Uploading to a logbook</a></h3>
       <p>Configure QRZ, Cloudlog and/or World Radio League in Settings and turn on their auto-log toggles, and each contact uploads in the background as it is logged. Nothing about that ever blocks operating; a failed upload just leaves the contact pending.</p>
-      <p>The cloud button in the toolbar shows how many contacts are still pending and uploads them on demand. With more than one service configured it becomes a menu so you can upload to one or all.</p>
+      <p>The cloud button in the toolbar shows how many contacts are still pending. Tap it for a menu that uploads them on demand, to one service or, with more than one configured, to all.</p>
+      <h3 id="contacts-that-are-already-on-the-service"><a href="#contacts-that-are-already-on-the-service">Contacts that are already on the service</a></h3>
+      <p>If you've already sent your contacts another way, for example by exporting an ADIF file and importing it on the service's website, the pending count no longer means anything. Uploading them again doesn't help: World Radio League stores a second copy of each contact, and QRZ refuses them and reports a failure.</p>
+      <p>Two items at the bottom of the cloud button's menu deal with this.</p>
+      <p><strong>Recheck Uploads</strong> asks each service whether it already has each pending contact, and marks the ones it has as uploaded. It never uploads anything. A contact counts as already there only if the service has the same callsign, band and mode within two minutes of the same time, so a contact it doesn't have stays pending. When it finishes, it tells you how many contacts were found on each service and how many are still pending.</p>
+      <ul>
+        <li><strong>World Radio League</strong> can be rechecked. Contacts in any of your logbooks count.</li>
+        <li><strong>QRZ</strong> can be rechecked. QRZ keeps only the minute of each contact's time, which the two-minute allowance covers.</li>
+        <li><strong>Cloudlog</strong> can't be rechecked: its API has no way to look up a contact.</li>
+        <li>The item appears only when a service that can be rechecked is configured.</li>
+        <li>Large rechecks pause and continue on their own if the service asks them to slow down.</li>
+      </ul>
+      <p><strong>Clear Pending Count</strong> is for contacts that recheck can't confirm, and for services it can't ask. It sets the count to zero for every configured service. It asks for confirmation first and shows how many contacts it will clear for each service.</p>
+      <ul>
+        <li><strong>Your log isn't changed.</strong> The contacts stay in the log, still marked as not uploaded, and you can still upload any of them later from <strong>Select</strong>.</li>
+        <li><strong>Their upload failures are cleared too</strong>, so the warning above the search field goes away.</li>
+        <li><strong>Contacts you log afterwards</strong> upload and count as usual.</li>
+        <li><strong>It can't be undone.</strong></li>
+      </ul>
       <h3 id="when-an-upload-fails"><a href="#when-an-upload-fails">When an upload fails</a></h3>
       <p>A warning appears above the search field only when something has actually gone wrong, so it costs you no space the rest of the time. It names the service and the reason, and counts the contacts affected. It clears itself once those contacts upload, once you replace the key, or once the service verifies successfully.</p>
       <p><strong>View</strong> opens a list of everything that failed, grouped by reason, showing the callsign, band, mode and park for each contact. <strong>Retry All</strong> attempts them again.</p>
@@ -974,7 +1016,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
           </tbody>
         </table>
       </div>
-      <p>If a large upload stops early it tells you how many contacts are left. Tap the cloud button again to carry on from where it stopped.</p>
+      <p>If a large upload stops early it tells you how many contacts are left. Upload from the cloud button again to carry on from where it stopped.</p>
       <h3 id="selecting-contacts"><a href="#selecting-contacts">Selecting contacts</a></h3>
       <p><strong>Select</strong> enters selection mode, where you can upload, export or delete a group of contacts. Services the selection is already fully uploaded to are omitted from the upload menu. Deletion asks for confirmation and cannot be undone.</p>
       <h3 id="manual-entry"><a href="#manual-entry">Manual entry</a></h3>
@@ -1062,7 +1104,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <blockquote>
         <p><strong>A note on Cloudlog and POTA:</strong> Cloudlog applies the park reference from the station profile you point at, overriding the one in the uploaded contact. If you activate several parks, make sure the station profile matches, or export ADIF for POTA instead.</p>
       </blockquote>
-      <h4>World Radio League</h4>
+      <h4 id="world-radio-league">World Radio League</h4>
       <p>Pick a <strong>Default Logbook</strong> and your contacts go there. The list loads from your account, so verify your key first.</p>
       <p><strong>A logbook for each POTA activation</strong> is on by default. With it on, every activation gets its own logbook, named for your callsign, the park and the date, for example <code>KB0RB @ US-4578 08-22-2026</code>. The logbook is created when the first contact of the activation uploads, so an activation you never work anyone at leaves nothing behind. Turn it off and everything goes to your default logbook instead.</p>
       <p>Each POTA contact also carries its park on the contact itself, so World Radio League knows where you operated from whichever way the switch is set. With the switch on, the park appears twice — in the logbook's name and on every contact in it. With it off, the contacts still carry their park, even though they share your default logbook. Export ADIF for your POTA submission as usual.</p>
