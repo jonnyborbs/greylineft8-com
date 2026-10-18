@@ -401,8 +401,8 @@
 
     <div class="page-header">
       <h1>User Guide</h1>
-      <p class="version">For version 1.2</p>
-      <p class="intro">Greyline FT8 turns an iPhone or iPad into a complete FT8 and FT4 station. Connect the device to your transceiver with a USB audio interface and the app decodes the band in real time, shows it on a waterfall, works stations for you if you want it to, logs the contacts, and uploads them to your logbook.  There is no computer in the chain and nothing to configure on a desktop. Everything happens on the device: decoding, transmitting, logging, POTA spotting, mapping.</p>
+      <p class="version">For version 1.5.0</p>
+      <p class="intro">Greyline FT8 turns an iPhone or iPad into a complete FT8 and FT4 station. Connect the device to your transceiver with a USB audio interface and the app decodes the band in real time, shows it on a waterfall, works stations for you if you want it to, logs the contacts, and uploads them to your logbook. There is no computer in the chain and nothing to configure on a desktop. Everything happens on the device: decoding, transmitting, logging, POTA spotting, mapping.</p>
     </div>
 
 
@@ -476,8 +476,8 @@
         <li><strong>Tune</strong>: the antenna-tuning carrier.</li>
         <li><strong>Settings</strong></li>
       </ul>
-      <p>The strip at the bottom of the Operate tab is always visible. It shows the slot phase, the countdown, your transmit frequency with an icon for its mode (see <a href="#8-choosing-your-transmit-frequency">Choosing your transmit frequency</a>), the message queued to go out next, and a single action button. <strong>Tap the strip</strong> to open the full control panel as a sheet; drag it down to dismiss.</p>
-      <p><strong>On iPad</strong>, a sidebar holds the whole control panel plus navigation, and the right-hand pane holds the waterfall and band activity. The button at the top-left of the sidebar collapses it, which is useful in the field: the band activity then fills the screen and grows its own compact timing strip along the top and a control bar along the bottom.</p>
+      <p>The strip at the bottom of the Operate tab is always visible. It shows the slot phase, the countdown, your transmit frequency with an icon for its mode (see <a href="#8-choosing-your-transmit-frequency">Choosing your transmit frequency</a>), the message queued to go out next, and a single action button. The button does what the control panel's <a href="#the-main-button">main button</a> does, in a word: <strong>Call CQ</strong>, <strong>HALT</strong>, <strong>HUNT</strong> (Hunter is scanning; tap to disarm it), or <strong>STOP</strong> (ends Gatherer). <strong>Tap the strip</strong> to open the full control panel as a sheet; drag it down to dismiss.</p>
+      <p><strong>On iPad</strong>, a sidebar holds the whole control panel plus navigation, and the right-hand pane holds the waterfall and band activity. The button at the top-left of the sidebar collapses it, which is useful in the field: the band activity then fills the screen and grows its own compact timing strip along the top and a control bar along the bottom. The bar holds <strong>Start</strong> / <strong>Stop</strong> for the audio, the mode chips, and the same main button as the control panel, including <strong>Stop Gatherer</strong> and <strong>Queue (n)</strong> in Gatherer. See <a href="#the-main-button">The main button</a>.</p>
     </section>
 
     <!-- 4. Reading the Operate screen -->
@@ -567,7 +567,7 @@
           <tbody>
             <tr><td><strong>WAIT 3m</strong></td><td>You tried to work this station and got nowhere, so it is set aside for a few minutes before it is tried again. The number counts down.</td></tr>
             <tr><td><strong>SKIPPED</strong></td><td>Hunter gave up on this station after calling without a reply. It stays set aside until you re-arm Hunter or cancel the exchange.</td></tr>
-            <tr><td><strong>FILTERED</strong></td><td>Your CQ filter excludes this station's kind of call. See <a href="#14-settings-reference">CQ filtering</a>.</td></tr>
+            <tr><td><strong>FILTERED</strong></td><td>Your CQ filter excludes this station's kind of call. See <a href="#cq-filtering">CQ filtering</a>.</td></tr>
             <tr><td><strong>WORKED</strong></td><td>You have already worked this station on this band and mode.</td></tr>
           </tbody>
         </table>
@@ -655,7 +655,7 @@
             <tr><td><strong>Call CQ</strong></td><td>Starts calling CQ (Standard mode).</td></tr>
             <tr><td><strong>Halt Transmit</strong></td><td>Stops calling CQ.</td></tr>
             <tr><td><strong>Abort — working W6ABC</strong></td><td>Abandons the exchange in progress.</td></tr>
-            <tr><td><strong>Enable Transmit</strong> / <strong>Auto TX Enabled</strong></td><td>Arms Hunter, or disarms it back to Standard.</td></tr>
+            <tr><td><strong>Auto TX Enabled</strong></td><td>Hunter is armed and scanning. Tapping it disarms Hunter back to Standard.</td></tr>
             <tr><td><strong>Abort — hunting W6ABC</strong></td><td>Drops the station Hunter is chasing and goes back to scanning.</td></tr>
             <tr><td><strong>Stop Gatherer</strong> plus <strong>Queue (n)</strong></td><td>In Gatherer the button splits: stop, or inspect the pile of waiting callers.</td></tr>
           </tbody>
@@ -697,7 +697,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <p>The <strong>Sent</strong> report in your log is the SNR the app measured for their signal. The <strong>Rcvd</strong> report is the number they sent you, read from their message. Reports are generated automatically; you never type one.</p>
       <h3 id="when-contacts-get-logged"><a href="#when-contacts-get-logged">When contacts get logged</a></h3>
       <ul>
-        <li><strong>Answering a CQ</strong>: logged when their <code>RR73</code> arrives, the point at which they have confirmed the contact.</li>
+        <li><strong>Answering a CQ</strong>: logged when their <code>RR73</code> arrives, the point at which they have confirmed the contact. Hunter writes it as its <code>73</code> goes out, one slot later.</li>
         <li><strong>Calling CQ</strong>: logged when your <code>RR73</code> goes out for the first time. By then you hold their report and their roger, so the contact is complete from your side, and their <code>73</code> simply closes it out. This matters, because an <code>RR73</code> they never hear would otherwise lose a contact that had in fact been made.</li>
       </ul>
       <p>Each contact is logged once, no matter how many times a message is repeated.</p>
@@ -720,7 +720,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
         <li>If a station does not answer within the retransmission budget, Hunter gives up and will not call it again for the rest of this Hunter session. Tapping <strong>Abort</strong>, or turning Hunter off and on again, clears that memory.</li>
         <li>It logs the contact when its <code>73</code> goes out, then returns to scanning.</li>
       </ul>
-      <p>Each of those skips shows as a badge on the station's row, so you can see why a call went unanswered. See <a href="#the-band-activity-list">Why a station was passed over</a>.</p>
+      <p>Each of those skips shows as a badge on the station's row, so you can see why a call went unanswered. See <a href="#why-a-station-was-passed-over">Why a station was passed over</a>.</p>
       <p>While Hunter is scanning, Next TX reads <strong>Pending Target</strong> and the pill stays on RX, because Hunter transmits nothing until it has someone to call.</p>
       <h4 id="call-order">Call order</h4>
       <p>A setting with two options:</p>
@@ -745,6 +745,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
         <li><strong>Drag the ACTIVE row down</strong>, or drag another station above it, to work someone else first. The station you were working is not dropped — it keeps the place you gave it and is worked when it comes back to the top, starting its exchange again from the report.</li>
         <li>Any transmission already going out finishes; the change takes effect from the next slot.</li>
         <li><strong>Swipe or use the delete control</strong> to drop a caller. Delete the ACTIVE row and the station being worked is dropped: the next caller takes the slot. Because that station is transmitting to you every cycle, dropping it also sets it aside for five minutes so it cannot immediately re-engage you — its rows carry a <strong>WAIT</strong> badge counting down. If you want it dropped but still eligible, drag it down the queue first, then delete it.</li>
+        <li>A station asking you to close shows an orange <strong>RR73</strong> chip: that row re-sends your closing message rather than starting a new exchange, and is never logged twice. See <a href="#late-replies-and-the-close-out">Late replies and the close-out</a>.</li>
         <li>Gatherer keeps running behind the card; the list updates live.</li>
       </ul>
       <p>The count on the button is the number of rows in the card — the station being worked plus everyone waiting.</p>
@@ -752,7 +753,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <p>A setting with three options: <em>First to reply</em> (first in, first out), <em>Strongest signal</em>, or <em>Furthest distance</em> (callers whose grid you do not know go to the back). Re-hearing a caller already in the queue refreshes their report and timestamp but never re-sorts them.</p>
       <h4 id="stuck-partners">Stuck partners</h4>
       <p>Some software repeats a bare signal report forever instead of sending a roger. Rather than burn the whole retransmission budget, Gatherer bails after three of these and moves to the next caller. A station it has bailed on is left alone for five minutes so its next transmission cannot immediately re-engage you.</p>
-      <p>While that station is set aside, its messages carry a <strong>WAIT</strong> badge counting down the remaining time, so a caller being passed over is never a mystery. See <a href="#the-band-activity-list">Why a station was passed over</a>.</p>
+      <p>While that station is set aside, its messages carry a <strong>WAIT</strong> badge counting down the remaining time, so a caller being passed over is never a mystery. See <a href="#why-a-station-was-passed-over">Why a station was passed over</a>.</p>
       <h3 id="switching-modes"><a href="#switching-modes">Switching modes</a></h3>
       <p>Changing mode, band, or FT8/FT4 tears down whatever was in progress cleanly, and stops a CQ you were calling.</p>
       <p>An automatic mode is <strong>disarmed</strong> rather than carried across: changing band or FT8/FT4 drops Hunter or Gatherer back to Standard and clears the call queue, so you re-arm deliberately where you now are instead of finding out afterwards what an armed mode did in a place you had not looked at yet.</p>
@@ -795,7 +796,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
         </table>
       </div>
       <p>Change it from the menu beside <strong>TX Frequency</strong> in the control panel, or in <strong>Settings › Operations › TX Frequency</strong>; both are the same setting. The icon beside the frequency on the Operate strip always shows the current mode. The menu is locked while you are transmitting.</p>
-      <p>Choosing a frequency yourself always wins. Tapping the waterfall, moving the slider, or <strong>Tune to</strong> on a station's details sets the frequency and switches to <strong>Hold</strong> from either Auto or Partner, so your choice isn't overwritten on the next cycle or the next QSO. The status line says so when it happens. To go back, tap the green <strong>Resume Auto</strong> button in the control panel, which appears in place of the suggested frequency while you're in Hold. It applies the current suggestion and switches to Auto in one step.</p>
+      <p>Choosing a frequency yourself always wins. Tapping the waterfall or moving the slider sets the frequency and switches to <strong>Hold</strong> from either Auto or Partner, so your choice isn't overwritten on the next cycle or the next QSO. The status line says so when it happens. To go back, tap the green <strong>Resume Auto</strong> button in the control panel, which appears in place of the suggested frequency while you're in Hold. It applies the current suggestion and switches to Auto in one step.</p>
       <p>The app starts in Auto at every launch, since last session's clear frequency is stale.</p>
     </section>
 
@@ -803,7 +804,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
     <section class="guide-section" id="9-bands-and-modes">
       <h2><a href="#9-bands-and-modes"><span class="section-num">9.</span> Bands and modes</a></h2>
       <p>The band picker sets the audio passband the app expects and the dial frequency it records in your log. <strong>You still have to tune your radio to the dial frequency yourself</strong>, and the bar above the waterfall shows it, e.g. <code>20m FT8 · 14.0740 MHz USB</code>. All bands are upper sideband.</p>
-      <p>The frequencies below are the conventional ones the app uses by default. If you work somewhere else on a band, see <a href="#9-bands-and-modes">Working off the usual frequency</a> further down.</p>
+      <p>The frequencies below are the conventional ones the app uses by default. If you work somewhere else on a band, see <a href="#working-off-the-usual-frequency">Working off the usual frequency</a> further down.</p>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Band</th><th>FT8</th><th>FT4</th></tr></thead>
@@ -851,6 +852,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
         <li>The carrier uses whatever transmit frequency is shown; the screen refreshes the clear- frequency suggestion when you open it so the displayed frequency is the one that will actually be sent.</li>
         <li>All automatic transmission is suppressed while tuning.</li>
         <li>Leaving the screen cancels the carrier. The transmitter is never left keyed with no visible countdown or stop button.</li>
+        <li>Tuning works even from a cold start: it will bring the audio up on its own and put it back afterwards.</li>
       </ul>
       <h3 id="setting-your-transmit-drive"><a href="#setting-your-transmit-drive">Setting your transmit drive</a></h3>
       <p><strong>Drive</strong> controls how hard the app feeds your radio. It is on the Tune screen — before and during tuning — and beside the waterfall on the Operate screen. Both show the same value. The waterfall one can be turned off with <strong>Settings › Display › Show drive slider</strong>, which gives that width back to the waterfall; the Tune screen always has it.</p>
@@ -864,9 +866,6 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       </ol>
       <p>Changes take effect immediately, even in the middle of a transmission, so you can adjust while calling CQ and watch the meter respond.</p>
       <p><strong>Overdriving is the most common cause of a wide, distorted signal</strong> — other stations see it as splatter, and it wins you nothing. If your ALC pegs at any usable Drive setting, the drive into your radio is too high somewhere else in the chain: try the radio's data or ACC input gain setting.</p>
-      <ul>
-        <li>Tuning works even from a cold start: it will bring the audio up on its own and put it back afterwards.</li>
-      </ul>
       <p><strong>Be considerate</strong>: find a clear frequency before you key up. A tuning carrier on top of someone's QSO is unmistakable.</p>
     </section>
 
@@ -1064,7 +1063,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
         <li><strong>TX Frequency</strong>: Auto, Hold or Partner. See <a href="#8-choosing-your-transmit-frequency">Choosing your transmit frequency</a>.</li>
         <li><strong>Default Band</strong> and <strong>Default Mode</strong>: open on a specific band and mode, or return to whatever you last used.</li>
         <li><strong>Max retransmissions</strong>: 1 to 99, default 10.</li>
-        <li><strong>Reset custom frequencies on launch</strong>: on by default, clearing any custom dial frequencies each time the app starts. Turn it off to keep them between sessions. See <a href="#9-bands-and-modes">Working off the usual frequency</a>.</li>
+        <li><strong>Reset custom frequencies on launch</strong>: on by default, clearing any custom dial frequencies each time the app starts. Turn it off to keep them between sessions. See <a href="#working-off-the-usual-frequency">Working off the usual frequency</a>.</li>
         <li><strong>Allow duplicates in auto modes</strong>: off by default, so Hunter and Gatherer skip stations already worked on the current band and mode. The same station on a different band or mode is a new contact and is still worked. Turn on to work duplicates outright.</li>
         <li><strong>Gatherer Call Order</strong>: First to reply, Strongest signal, or Furthest distance.</li>
         <li><strong>Hunter Call Order</strong>: Strongest signal (default) or Furthest distance. See <a href="#call-order">Call order</a> under Hunter.</li>
@@ -1086,7 +1085,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <h3 id="audio"><a href="#audio">Audio</a></h3>
       <p>Shows the current input and output devices and warns while a device change is settling. Plug your interface in and the app finds it; there is nothing to select.</p>
       <h3 id="callsign-lookup-logging"><a href="#callsign-lookup-logging">Callsign Lookup &amp; Logging</a></h3>
-      <p>Three services, three different jobs. All credentials are stored in the device keychain and never leave it except to the service they belong to.</p>
+      <p>Lookups fill in names and locations; logbooks receive your contacts. All credentials are stored in the device keychain and never leave it except to the service they belong to.</p>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Service</th><th>Used for</th><th>Needs</th></tr></thead>
@@ -1106,7 +1105,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       </blockquote>
       <h4 id="world-radio-league">World Radio League</h4>
       <p>Pick a <strong>Default Logbook</strong> and your contacts go there. The list loads from your account, so verify your key first.</p>
-      <p><strong>A logbook for each POTA activation</strong> is on by default. With it on, every activation gets its own logbook, named for your callsign, the park and the date, for example <code>KB0RB @ US-4578 08-22-2026</code>. The logbook is created when the first contact of the activation uploads, so an activation you never work anyone at leaves nothing behind. Turn it off and everything goes to your default logbook instead.</p>
+      <p><strong>New logbook per POTA</strong> is on by default. With it on, every activation gets its own logbook, named for your callsign, the park and the date, for example <code>KB0RB @ US-4578 08-22-2026</code>. The logbook is created when the first contact of the activation uploads, so an activation you never work anyone at leaves nothing behind. Turn it off and everything goes to your default logbook instead.</p>
       <p>Each POTA contact also carries its park on the contact itself, so World Radio League knows where you operated from whichever way the switch is set. With the switch on, the park appears twice — in the logbook's name and on every contact in it. With it off, the contacts still carry their park, even though they share your default logbook. Export ADIF for your POTA submission as usual.</p>
       <p><strong>If World Radio League does not recognise the park</strong>, it would normally refuse the whole contact. Rather than leave that contact stuck unuploaded — Greyline has no way for you to correct a park reference once a contact is logged — it sends the contact again without the park. You will see a notice at the top of the log saying so, and the contact keeps a purple <strong>NO PARK</strong> badge afterwards, so you can find it later. The contact is complete apart from the park, and your own log and ADIF export still have the park you entered. With per-activation logbooks on, the contact still lands in that activation's logbook, whose name carries the reference you typed — so a mistyped park stays visible there too, and the whole run stays together.</p>
       <p>Contacts from activations you ran before this feature existed still go to a park logbook. Greyline works out which activation they belong to the same way the POTA export menu does, by grouping a run of contacts at one park. That works for the great majority of older activations, but it can get it wrong in a few cases: a non-park contact logged in the middle of an activation splits it in two, and two visits to the same park on the same day are treated as one.</p>
@@ -1120,7 +1119,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <p>Author and version, plus:</p>
       <ul>
         <li><strong>CTY Data</strong>: the DXCC country file that resolves entities offline, with its release date and a refresh button. <strong>Auto-update CTY Data</strong> checks weekly in the background. Country data comes from Jim Reisert AD1C's cty.csv.</li>
-        <li>Links to connection and cabling guides, field notes, and e-mail support</li>
+        <li>Links to this <strong>User Guide</strong>, <strong>Radio Support Info</strong> (connection and cabling guides), <strong>Images from the field</strong>, <strong>E-mail support</strong>, and <strong>Buy me a Coffee</strong></li>
         <li><strong>Re-run first-time Setup</strong></li>
         <li><strong>Diagnostics</strong> and <strong>Licenses</strong></li>
       </ul>
@@ -1139,7 +1138,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <h3 id="audio-route"><a href="#audio-route">Audio Route</a></h3>
       <p>Which devices are actually being used for input and output.</p>
       <h3 id="transmit"><a href="#transmit">Transmit</a></h3>
-      <p>Counters for transmissions started and completed, plus <strong>TX drive</strong>, the level set by the Drive slider. <strong>"Never completed"</strong> is the number to watch: it counts transmissions whose audio was handed to the system but never reported finishing, which is the signature of a radio's USB CODEC stalling.</p>
+      <p>Counters for transmissions started and completed, plus <strong>TX drive</strong>, the level set by the Drive slider. <strong>"Never completed"</strong> is the number to watch: it counts transmissions whose audio was handed to the system but never reported finishing, which is the signature of a radio's USB CODEC stalling. <strong>Watchdog recoveries</strong> counts how often the app restarted audio after such a stall. The remaining rows describe the most recent transmission (how it was encoded, how far from the slot boundary it started, and how much of its opening was cut off) and are mainly useful in a bug report.</p>
       <h3 id="timing-health"><a href="#timing-health">Timing Health</a></h3>
       <p>Everything else in Diagnostics describes the radio and the audio path. This section watches the app itself, and it is the first place to look if other stations stop answering you without any obvious cause.</p>
       <p>FT8 and FT4 transmissions must start on the slot boundary. The app decides what to send at that instant, so if it is busy with something else, the transmission starts late. Its end still lands on the boundary — the opening is cut off instead — so a small delay costs you nothing and a large one means nobody decodes you.</p>
@@ -1157,7 +1156,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       </div>
       <p><strong>Started late</strong> should stay at 0, <strong>Decodes too late to use</strong> at or near 0, and <strong>Worst delay</strong> in the tens of milliseconds. For reference, eight hours of automatic operation on a real station measured a worst delay of 81 ms, no late transmissions, and 2 late decodes out of roughly 1,900 — an occasional late decode on a crowded band is normal.</p>
       <p>Numbers that climb as a session goes on are the signature worth reporting: the app is gradually slowing down rather than failing outright. <strong>Reset timing stats</strong> clears the counters, which is useful for testing one thing at a time — reset, run for ten minutes with the Band Activity list filtered down or a screen closed, and see whether the count moves.</p>
-      <p>If it happens to you, the useful bug report is these four numbers plus how long the app had been running, your device, and whether an external display was attached. That is enough to reproduce it; a description of the symptom alone usually is not.</p>
+      <p>If it happens to you, the useful bug report is the first four numbers plus how long the app had been running, your device, and whether an external display was attached. That is enough to reproduce it; a description of the symptom alone usually is not.</p>
       <h3 id="audio-session"><a href="#audio-session">Audio Session</a></h3>
       <p>Interruption and recovery counters, for diagnosing what happened after a phone call or a Siri activation.</p>
     </section>
@@ -1205,6 +1204,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <p><strong>Grid square (Maidenhead locator)</strong>: a short code for your location, e.g. <code>DM04</code>.</p>
       <p><strong>Passband</strong>: the 200–3000 Hz range of audio the app listens to and transmits in. Your station's frequency inside it is separate from your dial frequency.</p>
       <p><strong>Roger (<code>R-12</code>)</strong>: a signal report with an acknowledgement attached, meaning "I got your report, and here is mine."</p>
+      <p><strong>Running station</strong>: a station working one contact after another as the CQ-ing side of each, often without calling CQ in between. See <a href="#long-pressing-a-row">Long-pressing a row</a>.</p>
       <p><strong>RR73</strong>: "received, roger, and 73." The CQ-ing station's confirmation that the contact is complete.</p>
       <p><strong>Slot</strong>: the fixed 15-second (FT8) or 7.5-second (FT4) transmit window, aligned to UTC. Stations alternate slots; one transmits while the other listens.</p>
       <p><strong>SNR</strong>: signal-to-noise ratio in dB, reported the way WSJT-X reports it, so the figures are directly comparable with other stations'.</p>

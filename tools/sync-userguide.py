@@ -14,6 +14,7 @@ import sys
 
 MD_SOURCE = '/Users/jon/Developer/greylineft8/docs/user-manual.md'
 HTML_TARGET = '/Users/jon/Developer/greylineft8-com/userguide.html'
+CHANGELOG = '/Users/jon/Developer/greylineft8-com/changelog.html'
 
 
 def escape(t):
@@ -265,6 +266,16 @@ def process_section(sec_text):
     return '\n'.join(out)
 
 
+def latest_changelog_version():
+    """The version marked Latest in changelog.html, the site's own source of truth."""
+    try:
+        with open(CHANGELOG, 'r') as f:
+            m = re.search(r'<option value="[^"]*">([\d.]+)\s*—\s*Latest</option>', f.read())
+    except OSError:
+        return None
+    return m.group(1) if m else None
+
+
 def normalize(text):
     text = re.sub(r'<[^>]+>', '', text)
     text = (text.replace('&amp;', '&').replace('&lt;', '<')
@@ -319,10 +330,25 @@ def main():
         raw = f.read()
 
     version_match = re.search(r'^_For version (.+?)_', raw, re.MULTILINE)
-    version = version_match.group(1) if version_match else '1.2'
+    if version_match:
+        version = version_match.group(1)
+    else:
+        version = latest_changelog_version()
+        if not version:
+            print('ERROR: no version in the manual and none found in changelog.html.',
+                  file=sys.stderr)
+            sys.exit(1)
+        print(f'Note: the manual declares no version; using {version} '
+              f'from changelog.html.')
 
-    intro_match = re.search(r'^_For version .+?_\n\n(.*?)^---', raw, re.DOTALL | re.MULTILINE)
-    intro_text = intro_match.group(1).strip().replace('\n', ' ') if intro_match else ''
+    # Everything between the H1 and the first horizontal rule.
+    intro_match = re.search(r'^# .+?\n+(.*?)^---', raw, re.DOTALL | re.MULTILINE)
+    intro_text = ''
+    if intro_match:
+        body = re.sub(r'^_For version .+?_\s*', '', intro_match.group(1).strip())
+        intro_text = ' '.join(body.split())
+    if not intro_text:
+        print('WARNING: the intro paragraph came out empty.', file=sys.stderr)
 
     sections_raw = [s for s in re.split(r'^(?=## )', raw, flags=re.MULTILINE)
                     if s.startswith('## ')]
