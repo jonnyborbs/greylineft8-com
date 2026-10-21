@@ -692,12 +692,19 @@ W6ABC KB0RB 73          done</code></pre>
       <pre><code>CQ KB0RB DM04
 W6ABC KB0RB -09         your report of their signal
 W6ABC KB0RB RR73        confirmed and finished</code></pre>
+      <p>Some stations answer a CQ with their report straight away, skipping their grid (WSJT-X calls this <em>Skip Tx1</em>). Then the app answers with its roger at once rather than a report of its own, which saves a whole cycle:</p>
+      <pre><code>CQ KB0RB DM04
+                        KB0RB W6ABC -12      they skipped their grid
+W6ABC KB0RB R-09        roger, and your report of their signal
+                        KB0RB W6ABC RR73     confirmed: logged now</code></pre>
+      <p>In Standard the app then sends <code>73</code>. In Gatherer, <code>RR73</code> means no <code>73</code> is needed, so the next caller gets that slot instead; if they send <code>RRR</code>, which does ask for one, Gatherer sends a <code>73</code> first. Either way the contact is logged only once their <code>RR73</code> or <code>RRR</code> confirms they received your report.</p>
       <p>Greyline follows this strictly, and like WSJT-X it will not treat a repeated bare signal report as confirmation that the other station heard your roger. Jumping ahead there is how contacts get logged that never actually completed.</p>
       <h3 id="signal-reports"><a href="#signal-reports">Signal reports</a></h3>
       <p>The <strong>Sent</strong> report in your log is the SNR the app measured for their signal. The <strong>Rcvd</strong> report is the number they sent you, read from their message. Reports are generated automatically; you never type one.</p>
       <h3 id="when-contacts-get-logged"><a href="#when-contacts-get-logged">When contacts get logged</a></h3>
       <ul>
         <li><strong>Answering a CQ</strong>: logged when their <code>RR73</code> arrives, the point at which they have confirmed the contact. Hunter writes it as its <code>73</code> goes out, one slot later.</li>
+        <li><strong>Calling CQ, when they skipped their grid</strong>: logged when their <code>RR73</code> or <code>RRR</code> arrives.</li>
         <li><strong>Calling CQ</strong>: logged when your <code>RR73</code> goes out for the first time. By then you hold their report and their roger, so the contact is complete from your side, and their <code>73</code> simply closes it out. This matters, because an <code>RR73</code> they never hear would otherwise lose a contact that had in fact been made.</li>
       </ul>
       <p>Each contact is logged once, no matter how many times a message is repeated.</p>
@@ -832,13 +839,14 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <p><strong>Tap the band bar above the waterfall</strong> to set your own dial frequency for the band you are on.</p>
       <p><strong>Type it in either MHz or kHz.</strong> <code>7.071</code> and <code>7071</code> both mean the same thing, so you can enter whichever form your radio displays without converting. When you type kHz the sheet confirms what it will use, e.g. "Will use 7.0710 MHz", so there is no guesswork.</p>
       <p>Once set, the band bar turns orange and gains a <strong>CUSTOM</strong> chip, so you can see at a glance that you are not on the usual frequency. The same chip appears next to the band picker in the control panel, and bands with a custom frequency are marked in the band menu itself, so you can tell before you switch to one.</p>
-      <p>This matters because that frequency is what the app reports everywhere: the <strong>FREQ</strong> field of every contact you log, the frequency in your <strong>POTA self-spot</strong>, and your <strong>PSKReporter</strong> reception reports. It is also what the live spots map filters on. Setting it correctly is the difference between hunters finding you and hunters looking in the wrong place.</p>
+      <p>This matters because that frequency is what the app reports everywhere: the <strong>FREQ</strong> field of every contact you log (with your transmit offset added; see <a href="#exporting">Exporting</a>), the frequency in your <strong>POTA self-spot</strong>, and your <strong>PSKReporter</strong> reception reports. It is also what the live spots map filters on. Setting it correctly is the difference between hunters finding you and hunters looking in the wrong place.</p>
       <p>A few details:</p>
       <ul>
         <li><strong>It is per band and per mode.</strong> A custom 40 m frequency for FT8 does not carry over to FT4, because the two use different dial frequencies anyway. Set each one you need.</li>
         <li><strong>It does not tune your radio.</strong> As everywhere else in the app, you still set the dial on the radio yourself. This tells the app what you have done.</li>
         <li><strong>Reset to default</strong> is in the same dialog once a custom frequency is set.</li>
         <li>The app checks your entry against the widest limits of the band and refuses something well outside them, which catches a mistyped digit such as <code>7.71</code> for <code>7.071</code>. The check applies the same either way you type it, so <code>7710</code> is refused just as <code>7.71</code> is. It is not checking your licence privileges, and it will not stop you using a frequency that is valid in your country but not in others.</li>
+        <li><strong>The dial must be at least 3 kHz below the top of the band.</strong> Your signal goes out up to 3 kHz above the dial, and that is the frequency logged for the contact, so a dial closer to the edge could put both outside the band.</li>
       </ul>
       <p>By default, <strong>custom frequencies are cleared each time the app starts</strong>. This is deliberate: a frequency set for one contest should not quietly follow you into next week's operating and mis-report every contact. If you would rather keep them between sessions, turn off <strong>Reset custom frequencies on launch</strong> in Settings, and get into the habit of checking the band bar before you transmit.</p>
     </section>
@@ -911,15 +919,16 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <p>Turn the setting off to activate without spotting at all; everything else about the activation still works.</p>
       <h3 id="the-activation-counter"><a href="#the-activation-counter">The activation counter</a></h3>
       <p>While an activation is running, the log's summary bar grows a <strong>This park</strong> counter: red below five contacts, yellow from five, green at ten, which is the POTA minimum for a valid activation.</p>
-      <p>It counts <strong>credited</strong> contacts, which is not the same as rows in the log. POTA gives one credit per callsign per band per mode per UTC day, so:</p>
+      <p>It counts <strong>credited</strong> contacts, which is not the same as rows in the log. POTA gives one credit per callsign per band per mode per UTC day, at each park, so:</p>
       <ul>
         <li>Working the same station again on another band or mode counts again.</li>
-        <li>Working the same station twice on the same band and mode does not, and the second row is flagged <strong>DUP</strong> in the log.</li>
+        <li>Working the same station twice on the same band and mode does not, and both rows are flagged <strong>DUP</strong> in the log.</li>
         <li>At 0000Z the counter restarts, because POTA scores each day separately. An activation that runs through midnight needs a fresh ten contacts on the new day.</li>
+        <li><strong>Each park counts on its own.</strong> Move to a second park and a station you worked at the first is a new credit there. Come back to a park later the same UTC day and the counter picks up where that park left off, because POTA scores the two visits together.</li>
       </ul>
-      <p>The automatic modes use the same rule: during an activation they will re-work a station from yesterday, because that is a new credit.</p>
+      <p>The automatic modes use the same rule. During an activation they re-work a station you worked yesterday, or at another park today, because that is a new credit; they pass over one you have already worked at this park today, on this band and mode.</p>
       <h3 id="changing-parks"><a href="#changing-parks">Changing parks</a></h3>
-      <p>Confirm a different reference while an activation is running and the app treats it as two separate activations. The old one gets a closing spot, a "POTA Ended" divider in the log, and its own export entry; the new one starts fresh. Fixing a typo before you have spotted or logged anything just corrects the reference in place.</p>
+      <p>Confirm a different reference while an activation is running and the app treats it as two separate activations. The old one gets a closing spot, a "POTA Ended" divider in the log, and its own export entry; the new one starts fresh, both for the counter and for who the automatic modes will work. Fixing a typo before you have spotted or logged anything just corrects the reference in place.</p>
       <h3 id="if-the-app-is-interrupted"><a href="#if-the-app-is-interrupted">If the app is interrupted</a></h3>
       <p>iOS cannot tell a deliberate quit from a background kill, so if you relaunch within an hour of an activation that was never closed out, the app asks: <strong>"Are you still at US-1234?"</strong></p>
       <ul>
@@ -943,7 +952,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
           <thead><tr><th>Column</th><th>Notes</th></tr></thead>
           <tbody>
             <tr><td>Date / UTC</td><td>Always UTC. The date carries the year (<code>08-Sep-26</code>), since a log spanning years — or holding imported contacts of any age — makes a bare day and month ambiguous.</td></tr>
-            <tr><td>Call</td><td>Carries a <strong>DUP</strong> badge when the contact shares POTA credit with another contact in the same activation. Both rows of a pair are flagged. A DUP is still a real contact and is exported normally. An <strong>EXT</strong> badge means the row sits between two contacts of a POTA activation without belonging to it — external to that run. See <a href="#sorting">Sorting</a>.</td></tr>
+            <tr><td>Call</td><td>Carries a <strong>DUP</strong> badge when the contact shares POTA credit with another contact: same park, callsign, band, mode and UTC day. Both rows of a pair are flagged. A DUP is still a real contact and is exported normally. An <strong>EXT</strong> badge means the row sits between two contacts of a POTA activation without belonging to it — external to that run. See <a href="#sorting">Sorting</a>.</td></tr>
             <tr><td>Band / Mode</td><td></td></tr>
             <tr><td>Sent / Rcvd</td><td>Signal reports.</td></tr>
             <tr><td>Grid</td><td>Their grid.</td></tr>
@@ -976,16 +985,17 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
         <li><strong>Export All Since Last</strong>: everything logged since the previous export.</li>
         <li><strong>One entry per POTA activation</strong>: scoped exactly to that activation's contacts, with the park reference in the filename. A tick marks activations already exported.</li>
       </ul>
-      <p>Files are standard ADIF (<code>.adi</code>) and go through the normal iOS share sheet: AirDrop, Mail, Files, whatever you use. The "Exported" divider is only recorded if the share actually completes, so backing out of the share sheet does not leave a phantom mark.</p>
+      <p>Files are standard ADIF (<code>.adi</code>) and go through the normal iOS share sheet: AirDrop, Mail, Files, whatever you use.</p>
+      <p>Each contact's frequency is the exact one you transmitted on: your dial frequency plus your transmit audio frequency, to the hertz, as WSJT-X records it. On a 14.074 MHz dial, transmitting at 680 Hz logs 14.074680, and at 1050 Hz logs 14.075050. Uploads to QRZ, Cloudlog and World Radio League carry the same figure. Contacts logged before this, manual entries and imports keep the dial frequency they were saved with. The "Exported" divider is only recorded if the share actually completes, so backing out of the share sheet does not leave a phantom mark.</p>
       <h3 id="importing"><a href="#importing">Importing</a></h3>
       <p><strong>Import ADIF</strong> reads an <code>.adi</code> or <code>.adif</code> file. The result tells you how many contacts were imported and how many were skipped as duplicates, as non-FT8/FT4 modes, or as malformed records. Imported contacts count toward your duplicate checking, since they are your own history of who you have worked, but they are never uploaded to a logbook.</p>
       <h3 id="uploading-to-a-logbook"><a href="#uploading-to-a-logbook">Uploading to a logbook</a></h3>
       <p>Configure QRZ, Cloudlog and/or World Radio League in Settings and turn on their auto-log toggles, and each contact uploads in the background as it is logged. Nothing about that ever blocks operating; a failed upload just leaves the contact pending.</p>
       <p>The cloud button in the toolbar shows how many contacts are still pending. Tap it for a menu that uploads them on demand, to one service or, with more than one configured, to all.</p>
+      <p><strong>Every upload to QRZ or World Radio League checks first</strong> whether the service already has the contact, using the same matching as <a href="#contacts-that-are-already-on-the-service">Recheck Uploads</a>. If it does, the contact is marked uploaded instead of being sent again, so a contact that reached QRZ another way (World Radio League's own sync to QRZ, for example) is not refused as a duplicate, and World Radio League is never given a second copy. The upload summary counts these as <strong>already there</strong>. Cloudlog can't be asked, so its contacts are always sent. If the check itself can't be made, offline for instance, the upload goes ahead as normal.</p>
       <h3 id="contacts-that-are-already-on-the-service"><a href="#contacts-that-are-already-on-the-service">Contacts that are already on the service</a></h3>
-      <p>If you've already sent your contacts another way, for example by exporting an ADIF file and importing it on the service's website, the pending count no longer means anything. Uploading them again doesn't help: World Radio League stores a second copy of each contact, and QRZ refuses them and reports a failure.</p>
-      <p>Two items at the bottom of the cloud button's menu deal with this.</p>
-      <p><strong>Recheck Uploads</strong> asks each service whether it already has each pending contact, and marks the ones it has as uploaded. It never uploads anything. A contact counts as already there only if the service has the same callsign, band and mode within two minutes of the same time, so a contact it doesn't have stays pending. When it finishes, it tells you how many contacts were found on each service and how many are still pending.</p>
+      <p>If you've already sent your contacts another way, for example by exporting an ADIF file and importing it on the service's website, the pending count no longer means anything. Uploading them to QRZ or World Radio League sorts that out, because each upload checks first (see above). Two items at the bottom of the cloud button's menu go further.</p>
+      <p><strong>Recheck Uploads</strong> asks each service whether it already has each pending contact, and marks the ones it has as uploaded. It never uploads anything, so it's the way to tidy up without sending the contacts the services don't have. A contact counts as already there only if the service has the same callsign, band and mode within two minutes of the same time, so a contact it doesn't have stays pending. When it finishes, it tells you how many contacts were found on each service and how many are still pending.</p>
       <ul>
         <li><strong>World Radio League</strong> can be rechecked. Contacts in any of your logbooks count.</li>
         <li><strong>QRZ</strong> can be rechecked. QRZ keeps only the minute of each contact's time, which the two-minute allowance covers.</li>
@@ -1200,7 +1210,7 @@ W6ABC KB0RB RR73        confirmed and finished</code></pre>
       <p><strong>Addendum</strong>: the optional word after CQ (<code>CQ POTA W6ABC</code>) declaring what you are doing.</p>
       <p><strong>Close-out</strong>: resending a final <code>RR73</code> or <code>73</code> to a station whose exchange did not confirm, after they ask again.</p>
       <p><strong>DT</strong>: the difference between when a station's transmission arrived and when the slot started. A measure of their timing accuracy.</p>
-      <p><strong>Dupe / DUP</strong>: a contact that does not earn fresh POTA credit because you already worked that station on the same band, mode and UTC day.</p>
+      <p><strong>Dupe / DUP</strong>: a contact that does not earn fresh POTA credit because you already worked that station at the same park, on the same band, mode and UTC day.</p>
       <p><strong>Grid square (Maidenhead locator)</strong>: a short code for your location, e.g. <code>DM04</code>.</p>
       <p><strong>Passband</strong>: the 200–3000 Hz range of audio the app listens to and transmits in. Your station's frequency inside it is separate from your dial frequency.</p>
       <p><strong>Roger (<code>R-12</code>)</strong>: a signal report with an acknowledgement attached, meaning "I got your report, and here is mine."</p>
