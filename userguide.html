@@ -401,7 +401,7 @@
 
     <div class="page-header">
       <h1>User Guide</h1>
-      <p class="version">For version 1.5.0</p>
+      <p class="version">For version 1.5.2</p>
       <p class="intro">Greyline FT8 turns an iPhone or iPad into a complete FT8 and FT4 station. Connect the device to your transceiver with a USB audio interface and the app decodes the band in real time, shows it on a waterfall, works stations for you if you want it to, logs the contacts, and uploads them to your logbook. There is no computer in the chain and nothing to configure on a desktop. Everything happens on the device: decoding, transmitting, logging, POTA spotting, mapping.</p>
     </div>
 
@@ -483,6 +483,19 @@
     <!-- 4. Reading the Operate screen -->
     <section class="guide-section" id="4-reading-the-operate-screen">
       <h2><a href="#4-reading-the-operate-screen"><span class="section-num">4.</span> Reading the Operate screen</a></h2>
+      <h3 id="the-audio-button"><a href="#the-audio-button">The audio button</a></h3>
+      <p>The button at the top left of the navigation bar shows whether the app is listening, and in which mode:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>It reads</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Start</strong> (red dot)</td><td>Audio is stopped. Tap to start listening.</td></tr>
+            <tr><td><strong>Live</strong> (green dot)</td><td>Listening, in Standard.</td></tr>
+            <tr><td><strong>Hunting</strong> / <strong>Gathering</strong> (orange dot)</td><td>Listening, with Hunter or Gatherer armed.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>While it's running, tapping it stops the audio, and with it any transmission. The status pill in the control panel shows the same state; see <a href="#status-line">Status line</a>.</p>
       <h3 id="the-slot-timer"><a href="#the-slot-timer">The slot timer</a></h3>
       <p>FT8 works in 15-second slots (FT4 in 7.5-second slots) locked to UTC. The progress bar and its label tell you where you are inside the current slot:</p>
       <div class="table-wrap">
@@ -517,7 +530,7 @@
             <tr><td><strong>DT</strong></td><td>How far off the slot boundary the other station's transmission arrived, in seconds. The app subtracts its own audio latency, so what you see is the other station's timing error, not yours. Values within a few tenths are normal.</td></tr>
             <tr><td><strong>Freq / Hz</strong></td><td>Audio frequency inside the passband.</td></tr>
             <tr><td><strong>Message</strong></td><td>The decoded text. Long compound callsigns scroll gently side to side rather than being cut off.</td></tr>
-            <tr><td><strong>Grid</strong></td><td>The remote station's grid, remembered from any earlier message in the session, so it stays filled in during an exchange even when the current message does not carry one.</td></tr>
+            <tr><td><strong>Grid</strong></td><td>The remote station's grid, remembered from earlier in the session so it stays filled in during an exchange even when the current message does not carry one. The grid from their own CQ wins when they've sent one, since that's them announcing where they are; otherwise it's the latest grid they sent in any message. The same grid is written to your log.</td></tr>
             <tr><td><strong>Dist / Brg</strong></td><td>Great-circle distance and bearing from your grid. iPad only, when the pane is wide enough.</td></tr>
             <tr><td><strong>Country / Entity</strong></td><td>DXCC entity, state or province, and continent, resolved offline.</td></tr>
           </tbody>
@@ -740,18 +753,23 @@ W6ABC KB0RB R-09        roger, and your report of their signal
       <h3 id="gatherer-automatic-run"><a href="#gatherer-automatic-run">Gatherer (automatic run)</a></h3>
       <p>Gatherer calls CQ continuously and works everyone who answers, in order, without stopping. This is the mode for running a pile-up during an activation or a contest.</p>
       <ul>
-        <li>Callers answering your CQ are collected into a <strong>queue</strong>, even while you are mid-exchange with someone else, so nobody is lost.</li>
+        <li>Callers answering your CQ are collected into a <strong>queue</strong>, even while you are mid-exchange with someone else, so nobody is lost. That includes a station that answers with a roger (<code>R-12</code>) rather than its grid or a report. Gatherer sends it your report and logs the contact once its roger confirms it. The exception is a station you've already worked, whose roger is asking you to close that contact; see <a href="#late-replies-and-the-close-out">Late replies and the close-out</a>.</li>
         <li>Gatherer works the queue one at a time: report, wait for their roger, <code>RR73</code>, log, next caller. When the queue empties it goes back to calling CQ.</li>
         <li>Unlike Standard, Gatherer's <strong>CQ has no retransmission limit</strong> and keeps calling. The per-exchange limit still applies.</li>
       </ul>
       <h4 id="the-queue-card">The queue card</h4>
-      <p>Tap <strong>Queue (n)</strong> to open it. The station being worked sits at the top marked <strong>ACTIVE</strong> and stays there for the whole exchange; everyone else follows in the order they will be worked. Each row shows the callsign, the operator's name if a lookup service is configured, how long ago you last heard them, the report you will give them, and, on a second line, grid, country and state, distance and bearing, to help you prioritise.</p>
+      <p>Tap <strong>Queue (n)</strong> to open it. The station being worked sits at the top and stays there for the whole exchange; everyone else follows in the order they will be worked.</p>
+      <ul>
+        <li><strong>ACTIVE</strong> marks the station your most recent transmission went to: the one on the air now, or the one you last sent to.</li>
+        <li><strong>NEXT</strong> marks the station at the top when your next transmission goes to it but the last one didn't: one you've just dragged to the top, or a caller just taken from the queue while your previous message is still playing. It turns ACTIVE when its first message goes out. The station you were transmitting to keeps ACTIVE until then, wherever you dropped it.</li>
+      </ul>
+      <p>Each row shows the callsign, the operator's name if a lookup service is configured, how long ago you last heard them, the report you will give them, and, on a second line, grid, country and state, distance and bearing, to help you prioritise.</p>
       <ul>
         <li><strong>Drag a row</strong> to move it. A row you move is pinned, so newly-heard callers never displace your placement.</li>
         <li><strong>Tap a station in the band activity list</strong> to send them straight to the top, without opening this card: a caller, someone calling CQ, or a station asking you to close. See <a href="#tapping-a-row">Tapping a row</a>. For a station in someone else's exchange, <a href="#long-pressing-a-row">long-press</a> its row.</li>
-        <li><strong>Drag the ACTIVE row down</strong>, or drag another station above it, to work someone else first. The station you were working is not dropped — it keeps the place you gave it and is worked when it comes back to the top, starting its exchange again from the report.</li>
+        <li><strong>Drag the top row down</strong>, or drag another station above it, to work someone else first. The station you were working is not dropped — it keeps the place you gave it and is worked when it comes back to the top, starting its exchange again from the report.</li>
         <li>Any transmission already going out finishes; the change takes effect from the next slot.</li>
-        <li><strong>Swipe or use the delete control</strong> to drop a caller. Delete the ACTIVE row and the station being worked is dropped: the next caller takes the slot. Because that station is transmitting to you every cycle, dropping it also sets it aside for five minutes so it cannot immediately re-engage you — its rows carry a <strong>WAIT</strong> badge counting down. If you want it dropped but still eligible, drag it down the queue first, then delete it.</li>
+        <li><strong>Swipe or use the delete control</strong> to drop a caller. Delete the top row and the station being worked is dropped: the next caller takes the slot. Because that station is transmitting to you every cycle, dropping it also sets it aside for five minutes so it cannot immediately re-engage you — its rows carry a <strong>WAIT</strong> badge counting down. If you want it dropped but still eligible, drag it down the queue first, then delete it.</li>
         <li>A station asking you to close shows an orange <strong>RR73</strong> chip: that row re-sends your closing message rather than starting a new exchange, and is never logged twice. See <a href="#late-replies-and-the-close-out">Late replies and the close-out</a>.</li>
         <li>Gatherer keeps running behind the card; the list updates live.</li>
       </ul>
@@ -894,15 +912,16 @@ W6ABC KB0RB R-09        roger, and your report of their signal
           </tbody>
         </table>
       </div>
-      <p>Tap the <strong>location-magnifier button</strong> to list parks in your grid square, nearest first. Pick one and the reference fills in for you.</p>
+      <p>Tap the <strong>location-magnifier button</strong> to list the parks nearest you, closest first. Pick one and the reference fills in for you. It searches your grid square and the eight around it, because POTA records each park as a single point: standing inside a large park, you can be in a different grid square from that point.</p>
       <h3 id="self-spotting"><a href="#self-spotting">Self-spotting</a></h3>
       <p>With <strong>Self-spot to POTA</strong> enabled (Settings › Spotting, on by default), the app posts to the cluster automatically:</p>
       <ul>
         <li>when you start calling CQ,</li>
         <li>when you change band or mode — the QSY spot goes out as you resume calling CQ, not at the moment you change,</li>
-        <li>every ten minutes while you are running, so your spot stays near the top,</li>
+        <li>every ten minutes while you are running, so your spot stays near the top — in Gatherer, including while it is working callers,</li>
         <li>and once when the activation ends.</li>
       </ul>
+      <p>Calling CQ again doesn't spot again unless something has changed. If your band, mode and frequency are the same and the last spot went out less than ten minutes ago, the next one waits for the ten-minute mark, so tapping <strong>Call CQ</strong> after each contact doesn't flood the cluster. A spot that failed is retried on your next Call CQ.</p>
       <p>A status line under the park field names the last spot that went out and how long ago:</p>
       <div class="table-wrap">
         <table>
@@ -1022,6 +1041,7 @@ W6ABC KB0RB R-09        roger, and your report of their signal
             <tr><td>Authentication failed</td><td>Check the API key in Settings and verify it.</td></tr>
             <tr><td>Needs to know which logbook to use</td><td>Choose a default logbook in Settings, under World Radio League.</td></tr>
             <tr><td>Rate limit reached</td><td>Nothing. Large uploads pause and continue on their own.</td></tr>
+            <tr><td>QRZ did not accept this contact: …</td><td>QRZ's own reason follows. A <em>duplicate</em> means QRZ already has the contact, from another upload or another service's sync: tap <a href="#contacts-that-are-already-on-the-service">Recheck Uploads</a> and it's marked uploaded. Uploads check first, so this is rare.</td></tr>
           </tbody>
         </table>
       </div>
@@ -1116,6 +1136,7 @@ W6ABC KB0RB R-09        roger, and your report of their signal
       <h4 id="world-radio-league">World Radio League</h4>
       <p>Pick a <strong>Default Logbook</strong> and your contacts go there. The list loads from your account, so verify your key first.</p>
       <p><strong>New logbook per POTA</strong> is on by default. With it on, every activation gets its own logbook, named for your callsign, the park and the date, for example <code>KB0RB @ US-4578 08-22-2026</code>. The logbook is created when the first contact of the activation uploads, so an activation you never work anyone at leaves nothing behind. Turn it off and everything goes to your default logbook instead.</p>
+      <p><strong>If a logbook with that name already exists, Greyline uses it</strong> rather than creating another. So you can start an activation on voice, make its logbook on the World Radio League site, and move to Greyline: your FT8 contacts land in the same logbook. For that, name it exactly the way Greyline would. Capitals and extra spaces don't matter, but the date must be the <strong>UTC</strong> date of your first Greyline contact. If you start in the evening in the Americas and the date rolls over at 0000Z before you switch to FT8, use the new date, or Greyline won't recognise the logbook and will create its own. A locked logbook is never reused. Coming back to the same park later the same UTC day also uses the same logbook, since POTA counts the two visits together.</p>
       <p>Each POTA contact also carries its park on the contact itself, so World Radio League knows where you operated from whichever way the switch is set. With the switch on, the park appears twice — in the logbook's name and on every contact in it. With it off, the contacts still carry their park, even though they share your default logbook. Export ADIF for your POTA submission as usual.</p>
       <p><strong>If World Radio League does not recognise the park</strong>, it would normally refuse the whole contact. Rather than leave that contact stuck unuploaded — Greyline has no way for you to correct a park reference once a contact is logged — it sends the contact again without the park. You will see a notice at the top of the log saying so, and the contact keeps a purple <strong>NO PARK</strong> badge afterwards, so you can find it later. The contact is complete apart from the park, and your own log and ADIF export still have the park you entered. With per-activation logbooks on, the contact still lands in that activation's logbook, whose name carries the reference you typed — so a mistyped park stays visible there too, and the whole run stays together.</p>
       <p>Contacts from activations you ran before this feature existed still go to a park logbook. Greyline works out which activation they belong to the same way the POTA export menu does, by grouping a run of contacts at one park. That works for the great majority of older activations, but it can get it wrong in a few cases: a non-park contact logged in the middle of an activation splits it in two, and two visits to the same park on the same day are treated as one.</p>
@@ -1216,6 +1237,7 @@ W6ABC KB0RB R-09        roger, and your report of their signal
       <p><strong>Roger (<code>R-12</code>)</strong>: a signal report with an acknowledgement attached, meaning "I got your report, and here is mine."</p>
       <p><strong>Running station</strong>: a station working one contact after another as the CQ-ing side of each, often without calling CQ in between. See <a href="#long-pressing-a-row">Long-pressing a row</a>.</p>
       <p><strong>RR73</strong>: "received, roger, and 73." The CQ-ing station's confirmation that the contact is complete.</p>
+      <p><strong>Skip Tx1</strong>: answering a CQ with your signal report straight away, skipping your grid. Named after the WSJT-X option. Greyline answers it with an immediate roger; see <a href="#the-exchange">The exchange</a>.</p>
       <p><strong>Slot</strong>: the fixed 15-second (FT8) or 7.5-second (FT4) transmit window, aligned to UTC. Stations alternate slots; one transmits while the other listens.</p>
       <p><strong>SNR</strong>: signal-to-noise ratio in dB, reported the way WSJT-X reports it, so the figures are directly comparable with other stations'.</p>
     </section>
