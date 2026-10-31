@@ -131,6 +131,20 @@
     }
     .highlight-box p { margin: 0; color: var(--text); font-size: 0.95rem; }
 
+    .important-box {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .important-box .important-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #f87171;
+      margin-bottom: 0.4rem;
+    }
+    .important-box p { margin: 0; color: #f87171; font-size: 0.95rem; }
+
     /* ── RADIO CARDS ── */
     .radio-list {
       display: flex; flex-direction: column; gap: 1.25rem;
@@ -240,10 +254,15 @@
     <p>For more detailed user instructions, please refer to the <a href="userguide.html">User Guide</a>.</p>
   </div>
 
+  <div class="important-box">
+    <div class="important-label">Important</div>
+    <p>If you use a Digirig or other external audio interface, make sure to enable the new "PTT tone on right channel" option in the Audio settings! This option was added in version 1.6.</p>
+  </div>
+
   <ul>
     <li>Make sure to enable VOX on the radio for Greyline FT8 to work properly. You may have to adjust your VOX delay and VOX gain settings as well as the output volume on your Apple device for activation to work properly.</li>
     <li>To avoid overdriving, connect your audio interface to your Apple device, turn the device's volume all the way down, and use the Tuning view in the app to gradually increase the input gain until the radio's VOX opens. You can use a combination of the device volume controls and this gain control to get the ideal balance.</li>
-    <li>💡 <b>Helpful tip:</b> use your ALC meter to determine if your input gain is too high. You want it in the upper 25% when transmitting.</li>
+    <li>💡 <b>Helpful tip:</b> use your ALC meter to determine if your input gain is too high. You want it as low as possible when transmitting.</li>
     <li>To avoid overwhelming the Apple device's input, set your transciever's AF gain to the lowest level possible for Greyline FT8's waterfall to start displaying signals. Slight increases to the AF gain may improve signal readability, but too much AF gain will cause distortion and difficulty decoding.</li>
     <li>Note that you may have to disable <b>Reduce Loud Audio</b> in your iOS settings to ensure proper audio levels for Greyline FT8. This can be found at <b>Settings > Sounds & Haptics > Headphone Safety</b>.</li>
     <li>Below are some popular field radios that have been tested with the app and how you can connect them. This list is not complete and many, many other radios will work just great!</li>

@@ -401,7 +401,7 @@
 
     <div class="page-header">
       <h1>User Guide</h1>
-      <p class="version">For version 1.5.2</p>
+      <p class="version">For version 1.6</p>
       <p class="intro">Greyline FT8 turns an iPhone or iPad into a complete FT8 and FT4 station. Connect the device to your transceiver with a USB audio interface and the app decodes the band in real time, shows it on a waterfall, works stations for you if you want it to, logs the contacts, and uploads them to your logbook. There is no computer in the chain and nothing to configure on a desktop. Everything happens on the device: decoding, transmitting, logging, POTA spotting, mapping.</p>
     </div>
 
@@ -430,6 +430,14 @@
       <p>If your interface also has a USB connection, use that.</p>
       <h3 id="keying"><a href="#keying">Keying</a></h3>
       <p>The app has no CAT control and does not key your radio over a serial line. It transmits audio, and your radio needs to key from that audio, using VOX or the "data VOX" setting most modern radios have on their USB audio input. Every transmission begins with a tenth of a second of silence to give the radio time to key up before the signal starts.</p>
+      <p><strong>Interfaces that key from the right channel.</strong> Some interfaces, such as the Digirig Lite, key the radio when they hear audio on the right channel, and send the left channel to the radio's microphone input. With an ordinary mono signal, both channels carry the same level, and the level needed to key the interface is far too loud for a microphone input. The radio's input clips. On its scope this shows as a comb of signals either side of yours, especially at low audio offsets. Turning the radio's MIC GAIN down doesn't help, because the clipping happens before it.</p>
+      <p>For these interfaces, turn on <strong>Settings › Audio › PTT tone on right channel</strong>. While you transmit, the app plays a steady 5 kHz tone on the right channel to key the interface, and sends your signal on the left only. The two levels are then independent:</p>
+      <ul>
+        <li><strong>The phone's volume</strong> sets how firmly the interface keys. Find a setting that keys reliably, then leave it alone.</li>
+        <li><strong>Drive</strong> sets the level into the radio. Set it as described in <a href="#setting-your-transmit-drive">Setting your transmit drive</a>.</li>
+      </ul>
+      <p>The tone also plays through the tenth of a second of silence, so the interface has keyed before your signal starts. At 5 kHz it is above the radio's transmit filter, so even if some of it reached the radio it would not go out on the air. It only plays on a wired output with two channels (a USB interface, a headphone socket or line out), never on the built-in speaker or Bluetooth. <strong>Diagnostics › Audio Route</strong> shows whether it is active.</p>
+      <p>Leave it off if your radio keys from its own VOX (for example, an Elecraft KX2 on a USB audio adapter), or if your cable carries the right channel to the radio. With the tone off, the audio is exactly what it would be without the setting.</p>
       <h3 id="an-accurate-clock"><a href="#an-accurate-clock">An accurate clock</a></h3>
       <p>FT8 and FT4 divide time into fixed slots aligned to UTC. If your device clock is off by more than about a fifth of a second, other stations will struggle to decode you and every station you hear will show a suspicious DT value. Leave iOS set to "Set Automatically" under Settings › General › Date &amp; Time. You can check your clock inside the app; see <a href="#15-diagnostics">Diagnostics</a>.</p>
       <h3 id="microphone-permission"><a href="#microphone-permission">Microphone permission</a></h3>
@@ -514,7 +522,7 @@
       <ul>
         <li><strong>The white bracket</strong> is your transmit frequency. The bright left edge is the frequency itself; the dimmer right edge is 50 Hz higher, the width an FT8 signal actually occupies.</li>
         <li><strong>The dashed line</strong> is the app's suggestion for a clear frequency, recalculated every receive cycle from the noise floor and where signals were just decoded. It changes colour to stay visible against whatever is behind it.</li>
-        <li><strong>The Drive slider</strong> to the right of the waterfall sets your transmit level, unless it is switched off in <strong>Settings › Display</strong>. See <a href="#setting-your-transmit-drive">Setting your transmit drive</a>.</li>
+        <li><strong>The Drive slider</strong> to the right of the waterfall sets your transmit level, unless it is switched off in <strong>Settings › Display</strong>. Tap the dB read-out under it for − and + buttons. See <a href="#setting-your-transmit-drive">Setting your transmit drive</a>.</li>
         <li><strong>Small triangles</strong> along the top mark each decoded signal. Yellow means a callsign you have not heard before this session.</li>
       </ul>
       <p><strong>Tap or drag horizontally</strong> anywhere on the waterfall to move your transmit frequency there. <strong>Drag vertically</strong> to adjust the display sensitivity: down makes the display more sensitive (weaker signals show), up makes it less. A read-out appears while you drag and the value is remembered.</p>
@@ -638,7 +646,7 @@
       <p>Your callsign and grid on the left; a status pill on the right reading <strong>TX</strong> (red), <strong>RX</strong> (green), or <strong>Stopped</strong>. If it says Stopped, tap it to start the receiver. If microphone access was denied it says so, and tapping takes you to iOS Settings.</p>
       <p>An orange <strong>Timing slow</strong> warning appears to the left of the pill when recent transmissions have been leaving late — see <em>Timing Health</em> under Diagnostics for what to do about it. It is not a radio fault: it means the app itself is struggling to keep up.</p>
       <h4 id="band-and-frequency">Band and frequency</h4>
-      <p>Band picker, transmit frequency read-out with its <strong>Auto / Hold / Partner</strong> menu, the suggested clear frequency (tap it to adopt it; in Hold it becomes a <strong>Resume Auto</strong> button), a frequency slider covering 200–2900 Hz, and the FT8/FT4 selector. These lock during your transmit slot and unlock again on each receive cycle. The frequency mode menu locks whenever you are transmitting, in any mode, since a change can't affect what is already on the air.</p>
+      <p>Band picker, transmit frequency read-out with its <strong>Auto / Hold / Partner</strong> menu, the suggested clear frequency (tap it to adopt it; in Hold it becomes a <strong>Resume Auto</strong> button), a frequency slider covering 200–2900 Hz (on an iPhone, you'll feel a light tick for each 10 Hz step as you drag it), and the FT8/FT4 selector. These lock during your transmit slot and unlock again on each receive cycle. The frequency mode menu locks whenever you are transmitting, in any mode, since a change can't affect what is already on the air.</p>
       <h4 id="pota-panel">POTA panel</h4>
       <p>See <a href="#11-pota-activations">POTA activations</a>.</p>
       <h4 id="mode-chips">Mode chips</h4>
@@ -763,7 +771,7 @@ W6ABC KB0RB R-09        roger, and your report of their signal
         <li><strong>ACTIVE</strong> marks the station your most recent transmission went to: the one on the air now, or the one you last sent to.</li>
         <li><strong>NEXT</strong> marks the station at the top when your next transmission goes to it but the last one didn't: one you've just dragged to the top, or a caller just taken from the queue while your previous message is still playing. It turns ACTIVE when its first message goes out. The station you were transmitting to keeps ACTIVE until then, wherever you dropped it.</li>
       </ul>
-      <p>Each row shows the callsign, the operator's name if a lookup service is configured, how long ago you last heard them, the report you will give them, and, on a second line, grid, country and state, distance and bearing, to help you prioritise.</p>
+      <p>Each row shows the callsign, how long ago you last heard them, the report you will give them, and, on a second line, grid, country and state, distance and bearing, to help you prioritise, followed by the operator's name if a lookup service is configured.</p>
       <ul>
         <li><strong>Drag a row</strong> to move it. A row you move is pinned, so newly-heard callers never displace your placement.</li>
         <li><strong>Tap a station in the band activity list</strong> to send them straight to the top, without opening this card: a caller, someone calling CQ, or a station asking you to close. See <a href="#tapping-a-row">Tapping a row</a>. For a station in someone else's exchange, <a href="#long-pressing-a-row">long-press</a> its row.</li>
@@ -891,7 +899,12 @@ W6ABC KB0RB R-09        roger, and your report of their signal
         <li>That setting is correct for FT8 and FT4 as well: the tuning carrier is transmitted at exactly the level your transmissions use.</li>
       </ol>
       <p>Changes take effect immediately, even in the middle of a transmission, so you can adjust while calling CQ and watch the meter respond.</p>
+      <p><strong>For the last few dB, use the − and + buttons</strong> either side of the read-out on the Tune screen. Beside the waterfall, tap the read-out under the slider to bring them up; they stay up while you tap, and a tap anywhere else puts them away. Each tap is exactly 1 dB, and holding one repeats. This helps most with radios that key from their own VOX: the step between keying and not keying can be a single dB, which is hard to land on by dragging. Set Drive a dB or two above that point, so the VOX doesn't drop out partway through a transmission.</p>
+      <p>On an iPhone, you'll feel a light tick for each 1 dB step as you drag.</p>
       <p><strong>Overdriving is the most common cause of a wide, distorted signal</strong> — other stations see it as splatter, and it wins you nothing. If your ALC pegs at any usable Drive setting, the drive into your radio is too high somewhere else in the chain: try the radio's data or ACC input gain setting.</p>
+      <p><strong>Full scale is rarely right with an analog interface.</strong> A cable into the radio's microphone socket usually needs Drive far below 0 dB. If the interface keys the radio from the same audio, see <a href="#keying">Interfaces that key from the right channel</a>: with the PTT tone on, you can bring Drive down as far as the radio needs without the interface dropping out.</p>
+      <p><strong>Low audio offsets show overdriving first.</strong> When a radio's input clips, it produces copies of your signal at two, three and more times its audio frequency. Below about 1500 Hz, some of those copies fall inside the radio's transmit filter and go out on the air. Higher up, the filter removes them. If your radio's scope shows a comb of signals either side of yours, reduce Drive until it disappears. A higher offset hides the problem, but doesn't fix it.</p>
+      <p><strong>Adjust the level with Drive, not the volume buttons, while transmitting.</strong> Drive changes glide smoothly. iOS changes the phone's volume in one step, which shows on a scope as a brief blip either side of your signal.</p>
       <p><strong>Be considerate</strong>: find a clear frequency before you key up. A tuning carrier on top of someone's QSO is unmistakable.</p>
     </section>
 
@@ -1046,6 +1059,24 @@ W6ABC KB0RB R-09        roger, and your report of their signal
         </table>
       </div>
       <p>If a large upload stops early it tells you how many contacts are left. Upload from the cloud button again to carry on from where it stopped.</p>
+      <h3 id="broadcasting-contacts-by-udp"><a href="#broadcasting-contacts-by-udp">Broadcasting contacts by UDP</a></h3>
+      <p>Greyline can send each contact it logs to another program or service over your network, the way WSJT-X does with <strong>Enable logged contact ADIF broadcast</strong>. Anything that accepts WSJT-X's logged-contact messages can receive them: a logging program on a computer, or an online service that collects contacts.</p>
+      <p>Set it up in <strong>Settings › UDP Broadcast</strong>:</p>
+      <ol>
+        <li>Turn on <strong>Send logged contacts by UDP</strong>.</li>
+        <li>Enter the <strong>Host or IP</strong> you were given. Use an <strong>IP address</strong> where you can; a host name has to be looked up first, which can fail where an address wouldn't.</li>
+        <li>Enter the <strong>Port</strong>. Many receivers use <strong>2237</strong>, WSJT-X's default.</li>
+        <li>Make sure your <strong>callsign</strong> is set. It goes in every contact, and receivers use it to know whose contacts these are; nothing is sent without it.</li>
+      </ol>
+      <p>What to expect:</p>
+      <ul>
+        <li><strong>Each contact Greyline logs is sent once, as it's logged.</strong> Contacts you enter by hand with <strong>New QSO</strong>, and imported contacts, are never sent. Nothing is ever re-sent, and there's no test button: a receiver that counts or scores contacts would treat a test as real.</li>
+        <li><strong>UDP can't confirm delivery.</strong> "Sent" means your device sent it, not that it arrived. If the address or port is wrong, contacts simply go nowhere. Check the receiving end: most show what they've received.</li>
+        <li><strong>With no network,</strong> contacts wait, and go out in order when the connection returns. A contact that has waited more than an hour is dropped rather than sent late, and so is anything beyond 200 waiting.</li>
+        <li><strong>It never affects operating.</strong> Sending happens in the background after the contact is in your log, and a slow or missing network can't hold anything up.</li>
+        <li><strong>On your own network,</strong> iOS asks permission the first time Greyline sends to a computer there (<strong>Local Network</strong>). Allow it, or contacts can't reach that computer. Online services don't trigger the prompt.</li>
+      </ul>
+      <p>The status line under the settings says what's happening: <strong>Last sent K1ABC · 14:05Z</strong>, the reason contacts are waiting (for example <em>No network</em> or <em>Host name not found</em>), or what's still missing from the settings. <strong>Settings › About › Diagnostics</strong> has the counts.</p>
       <h3 id="selecting-contacts"><a href="#selecting-contacts">Selecting contacts</a></h3>
       <p><strong>Select</strong> enters selection mode, where you can upload, export or delete a group of contacts. Services the selection is already fully uploaded to are omitted from the upload menu. Deletion asks for confirmation and cannot be undone.</p>
       <h3 id="manual-entry"><a href="#manual-entry">Manual entry</a></h3>
@@ -1114,6 +1145,9 @@ W6ABC KB0RB R-09        roger, and your report of their signal
       <p>Tick the words to match from the standard list, and add your own (up to 4 characters) for contests the app does not know about. Custom entries appear in blue and can be edited or swiped away.</p>
       <h3 id="audio"><a href="#audio">Audio</a></h3>
       <p>Shows the current input and output devices and warns while a device change is settling. Plug your interface in and the app finds it; there is nothing to select.</p>
+      <ul>
+        <li><strong>PTT tone on right channel</strong> (off by default): for interfaces that key the radio from the right channel, such as the Digirig Lite. While transmitting, a 5 kHz tone on the right channel keys the interface, and your signal goes out on the left only. See <a href="#keying">Keying</a>.</li>
+      </ul>
       <h3 id="callsign-lookup-logging"><a href="#callsign-lookup-logging">Callsign Lookup &amp; Logging</a></h3>
       <p>Lookups fill in names and locations; logbooks receive your contacts. All credentials are stored in the device keychain and never leave it except to the service they belong to.</p>
       <div class="table-wrap">
@@ -1146,6 +1180,13 @@ W6ABC KB0RB R-09        roger, and your report of their signal
       <blockquote>
         <p>It is worth setting the default logbook and the per-activation switch the way you want them before you start, since Greyline cannot move a contact once it has been uploaded.</p>
       </blockquote>
+      <h3 id="udp-broadcast"><a href="#udp-broadcast">UDP Broadcast</a></h3>
+      <ul>
+        <li><strong>Send logged contacts by UDP</strong>: off by default. Sends each contact Greyline logs, as WSJT-X does with its logged-contact broadcast.</li>
+        <li><strong>Host or IP</strong> and <strong>Port</strong>: where to send them. An IP address is more reliable than a host name; 2237 is the usual port.</li>
+        <li>A status line shows the last contact sent, or why contacts are waiting.</li>
+      </ul>
+      <p>See <a href="#broadcasting-contacts-by-udp">Broadcasting contacts by UDP</a>.</p>
       <h3 id="about"><a href="#about">About</a></h3>
       <p>Author and version, plus:</p>
       <ul>
@@ -1168,6 +1209,10 @@ W6ABC KB0RB R-09        roger, and your report of their signal
       <p>Raw DT is what the decoder sees; compensated DT is what the band activity list shows after subtracting the app's own audio latency. Drift is how much the raw figure has moved since early in the session.</p>
       <h3 id="audio-route"><a href="#audio-route">Audio Route</a></h3>
       <p>Which devices are actually being used for input and output.</p>
+      <ul>
+        <li><strong>Output ID</strong>: the output device's type and the identifier iOS gives it. You can select and copy it, which is useful when reporting a problem with an interface.</li>
+        <li><strong>PTT tone</strong>: <strong>Active</strong> while the right-channel tone is set up on the current output, <strong>On, but not on this output</strong> if the setting is on but the output can't carry it (the built-in speaker, Bluetooth, or a one-channel device), or <strong>Off</strong>. See <a href="#keying">Keying</a>.</li>
+      </ul>
       <h3 id="transmit"><a href="#transmit">Transmit</a></h3>
       <p>Counters for transmissions started and completed, plus <strong>TX drive</strong>, the level set by the Drive slider. <strong>"Never completed"</strong> is the number to watch: it counts transmissions whose audio was handed to the system but never reported finishing, which is the signature of a radio's USB CODEC stalling. <strong>Watchdog recoveries</strong> counts how often the app restarted audio after such a stall. The remaining rows describe the most recent transmission (how it was encoded, how far from the slot boundary it started, and how much of its opening was cut off) and are mainly useful in a bug report.</p>
       <h3 id="timing-health"><a href="#timing-health">Timing Health</a></h3>
@@ -1190,6 +1235,8 @@ W6ABC KB0RB R-09        roger, and your report of their signal
       <p>If it happens to you, the useful bug report is the first four numbers plus how long the app had been running, your device, and whether an external display was attached. That is enough to reproduce it; a description of the symptom alone usually is not.</p>
       <h3 id="audio-session"><a href="#audio-session">Audio Session</a></h3>
       <p>Interruption and recovery counters, for diagnosing what happened after a phone call or a Siri activation.</p>
+      <h3 id="udp-broadcast-2"><a href="#udp-broadcast-2">UDP Broadcast</a></h3>
+      <p><strong>Sent</strong>, <strong>Held</strong> and <strong>Dropped</strong> contacts this session, the last one sent, and the last error. "Sent" means your device sent it; UDP can't confirm it arrived. "Held" are waiting for the network. "Dropped" were lost to the one-hour or 200-contact limit while waiting. See <a href="#broadcasting-contacts-by-udp">Broadcasting contacts by UDP</a>.</p>
     </section>
 
     <!-- 16. Troubleshooting -->
@@ -1199,6 +1246,8 @@ W6ABC KB0RB R-09        roger, and your report of their signal
       <p>Check the status pill reads RX, not Stopped. Check the RX Level meter is moving. If it reads QUIET, the audio is not reaching the app: check the cable, the interface, and that iOS granted microphone access. Check you are on the right dial frequency for the band and mode shown above the waterfall, and that your radio is in USB.</p>
       <h3 id="i-decode-fine-but-nobody-answers-me"><a href="#i-decode-fine-but-nobody-answers-me">I decode fine but nobody answers me</a></h3>
       <p>Your radio is probably not keying. Greyline transmits audio only, so VOX or data-VOX must be enabled on the radio. Confirm the yellow rows appear in the band activity list when you transmit, which means the app sent audio, and watch for RF output on the radio.</p>
+      <h3 id="my-radios-scope-shows-a-comb-of-signals-either-side-of-mine"><a href="#my-radios-scope-shows-a-comb-of-signals-either-side-of-mine">My radio's scope shows a comb of signals either side of mine</a></h3>
+      <p>The radio's input is being overdriven, and at a low audio offset the resulting copies of your signal fall inside its transmit filter. Reduce Drive until the comb disappears; see <a href="#setting-your-transmit-drive">Setting your transmit drive</a>. If your interface only keys at a high volume, it probably keys from the right channel: turn on the PTT tone (see <a href="#keying">Keying</a>) and then bring Drive down.</p>
       <h3 id="it-worked-for-an-hour-then-stations-stopped-answering"><a href="#it-worked-for-an-hour-then-stations-stopped-answering">It worked for an hour, then stations stopped answering</a></h3>
       <p>Check Diagnostics › <strong>Timing Health</strong>. If <strong>Started late</strong> is climbing or <strong>Worst delay</strong> has grown into the hundreds of milliseconds, your transmissions are leaving after the slot boundary with their openings cut off, and the far end can no longer decode them. The orange <strong>Timing slow</strong> warning on the Operate screen means the same thing.</p>
       <p>This is the app falling behind, not the radio. Backing out of a busy screen, clearing a very long band activity list, or restarting the app all buy it back. Please report it with the four Timing Health numbers, since it is a bug rather than something you should have to work around.</p>
@@ -1221,6 +1270,8 @@ W6ABC KB0RB R-09        roger, and your report of their signal
       <h3 id="gatherer-left-someone-unworked"><a href="#gatherer-left-someone-unworked">Gatherer left someone unworked</a></h3>
       <p>Check the queue card. Callers already worked on this band and mode, callers excluded by the CQ filter, and callers Gatherer recently bailed on are not queued — nor is a station you dropped from the card, for five minutes. A <strong>WAIT</strong> badge on their messages counts that down.</p>
       <p>To work one of them anyway, tap their row in the band activity list: that forces them to the top of the queue regardless of why they were passed over.</p>
+      <h3 id="contacts-arent-reaching-my-udp-receiver"><a href="#contacts-arent-reaching-my-udp-receiver">Contacts aren't reaching my UDP receiver</a></h3>
+      <p>Check the status line in <strong>Settings › UDP Broadcast</strong>. If it shows <strong>Last sent</strong> with your latest contact, Greyline sent it, so the problem is at the other end or on the way: check the address and port, that the receiver is running, and, for a computer on your own network, that Greyline is allowed under <strong>Settings › Privacy &amp; Security › Local Network</strong> in iOS. If it shows contacts waiting, it gives the reason. Contacts entered by hand and imports are never sent.</p>
       <h3 id="a-contact-i-made-is-missing-from-the-log"><a href="#a-contact-i-made-is-missing-from-the-log">A contact I made is missing from the log</a></h3>
       <p>Contacts are logged when the exchange completes from your side. If it stopped earlier than that, use <strong>New QSO</strong> in the log; the form pre-fills from the most recent exchange.</p>
     </section>
