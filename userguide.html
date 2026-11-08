@@ -401,7 +401,7 @@
 
     <div class="page-header">
       <h1>User Guide</h1>
-      <p class="version">For version 1.6</p>
+      <p class="version">For version 1.6.1</p>
       <p class="intro">Greyline FT8 turns an iPhone or iPad into a complete FT8 and FT4 station. Connect the device to your transceiver with a USB audio interface and the app decodes the band in real time, shows it on a waterfall, works stations for you if you want it to, logs the contacts, and uploads them to your logbook. There is no computer in the chain and nothing to configure on a desktop. Everything happens on the device: decoding, transmitting, logging, POTA spotting, mapping.</p>
     </div>
 
@@ -438,6 +438,7 @@
       </ul>
       <p>The tone also plays through the tenth of a second of silence, so the interface has keyed before your signal starts. At 5 kHz it is above the radio's transmit filter, so even if some of it reached the radio it would not go out on the air. It only plays on a wired output with two channels (a USB interface, a headphone socket or line out), never on the built-in speaker or Bluetooth. <strong>Diagnostics › Audio Route</strong> shows whether it is active.</p>
       <p>Leave it off if your radio keys from its own VOX (for example, an Elecraft KX2 on a USB audio adapter), or if your cable carries the right channel to the radio. With the tone off, the audio is exactly what it would be without the setting.</p>
+      <p><strong>What each channel carries.</strong> With the tone off, your signal is ordinary mono: both channels carry the same audio. With it on, the signal is on the left channel only and the right carries nothing but the keying tone. This matters for cables and splitters: anything that takes only the right channel to the radio, or sums the two together, will not work with the tone on.</p>
       <h3 id="an-accurate-clock"><a href="#an-accurate-clock">An accurate clock</a></h3>
       <p>FT8 and FT4 divide time into fixed slots aligned to UTC. If your device clock is off by more than about a fifth of a second, other stations will struggle to decode you and every station you hear will show a suspicious DT value. Leave iOS set to "Set Automatically" under Settings › General › Date &amp; Time. You can check your clock inside the app; see <a href="#15-diagnostics">Diagnostics</a>.</p>
       <h3 id="microphone-permission"><a href="#microphone-permission">Microphone permission</a></h3>
@@ -1060,17 +1061,30 @@ W6ABC KB0RB R-09        roger, and your report of their signal
       </div>
       <p>If a large upload stops early it tells you how many contacts are left. Upload from the cloud button again to carry on from where it stopped.</p>
       <h3 id="broadcasting-contacts-by-udp"><a href="#broadcasting-contacts-by-udp">Broadcasting contacts by UDP</a></h3>
-      <p>Greyline can send each contact it logs to another program or service over your network, the way WSJT-X does with <strong>Enable logged contact ADIF broadcast</strong>. Anything that accepts WSJT-X's logged-contact messages can receive them: a logging program on a computer, or an online service that collects contacts.</p>
+      <p>Greyline can send each contact it logs to another program or service over your network, as WSJT-X does. Programs that receive contacts this way expect one of two formats, so pick the one that matches yours:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Format</th><th>Sends</th><th>For</th><th>Usual port</th></tr></thead>
+          <tbody>
+            <tr><td><strong>WSJT-X</strong> (the default)</td><td>WSJT-X's own messages, as WSJT-X sends them to its UDP server</td><td>GridTracker, JTAlert, and other programs that work alongside WSJT-X</td><td>2237</td></tr>
+            <tr><td><strong>ADIF text</strong></td><td>The contact as a plain ADIF record, as WSJT-X sends to N1MM</td><td>N1MM Logger+, Log4OM, HRD, and other loggers that take ADIF over UDP</td><td>2333</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>If your program's instructions say to point WSJT-X's <strong>UDP Server</strong> at it, choose <strong>WSJT-X</strong>. If they mention WSJT-X's <strong>Secondary UDP Server</strong>, the <strong>N1MM</strong> broadcast, or <strong>ADIF messages</strong>, choose <strong>ADIF text</strong>.</p>
       <p>Set it up in <strong>Settings › UDP Broadcast</strong>:</p>
       <ol>
         <li>Turn on <strong>Send logged contacts by UDP</strong>.</li>
-        <li>Enter the <strong>Host or IP</strong> you were given. Use an <strong>IP address</strong> where you can; a host name has to be looked up first, which can fail where an address wouldn't.</li>
-        <li>Enter the <strong>Port</strong>. Many receivers use <strong>2237</strong>, WSJT-X's default.</li>
+        <li>Choose the <strong>Format</strong> your program expects.</li>
+        <li>Enter the <strong>Host or IP</strong> of the computer it runs on, or the one you were given. Use an <strong>IP address</strong> where you can; a host name has to be looked up first, which can fail where an address wouldn't.</li>
+        <li>Enter the <strong>Port</strong> your program listens on. The field shows the usual one for the format you chose, but it isn't filled in for you: check your program's settings.</li>
         <li>Make sure your <strong>callsign</strong> is set. It goes in every contact, and receivers use it to know whose contacts these are; nothing is sent without it.</li>
       </ol>
+      <p>In the <strong>WSJT-X</strong> format, Greyline also tells the program who and where it is (your callsign, grid, band and mode) with each contact. Programs like GridTracker need it: they ignore contacts from a station they haven't heard from this way. GridTracker then shows Greyline's band and mode in its main window, and lists Greyline alongside any other programs sending to it. Clicking a station in GridTracker doesn't make Greyline call it: Greyline only sends. When you turn the broadcast off, or change where or how it sends, the program is told Greyline has gone.</p>
+      <p><strong>To check the setup before you make a contact</strong>, tap <strong>Send a test</strong> (WSJT-X format only). It sends just that "who and where" message, with no contact in it, so nothing is logged anywhere. Then look at the receiving program. In GridTracker, open <strong>Settings › General</strong>: under <strong>Receive UDP Messages</strong> it should say <strong>Received from Greyline FT8</strong>, a few seconds ago. If Greyline has already sent to it, the map and main window won't visibly change, as nothing new arrived. Greyline can't confirm it arrived, since nothing replies over UDP, so the result reads <strong>Test sent</strong> either way. The exception: if the computer reports that nothing is listening on that port, the result says so. A firewall usually blocks that report, so not seeing it proves nothing. The ADIF text format has no test, because the only thing it can send is a contact.</p>
       <p>What to expect:</p>
       <ul>
-        <li><strong>Each contact Greyline logs is sent once, as it's logged.</strong> Contacts you enter by hand with <strong>New QSO</strong>, and imported contacts, are never sent. Nothing is ever re-sent, and there's no test button: a receiver that counts or scores contacts would treat a test as real.</li>
+        <li><strong>Each contact Greyline logs is sent once, as it's logged.</strong> Contacts you enter by hand with <strong>New QSO</strong>, and imported contacts, are never sent. Nothing is ever re-sent, and the test never sends a contact: a receiver that counts or scores contacts would treat one as real.</li>
         <li><strong>UDP can't confirm delivery.</strong> "Sent" means your device sent it, not that it arrived. If the address or port is wrong, contacts simply go nowhere. Check the receiving end: most show what they've received.</li>
         <li><strong>With no network,</strong> contacts wait, and go out in order when the connection returns. A contact that has waited more than an hour is dropped rather than sent late, and so is anything beyond 200 waiting.</li>
         <li><strong>It never affects operating.</strong> Sending happens in the background after the contact is in your log, and a slow or missing network can't hold anything up.</li>
@@ -1182,8 +1196,10 @@ W6ABC KB0RB R-09        roger, and your report of their signal
       </blockquote>
       <h3 id="udp-broadcast"><a href="#udp-broadcast">UDP Broadcast</a></h3>
       <ul>
-        <li><strong>Send logged contacts by UDP</strong>: off by default. Sends each contact Greyline logs, as WSJT-X does with its logged-contact broadcast.</li>
-        <li><strong>Host or IP</strong> and <strong>Port</strong>: where to send them. An IP address is more reliable than a host name; 2237 is the usual port.</li>
+        <li><strong>Send logged contacts by UDP</strong>: off by default. Sends each contact Greyline logs, as WSJT-X does.</li>
+        <li><strong>Format</strong>: <strong>WSJT-X</strong> (the default) for GridTracker, JTAlert and other WSJT-X companion programs, usually on port 2237; <strong>ADIF text</strong> for N1MM, Log4OM, HRD and similar loggers, usually on port 2333. A change takes effect with the next contact.</li>
+        <li><strong>Send a test</strong> (WSJT-X format only): sends who and where you are, with no contact, so you can check your receiver heard Greyline (in GridTracker: <strong>Settings › General › Receive UDP Messages</strong>). See <a href="#broadcasting-contacts-by-udp">Broadcasting contacts by UDP</a>.</li>
+        <li><strong>Host or IP</strong> and <strong>Port</strong>: where to send them. An IP address is more reliable than a host name.</li>
         <li>A status line shows the last contact sent, or why contacts are waiting.</li>
       </ul>
       <p>See <a href="#broadcasting-contacts-by-udp">Broadcasting contacts by UDP</a>.</p>
@@ -1272,6 +1288,7 @@ W6ABC KB0RB R-09        roger, and your report of their signal
       <p>To work one of them anyway, tap their row in the band activity list: that forces them to the top of the queue regardless of why they were passed over.</p>
       <h3 id="contacts-arent-reaching-my-udp-receiver"><a href="#contacts-arent-reaching-my-udp-receiver">Contacts aren't reaching my UDP receiver</a></h3>
       <p>Check the status line in <strong>Settings › UDP Broadcast</strong>. If it shows <strong>Last sent</strong> with your latest contact, Greyline sent it, so the problem is at the other end or on the way: check the address and port, that the receiver is running, and, for a computer on your own network, that Greyline is allowed under <strong>Settings › Privacy &amp; Security › Local Network</strong> in iOS. If it shows contacts waiting, it gives the reason. Contacts entered by hand and imports are never sent.</p>
+      <p>Check the <strong>Format</strong> too. A program sent the wrong one ignores the contacts without saying so, which looks exactly like nothing arriving. GridTracker and JTAlert need <strong>WSJT-X</strong>; N1MM and loggers that take ADIF messages need <strong>ADIF text</strong>.</p>
       <h3 id="a-contact-i-made-is-missing-from-the-log"><a href="#a-contact-i-made-is-missing-from-the-log">A contact I made is missing from the log</a></h3>
       <p>Contacts are logged when the exchange completes from your side. If it stopped earlier than that, use <strong>New QSO</strong> in the log; the form pre-fills from the most recent exchange.</p>
     </section>
