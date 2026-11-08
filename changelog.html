@@ -260,7 +260,8 @@
     <label for="version-select">Jump to version:</label>
     <select id="version-select" onchange="document.getElementById(this.value).scrollIntoView({behavior:'smooth'})">
       <option value="" disabled selected>Select a version…</option>
-      <option value="v1-6">1.6 — Latest</option>
+      <option value="v1-6-1">1.6.1 — Latest</option>
+      <option value="v1-6">1.6</option>
       <option value="v1-5-2">1.5.2</option>
       <option value="v1-5-1">1.5.1</option>
       <option value="v1-5-0">1.5.0</option>
@@ -295,11 +296,33 @@
     </select>
   </div>
 
+  <!-- ── 1.6.1 ── -->
+  <div class="release" id="v1-6-1">
+    <div class="release-header">
+      <span class="release-version"><a href="#v1-6-1">Version 1.6.1</a></span>
+      <span class="release-tag">Latest</span>
+    </div>
+    <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">The one with UDP logging improvements</p>
+    <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 0.75rem;">Love Greyline? Stop by my <a href="https://ko-fi.com/kb0rb" target="_blank" rel="noopener">Ko-Fi</a>!</p>
+
+    <div class="release-section-title">Shoutouts</div>
+    <ul class="shoutout-list">
+      <li><span class="shoutout-call">N1CDV</span><span>UDP troubleshooting</span></li>
+    </ul>
+
+    <div class="release-section-title">Features</div>
+    <ul>
+      <li>UDP broadcast now works with GridTracker 2 and N1MM: choose the appropriate WSJT-X or ADIF text format under <strong>Settings &gt; UDP Broadcast</strong>.</li>
+      <li>Introduced a <strong>Send a test</strong> button. Configure your IP and port, then open GridTracker 2. Go to <strong>Settings &gt; General</strong> and look for packets from Greyline FT8 after pressing the button in the app.</li>
+    </ul>
+
+    <p class="release-footer">That's it, that's all, folks! Thanks for bringing me on your activations — now get out there and POTA on. 73!</p>
+  </div>
+
   <!-- ── 1.6 ── -->
   <div class="release" id="v1-6">
     <div class="release-header">
       <span class="release-version"><a href="#v1-6">Version 1.6</a></span>
-      <span class="release-tag">Latest</span>
     </div>
     <p style="color: var(--text); font-style: italic; margin-bottom: 0.5rem;">The one with major audio upgrades</p>
 
